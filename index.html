@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>TrustForge</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #07111f, #102a40);
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.logo span {
+    color: #19d7b8;
+}
+
+.language-select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #40556a;
+    background: #101e2d;
+    color: white;
+    font-size: 15px;
+}
+
+.tagline {
+    color: #9fb0c0;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: #101e2d;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 15px;
+    border-radius: 10px;
+    border: 1px solid #40556a;
+    background: #071522;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    padding: 13px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #19d7b8;
+    color: #041018;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.safe {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #19d7b8;
+    background: #0c302b;
+}
+
+.danger {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #ff5555;
+    background: #321719;
+}
+
+.status {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.voice {
+    margin-top: 15px;
+    padding: 15px;
+    background: #182b3d;
+    border-radius: 10px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="header">
+
+    <h1 class="logo">
+        TRUST<span>FORGE</span>
+    </h1>
+
+    <!-- LANGUAGE SWITCH -->
+    <select
+        id="language"
+        class="language-select"
+        onchange="changeLanguage()">
+
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+        <option value="bn">বাংলা</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+        <option value="mr">मराठी</option>
+        <option value="ta">தமிழ்</option>
+        <option value="bho">भोजपुरी</option>
+        <option value="or">ଓଡ଼ିଆ</option>
+
+    </select>
+</div>
+
+
+<p
+    id="tagline"
+    class="tagline">
+
+    Secure Digital Identity & Service Verification
+
+</p>
+
+
+
+<!-- SERVICE VERIFICATION -->
+
+<div class="card">
+
+<h2 id="serviceTitle">
+
+🔐 Service Security Check
+
+</h2>
+
+
+<p id="serviceDescription">
+
+Check whether a digital service is genuine
+before using it.
+
+</p>
+
+
+<input
+    id="serviceId"
+    placeholder="Enter Service ID e.g. TF001">
+
+
+<button
+    id="checkButton"
+    onclick="checkService()">
+
+    Check Service
+
+</button>
+
+
+<div id="serviceResult"></div>
+
+</div>
+
+
+
+<!-- OTP -->
+
+<div class="card">
+
+<h2 id="identityTitle">
+
+📱 Identity Verification
+
+</h2>
+
+
+<input
+    id="phone"
+    placeholder="Enter mobile number">
+
+
+<button
+    id="sendOtpButton"
+    onclick="sendOTP()">
+
+    Send OTP
+
+</button>
+
+
+<input
+    id="otp"
+    placeholder="Enter OTP">
+
+
+<button
+    id="verifyOtpButton"
+    onclick="verifyOTP()">
+
+    Verify OTP
+
+</button>
+
+
+<div id="otpResult"></div>
+
+</div>
+
+
+
+<!-- VOICE -->
+
+<div class="card">
+
+<h2 id="voiceTitle">
+
+🔊 Voice Assistance
+
+</h2>
+
+
+<button
+    id="voiceButton"
+    onclick="speakWelcome()">
+
+    🔊 Listen
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+const API =
+"http://127.0.0.1:5000";
+
+
+/* =========================
+   LANGUAGE DATA
+========================= */
+
+const translations = {
+
+    en: {
+
+        tagline:
+        "Secure Digital Identity & Service Verification",
+
+        serviceTitle:
+        "🔐 Service Security Check",
+
+        serviceDescription:
+        "Check whether a digital service is genuine before using it.",
+
+        servicePlaceholder:
+        "Enter Service ID e.g. TF001",
+
+        checkButton:
+        "Check Service",
+
+        identityTitle:
+        "📱 Identity Verification",
+
+        phonePlaceholder:
+        "Enter mobile number",
+
+        sendOtp:
+        "Send OTP",
+
+        otpPlaceholder:
+        "Enter OTP",
+
+        verifyOtp:
+        "Verify OTP",
+
+        voiceTitle:
+        "🔊 Voice Assistance",
+
+        listen:
+        "🔊 Listen",
+
+        welcome:
+        "Welcome to TrustForge. Check the identity of a digital service before using it.",
+
+        verified:
+        "🟢 Service Verified",
+
+        organization:
+        "Organization",
+
+        service:
+        "Service",
+
+        risk:
+        "Risk Level",
+
+        warning:
+        "🔴 Warning",
+
+        warningText:
+        "This service is not verified. Do not share your OTP, password or personal information.",
+
+        identityVerified:
+        "🟢 Identity Verified",
+
+        invalidPhone:
+        "Please enter a valid mobile number."
+
+    },
+
+
+    hi: {
+
+        tagline:
+        "सुरक्षित डिजिटल पहचान और सेवा सत्यापन",
+
+        serviceTitle:
+        "🔐 सेवा की सुरक्षा जाँच",
+
+        serviceDescription:
+        "किसी डिजिटल सेवा का उपयोग करने से पहले उसकी पहचान जाँचें।",
+
+        servicePlaceholder:
+        "सेवा पहचान संख्या दर्ज करें जैसे TF001",
+
+        checkButton:
+        "सेवा की जाँच करें",
+
+        identityTitle:
+        "📱 पहचान की पुष्टि",
+
+        phonePlaceholder:
+        "मोबाइल नंबर दर्ज करें",
+
+        sendOtp:
+        "OTP भेजें",
+
+        otpPlaceholder:
+        "OTP दर्ज करें",
+
+        verifyOtp:
+        "OTP सत्यापित करें",
+
+        voiceTitle:
+        "🔊 आवाज़ द्वारा सहायता",
+
+        listen:
+        "🔊 संदेश सुनें",
+
+        welcome:
+        "TrustForge में आपका स्वागत है। किसी भी डिजिटल सेवा का उपयोग करने से पहले उसकी पहचान की जाँच करें।",
+
+        verified:
+        "🟢 सेवा प्रमाणित है",
+
+        organization:
+        "संस्था",
+
+        service:
+        "सेवा",
+
+        risk:
+        "जोखिम स्तर",
+
+        warning:
+        "🔴 सावधान",
+
+        warningText:
+        "यह सेवा प्रमाणित नहीं है। कृपया OTP, पासवर्ड या व्यक्तिगत जानकारी साझा न करें।",
+
+        identityVerified:
+        "🟢 पहचान सत्यापित",
+
+        invalidPhone:
+        "कृपया सही मोबाइल नंबर दर्ज करें।"
+
+    },
+    or: {
+
+    tagline:
+    "ସୁରକ୍ଷିତ ଡିଜିଟାଲ ପରିଚୟ ଏବଂ ସେବା ଯାଞ୍ଚ",
+
+    serviceTitle:
+    "🔐 ସେବା ସୁରକ୍ଷା ଯାଞ୍ଚ",
+
+    serviceDescription:
+    "କୌଣସି ଡିଜିଟାଲ ସେବା ବ୍ୟବହାର କରିବା ପୂର୍ବରୁ ଏହା ପ୍ରକୃତ କି ନୁହେଁ ଯାଞ୍ଚ କରନ୍ତୁ।",
+
+    servicePlaceholder:
+    "ସେବା ID ଦିଅନ୍ତୁ, ଯେପରିକି TF001",
+
+    checkButton:
+    "ସେବା ଯାଞ୍ଚ କରନ୍ତୁ",
+
+    identityTitle:
+    "📱 ପରିଚୟ ଯାଞ୍ଚ",
+
+    phonePlaceholder:
+    "ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ",
+
+    sendOtp:
+    "OTP ପଠାନ୍ତୁ",
+
+    otpPlaceholder:
+    "OTP ଦିଅନ୍ତୁ",
+
+    verifyOtp:
+    "OTP ଯାଞ୍ଚ କରନ୍ତୁ",
+
+    voiceTitle:
+    "🔊 ଭଏସ୍ ସହାୟତା",
+
+    listen:
+    "🔊 ଶୁଣନ୍ତୁ",
+
+    welcome:
+    "ବିଶ୍ୱାସ କୁ ସ୍ୱାଗତ। କୌଣସି ଡିଜିଟାଲ ସେବା ବ୍ୟବହାର କରିବା ପୂର୍ବରୁ ଏହାର ପରିଚୟ ଯାଞ୍ଚ କରନ୍ତୁ।",
+
+    verified:
+    "🟢 ସେବା ଯାଞ୍ଚ ହୋଇଛି",
+
+    organization:
+    "ସଂସ୍ଥା",
+
+    service:
+    "ସେବା",
+
+    risk:
+    "ବିପଦ ସ୍ତର",
+
+    warning:
+    "🔴 ସତର୍କ",
+
+    warningText:
+    "ଏହି ସେବା ଯାଞ୍ଚ ହୋଇନାହିଁ। ଦୟାକରି ଆପଣଙ୍କ OTP, ପାସୱାର୍ଡ କିମ୍ବା ବ୍ୟକ୍ତିଗତ ତଥ୍ୟ କାହା ସହିତ ଅଂଶୀଦାର କରନ୍ତୁ ନାହିଁ।",
+
+    identityVerified:
+    "🟢 ପରିଚୟ ସଫଳତାର ସହିତ ଯାଞ୍ଚ ହୋଇଛି",
+
+    invalidPhone:
+    "ଦୟାକରି ସଠିକ୍ ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ।"
+},
+
+    bho: {
+
+    tagline:
+    "सुरक्षित डिजिटल पहचान आ सेवा के जाँच",
+
+    serviceTitle:
+    "🔐 सेवा के सुरक्षा जाँच",
+
+    serviceDescription:
+    "कवनो डिजिटल सेवा के इस्तेमाल करे से पहिले जाँच करीं कि ई असली बा कि ना।",
+
+    servicePlaceholder:
+    "सेवा ID डालीं, जइसे TF001",
+
+    checkButton:
+    "सेवा के जाँच करीं",
+
+    identityTitle:
+    "📱 पहचान के पुष्टि",
+
+    phonePlaceholder:
+    "मोबाइल नंबर डालीं",
+
+    sendOtp:
+    "OTP भेजीं",
+
+    otpPlaceholder:
+    "OTP डालीं",
+
+    verifyOtp:
+    "OTP के पुष्टि करीं",
+
+    voiceTitle:
+    "🔊 आवाज से मदद",
+
+    listen:
+    "🔊 सुनीं",
+
+    welcome:
+    "TrustForge में रउआ के स्वागत बा। कवनो डिजिटल सेवा इस्तेमाल करे से पहिले ओकर पहचान के जाँच करीं।",
+
+    verified:
+    "🟢 सेवा प्रमाणित बा",
+
+    organization:
+    "संस्था",
+
+    service:
+    "सेवा",
+
+    risk:
+    "जोखिम के स्तर",
+
+    warning:
+    "🔴 सावधान",
+
+    warningText:
+    "ई सेवा प्रमाणित नइखे। कृपया OTP, पासवर्ड भा निजी जानकारी केहू से साझा मत करीं।",
+
+    identityVerified:
+    "🟢 पहचान के सफलतापूर्वक पुष्टि हो गइल बा",
+
+    invalidPhone:
+    "कृपया सही मोबाइल नंबर डालीं।"
+
+},
+
+    bn: {
+
+        tagline:
+        "নিরাপদ ডিজিটাল পরিচয় এবং পরিষেবা যাচাইকরণ",
+
+        serviceTitle:
+        "🔐 পরিষেবার নিরাপত্তা যাচাই",
+
+        serviceDescription:
+        "কোনও ডিজিটাল পরিষেবা ব্যবহার করার আগে সেটি আসল কিনা যাচাই করুন।",
+
+        servicePlaceholder:
+        "পরিষেবা আইডি লিখুন যেমন TF001",
+
+        checkButton:
+        "পরিষেবা যাচাই করুন",
+
+        identityTitle:
+        "📱 পরিচয় যাচাই",
+
+        phonePlaceholder:
+        "মোবাইল নম্বর লিখুন",
+
+        sendOtp:
+        "OTP পাঠান",
+
+        otpPlaceholder:
+        "OTP লিখুন",
+
+        verifyOtp:
+        "OTP যাচাই করুন",
+
+        voiceTitle:
+        "🔊 ভয়েস সহায়তা",
+
+        listen:
+        "🔊 শুনুন",
+
+        welcome:
+        "TrustForge-এ স্বাগতম। কোনও ডিজিটাল পরিষেবা ব্যবহার করার আগে তার পরিচয় যাচাই করুন।",
+
+        verified:
+        "🟢 পরিষেবা যাচাইকৃত",
+
+        organization:
+        "প্রতিষ্ঠান",
+
+        service:
+        "পরিষেবা",
+
+        risk:
+        "ঝুঁকির মাত্রা",
+
+        warning:
+        "🔴 সতর্কতা",
+
+        warningText:
+        "এই পরিষেবাটি যাচাই করা হয়নি। আপনার OTP, পাসওয়ার্ড বা ব্যক্তিগত তথ্য শেয়ার করবেন না।",
+
+        identityVerified:
+        "🟢 পরিচয় যাচাই করা হয়েছে",
+
+        invalidPhone:
+        "অনুগ্রহ করে সঠিক মোবাইল নম্বর লিখুন।"
+
+    },
+
+
+    pa: {
+
+        tagline:
+        "ਸੁਰੱਖਿਅਤ ਡਿਜੀਟਲ ਪਛਾਣ ਅਤੇ ਸੇਵਾ ਤਸਦੀਕ",
+
+        serviceTitle:
+        "🔐 ਸੇਵਾ ਦੀ ਸੁਰੱਖਿਆ ਜਾਂਚ",
+
+        serviceDescription:
+        "ਕਿਸੇ ਡਿਜੀਟਲ ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚ ਕਰੋ ਕਿ ਇਹ ਅਸਲੀ ਹੈ ਜਾਂ ਨਹੀਂ।",
+
+        servicePlaceholder:
+        "ਸੇਵਾ ID ਦਰਜ ਕਰੋ ਜਿਵੇਂ TF001",
+
+        checkButton:
+        "ਸੇਵਾ ਦੀ ਜਾਂਚ ਕਰੋ",
+
+        identityTitle:
+        "📱 ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ",
+
+        phonePlaceholder:
+        "ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ",
+
+        sendOtp:
+        "OTP ਭੇਜੋ",
+
+        otpPlaceholder:
+        "OTP ਦਰਜ ਕਰੋ",
+
+        verifyOtp:
+        "OTP ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+
+        voiceTitle:
+        "🔊 ਆਵਾਜ਼ ਸਹਾਇਤਾ",
+
+        listen:
+        "🔊 ਸੁਣੋ",
+
+        welcome:
+        "TrustForge ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ। ਕਿਸੇ ਵੀ ਡਿਜੀਟਲ ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਉਸਦੀ ਪਛਾਣ ਦੀ ਜਾਂਚ ਕਰੋ।",
+
+        verified:
+        "🟢 ਸੇਵਾ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ",
+
+        organization:
+        "ਸੰਸਥਾ",
+
+        service:
+        "ਸੇਵਾ",
+
+        risk:
+        "ਖਤਰੇ ਦਾ ਪੱਧਰ",
+
+        warning:
+        "🔴 ਸਾਵਧਾਨ",
+
+        warningText:
+        "ਇਹ ਸੇਵਾ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ। ਆਪਣਾ OTP, ਪਾਸਵਰਡ ਜਾਂ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਨਾ ਕਰੋ।",
+
+        identityVerified:
+        "🟢 ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ",
+
+        invalidPhone:
+        "ਕਿਰਪਾ ਕਰਕੇ ਸਹੀ ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ।"
+
+    },
+
+
+    mr: {
+
+        tagline:
+        "सुरक्षित डिजिटल ओळख आणि सेवा पडताळणी",
+
+        serviceTitle:
+        "🔐 सेवेची सुरक्षा तपासणी",
+
+        serviceDescription:
+        "कोणतीही डिजिटल सेवा वापरण्यापूर्वी ती खरी आहे की नाही हे तपासा.",
+
+        servicePlaceholder:
+        "सेवा ID टाका, उदाहरणार्थ TF001",
+
+        checkButton:
+        "सेवा तपासा",
+
+        identityTitle:
+        "📱 ओळख पडताळणी",
+
+        phonePlaceholder:
+        "मोबाईल नंबर टाका",
+
+        sendOtp:
+        "OTP पाठवा",
+
+        otpPlaceholder:
+        "OTP टाका",
+
+        verifyOtp:
+        "OTP पडताळा",
+
+        voiceTitle:
+        "🔊 आवाजाद्वारे मदत",
+
+        listen:
+        "🔊 ऐका",
+
+        welcome:
+        "ट्रस्टफोर्ज मध्ये आपले स्वागत आहे. कोणतीही डिजिटल सेवा वापरण्यापूर्वी तिची ओळख तपासा.",
+
+        verified:
+        "🟢 सेवा प्रमाणित आहे",
+
+        organization:
+        "संस्था",
+
+        service:
+        "सेवा",
+
+        risk:
+        "धोक्याची पातळी",
+
+        warning:
+        "🔴 सावधान",
+
+        warningText:
+        "ही सेवा प्रमाणित नाही. कृपया OTP, पासवर्ड किंवा वैयक्तिक माहिती शेअर करू नका.",
+
+        identityVerified:
+        "🟢 ओळख सत्यापित झाली",
+
+        invalidPhone:
+        "कृपया योग्य मोबाईल नंबर टाका."
+
+    },
+
+
+    ta: {
+
+        tagline:
+        "பாதுகாப்பான டிஜிட்டல் அடையாளம் மற்றும் சேவை சரிபார்ப்பு",
+
+        serviceTitle:
+        "🔐 சேவை பாதுகாப்பு சரிபார்ப்பு",
+
+        serviceDescription:
+        "டிஜிட்டல் சேவையைப் பயன்படுத்துவதற்கு முன்பு அது உண்மையானதா என்பதைச் சரிபார்க்கவும்.",
+
+        servicePlaceholder:
+        "சேவை ID-ஐ உள்ளிடவும், உதாரணம் TF001",
+
+        checkButton:
+        "சேவையைச் சரிபார்க்கவும்",
+
+        identityTitle:
+        "📱 அடையாள சரிபார்ப்பு",
+
+        phonePlaceholder:
+        "மொபைல் எண்ணை உள்ளிடவும்",
+
+        sendOtp:
+        "OTP அனுப்பவும்",
+
+        otpPlaceholder:
+        "OTP-ஐ உள்ளிடவும்",
+
+        verifyOtp:
+        "OTP-ஐ சரிபார்க்கவும்",
+
+        voiceTitle:
+        "🔊 குரல் உதவி",
+
+        listen:
+        "🔊 கேட்கவும்",
+
+        welcome:
+        "டிரஸ்ட்ஃபோர்ஜ்-க்கு வரவேற்கிறோம். எந்த டிஜிட்டல் சேவையையும் பயன்படுத்துவதற்கு முன்பு அதன் அடையாளத்தைச் சரிபார்க்கவும்.",
+
+        verified:
+        "🟢 சேவை சரிபார்க்கப்பட்டது",
+
+        organization:
+        "நிறுவனம்",
+
+        service:
+        "சேவை",
+
+        risk:
+        "ஆபத்து நிலை",
+
+        warning:
+        "🔴 எச்சரிக்கை",
+
+        warningText:
+        "இந்த சேவை சரிபார்க்கப்படவில்லை. உங்கள் OTP, கடவுச்சொல் அல்லது தனிப்பட்ட தகவல்களைப் பகிர வேண்டாம்.",
+
+        identityVerified:
+        "🟢 அடையாளம் சரிபார்க்கப்பட்டது",
+
+        invalidPhone:
+        "சரியான மொபைல் எண்ணை உள்ளிடவும்."
+
+    }
+    
+
+};
+
+
+let currentLanguage = "en";
+
+
+/* =========================
+   CHANGE LANGUAGE
+========================= */
+
+function changeLanguage() {
+
+    currentLanguage =
+        document.getElementById(
+            "language"
+        ).value;
+
+    const t =
+        translations[currentLanguage];
+
+
+    document.getElementById(
+        "tagline"
+    ).innerText =
+        t.tagline;
+
+
+    document.getElementById(
+        "serviceTitle"
+    ).innerText =
+        t.serviceTitle;
+
+
+    document.getElementById(
+        "serviceDescription"
+    ).innerText =
+        t.serviceDescription;
+
+
+    document.getElementById(
+        "serviceId"
+    ).placeholder =
+        t.servicePlaceholder;
+
+
+    document.getElementById(
+        "checkButton"
+    ).innerText =
+        t.checkButton;
+
+
+    document.getElementById(
+        "identityTitle"
+    ).innerText =
+        t.identityTitle;
+
+
+    document.getElementById(
+        "phone"
+    ).placeholder =
+        t.phonePlaceholder;
+
+
+    document.getElementById(
+        "sendOtpButton"
+    ).innerText =
+        t.sendOtp;
+
+
+    document.getElementById(
+        "otp"
+    ).placeholder =
+        t.otpPlaceholder;
+
+
+    document.getElementById(
+        "verifyOtpButton"
+    ).innerText =
+        t.verifyOtp;
+
+
+    document.getElementById(
+        "voiceTitle"
+    ).innerText =
+        t.voiceTitle;
+
+
+    document.getElementById(
+        "voiceButton"
+    ).innerText =
+        t.listen;
+
+}
+
+
+
+/* =========================
+   VOICE
+========================= */
+
+function speak(text) {
+
+    const speech =
+        new SpeechSynthesisUtterance(text);
+
+    const voiceLanguages = {
+        en: "en-US",
+        hi: "hi-IN",
+        bn: "bn-IN",
+        pa: "pa-IN",
+        mr: "mr-IN",
+        ta: "ta-IN",
+        bho: "hi-IN",
+        or: "or-IN"
+    };
+
+    speech.lang =
+        voiceLanguages[currentLanguage];
+
+    speech.rate = 1.0;
+
+    speechSynthesis.speak(speech);
+}
+
+function speakWelcome() {
+
+    speak(
+        translations[
+            currentLanguage
+        ].welcome
+    );
+
+}
+
+
+
+/* =========================
+   CHECK SERVICE
+========================= */
+
+async function checkService() {
+
+    const serviceId =
+        document.getElementById(
+            "serviceId"
+        ).value.trim();
+
+
+    if (!serviceId) {
+
+        speak(
+            currentLanguage === "hi"
+            ? "कृपया सेवा पहचान संख्या दर्ज करें।"
+            : "Please enter a service ID."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/check",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body:
+                    JSON.stringify({
+
+                        serviceId:
+                        serviceId
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const result =
+            document.getElementById(
+                "serviceResult"
+            );
+
+
+        const t =
+            translations[
+                currentLanguage
+            ];
+
+
+        if (data.verified) {
+
+            result.innerHTML = `
+
+            <div class="safe">
+
+                <div class="status">
+                    ${t.verified}
+                </div>
+
+                <p>
+                    <b>
+                    ${t.organization}:
+                    </b>
+                    ${data.name}
+                </p>
+
+                <p>
+                    <b>
+                    ${t.service}:
+                    </b>
+                    ${data.url}
+                </p>
+
+                <p>
+                    <b>
+                    ${t.risk}:
+                    </b>
+                    ${data.risk}
+                </p>
+
+                <div class="voice">
+
+                    🔊 ${data.message}
+
+                    <br><br>
+
+                    <button
+                    onclick="speakVerified()">
+
+                        ${t.listen}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+            speakVerified();
+
+        }
+
+        else {
+
+            result.innerHTML = `
+
+            <div class="danger">
+
+                <div class="status">
+                    ${t.warning}
+                </div>
+
+                <p>
+                    ${t.warningText}
+                </p>
+
+                <div class="voice">
+
+                    🔊 ${t.warningText}
+
+                    <br><br>
+
+                    <button
+                    onclick="speakWarning()">
+
+                        ${t.listen}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+            speakWarning();
+
+        }
+
+    }
+
+    catch(error) {
+
+        const t =
+            translations[
+                currentLanguage
+            ];
+
+
+        document.getElementById(
+            "serviceResult"
+        ).innerHTML = `
+
+        <div class="danger">
+
+            ${t.serverError}
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+
+
+function speakVerified() {
+
+    const text =
+        currentLanguage === "hi"
+
+        ? "यह प्रमाणित संस्था है। आप सुरक्षित रूप से आगे बढ़ सकते हैं।"
+
+        : "This is a verified organization. You can continue safely.";
+
+    speak(text);
+
+}
+
+
+
+function speakWarning() {
+
+    speak(
+        translations[
+            currentLanguage
+        ].warningText
+    );
+
+}
+
+
+
+/* =========================
+   SEND OTP
+========================= */
+
+async function sendOTP() {
+
+    const phone =
+        document.getElementById(
+            "phone"
+        ).value.trim();
+
+
+    const t =
+        translations[
+            currentLanguage
+        ];
+
+
+    if (!phone) {
+
+        speak(
+            t.invalidPhone
+        );
+
+        return;
+    }
+
+
+    const response =
+        await fetch(
+            API + "/api/send-otp",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                JSON.stringify({
+
+                    phone:
+                    phone
+
+                })
+
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    document.getElementById(
+        "otpResult"
+    ).innerHTML = `
+
+        <p>
+            ${t.otpSent}
+        </p>
+
+    `;
+
+
+    if (data.demoOtp) {
+
+        alert(
+            "Demo OTP: " +
+            data.demoOtp
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   VERIFY OTP
+========================= */
+
+async function verifyOTP() {
+
+    const phone =
+        document.getElementById(
+            "phone"
+        ).value.trim();
+
+
+    const otp =
+        document.getElementById(
+            "otp"
+        ).value.trim();
+
+
+    const response =
+        await fetch(
+            API + "/api/verify-otp",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                JSON.stringify({
+
+                    phone:
+                    phone,
+
+                    otp:
+                    otp
+
+                })
+
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    const t =
+        translations[
+            currentLanguage
+        ];
+
+
+    if (data.verified) {
+
+        document.getElementById(
+            "otpResult"
+        ).innerHTML = `
+
+        <div class="safe">
+
+            <div class="status">
+
+                ${t.identityVerified}
+
+            </div>
+
+            <p>
+                ${t.identityVerified}
+            </p>
+
+        </div>
+
+        `;
+
+
+        speak(
+            currentLanguage === "hi"
+
+            ? "आपकी पहचान सफलतापूर्वक सत्यापित हो गई।"
+
+            : "Your identity has been successfully verified."
+        );
+
+    }
+
+    else {
+
+        let message;
+
+
+        if (
+            data.message.includes(
+                "expired"
+            )
+        ) {
+
+            message =
+                t.otpExpired;
+
+        }
+
+        else if (
+            data.message.includes(
+                "Incorrect"
+            ) ||
+            data.message.includes(
+                "गलत"
+            )
+        ) {
+
+            message =
+                t.otpWrong;
+
+        }
+
+        else {
+
+            message =
+                t.otpUnavailable;
+
+        }
+
+
+        document.getElementById(
+            "otpResult"
+        ).innerHTML = `
+
+        <div class="danger">
+
+            🔴 ${message}
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>
