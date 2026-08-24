@@ -11,7 +11,104 @@ content="width=device-width, initial-scale=1.0">
 <title>BHAROSA | TAGLINE</title>
 
 <style>
+/* ===============================
+   VOICE VERIFICATION POPUP
+================================ */
 
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 99999;
+
+}
+
+
+/* Popup box */
+
+.modal-card {
+
+    width: 90%;
+    max-width: 420px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    background: #161b22;
+
+    border: 2px solid #ff9933;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 35px
+        rgba(255, 153, 51, 0.35);
+
+}
+
+
+/* Microphone */
+
+.verification-icon {
+
+    font-size: 55px;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* Button */
+
+.btn-voice {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ff9933;
+
+    color: #0d1117;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* Status */
+
+.status {
+
+    margin-top: 18px;
+
+    color: #38bdf8;
+
+    font-size: 14px;
+
+}
 /* =========================================
    BHAROSA — TRIRANGA SECURITY THEME
    ========================================= */
@@ -645,7 +742,36 @@ button:active {
 
 
 <body>
+<!-- VOICE VERIFICATION POPUP -->
+<div id="voiceModal" class="modal-overlay">
 
+    <div class="modal-card">
+
+        <div class="verification-icon">🎙️</div>
+
+        <h2>Voice Verification Required</h2>
+
+        <p>
+            आगे बढ़ने के लिए कृपया
+            <b>"भरोसा"</b>
+            बोलकर वॉयस वेरिफिकेशन पूरा करें।
+        </p>
+
+        <button
+            class="btn-voice"
+            onclick="startVerification()">
+
+            🎤 Start Voice Verification
+
+        </button>
+
+        <div id="status" class="status">
+            Status: Waiting for verification...
+        </div>
+
+    </div>
+
+</div>
 
 <div class="container">
 
@@ -796,7 +922,36 @@ before using it.
 
 
 <script>
+function startVerification() {
 
+    const status =
+        document.getElementById("status");
+
+    status.innerText =
+        '🎤 Listening... Please say "Bharosa"';
+
+
+    setTimeout(() => {
+
+        status.innerText =
+            "🟢 Verified Successfully! Unlocking...";
+
+        status.style.color =
+            "#4caf50";
+
+
+        setTimeout(() => {
+
+            document.getElementById(
+                "voiceModal"
+            ).style.display =
+                "none";
+
+        }, 1200);
+
+    }, 2000);
+
+}
 
 const API =
 "http://127.0.0.1:5000";
