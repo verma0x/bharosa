@@ -638,6 +638,52 @@ button:active {
 
         padding: 11px 16px;
     }
+   body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .voice-card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 320px;
+    }
+
+    .mic-btn {
+      background-color: #ff9933; /* Saffron color */
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .mic-btn:hover {
+      background-color: #e68a00;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .transcript {
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+    }
 }
 </style>
 
@@ -655,6 +701,17 @@ button:active {
     <h1 id="logo" class="logo">
     <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
 </h1>
+   <div class="voice-card">
+    <h2>Voice Verification</h2>
+    <p>नीचे दिए गए बटन पर क्लिक करें और बोलें: <b>"भरोसा"</b></p>
+    
+    <!-- Microphone Button -->
+    <button class="mic-btn" id="startBtn">🎤 Start Voice Verification</button>
+
+    <!-- Status Output -->
+    <div class="status" id="statusText">Status: Ready</div>
+    <div class="transcript" id="transcriptText"></div>
+  </div>
 
     <!-- LANGUAGE SWITCH -->
     <select
