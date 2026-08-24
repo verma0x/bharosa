@@ -2062,7 +2062,25 @@ async function verifyOTP() {
 /* =========================
    VOICE VERIFICATION
 ========================= */
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
 
+recognition.lang = 'hi-IN'; // Hindi voice input ke liye
+
+recognition.onresult = (event) => {
+  const transcript = event.results[0][0].transcript;
+  console.log("User Voice Input:", transcript);
+  
+  // Audio verification check logic
+  if (transcript.includes("भरोसा") || transcript.includes("Bharosa")) {
+    alert("Voice Verified Successfully! ✅");
+    // Smart contract / Wallet action execute karo
+  } else {
+    alert("Voice Identity Mismatch! ❌");
+  }
+};
+
+// Button click par call karo: recognition.start();
 
 }
 
