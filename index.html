@@ -652,7 +652,7 @@ button:active {
 
 <div class="header">
 
-    <h1 class="logo" id="logo">
+    <h1 id="logo" class="logo">
     <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
 </h1>
 
@@ -802,31 +802,35 @@ const API =
 "http://127.0.0.1:5000";
 
 
-/* =========================
-   LANGUAGE DATA
-========================= */
+/* =========================================
+   LANGUAGE TRANSLATIONS
+========================================= */
 
 const translations = {
 
     en: {
+        logo: "BHAROSA",
 
         tagline:
-        "Secure Digital Identity & Service Verification",
+        "Blockchain-Based Digital Identity Protection & Trusted Service Verification",
 
         serviceTitle:
-        "🔐 Service Security Check",
+        "🔐 Trusted Service Verification",
 
         serviceDescription:
-        "Check whether a digital service is genuine before using it.",
+        "Verify whether a digital service is genuine before sharing your identity.",
 
         servicePlaceholder:
-        "Enter Service ID e.g. TF001",
+        "Enter Service ID e.g. BH001",
 
         checkButton:
         "Check Service",
 
         identityTitle:
-        "📱 Identity Verification",
+        "🛡️ Digital Identity Protection",
+
+        identityDescription:
+        "Monitor and control who accesses your digital identity.",
 
         phonePlaceholder:
         "Enter mobile number",
@@ -838,7 +842,7 @@ const translations = {
         "Enter OTP",
 
         verifyOtp:
-        "Verify OTP",
+        "Verify Identity",
 
         voiceTitle:
         "🔊 Voice Assistance",
@@ -847,7 +851,7 @@ const translations = {
         "🔊 Listen",
 
         welcome:
-        "Welcome to TrustForge. Check the identity of a digital service before using it.",
+        "Welcome to BHAROSA. Your digital identity, your control.",
 
         verified:
         "🟢 Service Verified",
@@ -862,39 +866,57 @@ const translations = {
         "Risk Level",
 
         warning:
-        "🔴 Warning",
+        "🔴 Security Warning",
 
         warningText:
-        "This service is not verified. Do not share your OTP, password or personal information.",
+        "This service is not verified. Do not share your personal information or OTP.",
 
         identityVerified:
         "🟢 Identity Verified",
 
         invalidPhone:
-        "Please enter a valid mobile number."
+        "Please enter a valid mobile number.",
 
+        otpSent:
+        "OTP has been sent.",
+
+        otpExpired:
+        "OTP has expired.",
+
+        otpWrong:
+        "Incorrect OTP.",
+
+        otpUnavailable:
+        "OTP unavailable.",
+
+        serverError:
+        "Unable to connect to the security server."
     },
 
 
     hi: {
+        logo: "भरोसा",
 
         tagline:
-        "सुरक्षित डिजिटल पहचान और सेवा सत्यापन",
+        "ब्लॉकचेन आधारित डिजिटल पहचान सुरक्षा और विश्वसनीय सेवा सत्यापन",
 
         serviceTitle:
-        "🔐 सेवा की सुरक्षा जाँच",
+        "🔐 विश्वसनीय सेवा सत्यापन",
 
         serviceDescription:
-        "किसी डिजिटल सेवा का उपयोग करने से पहले उसकी पहचान जाँचें।",
+        "अपनी पहचान साझा करने से पहले जाँचें कि डिजिटल सेवा असली है या नहीं।",
 
         servicePlaceholder:
-        "सेवा पहचान संख्या दर्ज करें जैसे TF001",
+        "सेवा ID दर्ज करें जैसे BH001",
 
         checkButton:
-        "सेवा की जाँच करें",
+        "सेवा जाँचें",
 
         identityTitle:
-        "📱 पहचान की पुष्टि",
+        "🛡️ डिजिटल पहचान सुरक्षा",
+
+        identityDescription:
+        "देखें और नियंत्रित करें कि आपकी डिजिटल पहचान को कौन एक्सेस कर रहा है।",
 
         phonePlaceholder:
         "मोबाइल नंबर दर्ज करें",
@@ -906,19 +928,19 @@ const translations = {
         "OTP दर्ज करें",
 
         verifyOtp:
-        "OTP सत्यापित करें",
+        "पहचान सत्यापित करें",
 
         voiceTitle:
         "🔊 आवाज़ द्वारा सहायता",
 
         listen:
-        "🔊 संदेश सुनें",
+        "🔊 सुनें",
 
         welcome:
-        "Bharosa में आपका स्वागत है। किसी भी डिजिटल सेवा का उपयोग करने से पहले उसकी पहचान की जाँच करें।",
+        "भरोसा में आपका स्वागत है। आपकी डिजिटल पहचान, आपका नियंत्रण।",
 
         verified:
-        "🟢 सेवा प्रमाणित है",
+        "🟢 सेवा सत्यापित है",
 
         organization:
         "संस्था",
@@ -930,170 +952,57 @@ const translations = {
         "जोखिम स्तर",
 
         warning:
-        "🔴 सावधान",
+        "🔴 सुरक्षा चेतावनी",
 
         warningText:
-        "यह सेवा प्रमाणित नहीं है। कृपया OTP, पासवर्ड या व्यक्तिगत जानकारी साझा न करें।",
+        "यह सेवा सत्यापित नहीं है। अपनी व्यक्तिगत जानकारी या OTP साझा न करें।",
 
         identityVerified:
-        "🟢 पहचान सत्यापित",
+        "🟢 पहचान सत्यापित हो गई",
 
         invalidPhone:
-        "कृपया सही मोबाइल नंबर दर्ज करें।"
+        "कृपया सही मोबाइल नंबर दर्ज करें।",
 
+        otpSent:
+        "OTP भेज दिया गया है।",
+
+        otpExpired:
+        "OTP की समय सीमा समाप्त हो गई।",
+
+        otpWrong:
+        "OTP गलत है।",
+
+        otpUnavailable:
+        "OTP उपलब्ध नहीं है।",
+
+        serverError:
+        "सुरक्षा सर्वर से कनेक्ट नहीं हो पाया।"
     },
-    or: {
 
-    tagline:
-    "ସୁରକ୍ଷିତ ଡିଜିଟାଲ ପରିଚୟ ଏବଂ ସେବା ଯାଞ୍ଚ",
-
-    serviceTitle:
-    "🔐 ସେବା ସୁରକ୍ଷା ଯାଞ୍ଚ",
-
-    serviceDescription:
-    "କୌଣସି ଡିଜିଟାଲ ସେବା ବ୍ୟବହାର କରିବା ପୂର୍ବରୁ ଏହା ପ୍ରକୃତ କି ନୁହେଁ ଯାଞ୍ଚ କରନ୍ତୁ।",
-
-    servicePlaceholder:
-    "ସେବା ID ଦିଅନ୍ତୁ, ଯେପରିକି TF001",
-
-    checkButton:
-    "ସେବା ଯାଞ୍ଚ କରନ୍ତୁ",
-
-    identityTitle:
-    "📱 ପରିଚୟ ଯାଞ୍ଚ",
-
-    phonePlaceholder:
-    "ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ",
-
-    sendOtp:
-    "OTP ପଠାନ୍ତୁ",
-
-    otpPlaceholder:
-    "OTP ଦିଅନ୍ତୁ",
-
-    verifyOtp:
-    "OTP ଯାଞ୍ଚ କରନ୍ତୁ",
-
-    voiceTitle:
-    "🔊 ଭଏସ୍ ସହାୟତା",
-
-    listen:
-    "🔊 ଶୁଣନ୍ତୁ",
-
-    welcome:
-    "ବିଶ୍ୱାସ କୁ ସ୍ୱାଗତ। କୌଣସି ଡିଜିଟାଲ ସେବା ବ୍ୟବହାର କରିବା ପୂର୍ବରୁ ଏହାର ପରିଚୟ ଯାଞ୍ଚ କରନ୍ତୁ।",
-
-    verified:
-    "🟢 ସେବା ଯାଞ୍ଚ ହୋଇଛି",
-
-    organization:
-    "ସଂସ୍ଥା",
-
-    service:
-    "ସେବା",
-
-    risk:
-    "ବିପଦ ସ୍ତର",
-
-    warning:
-    "🔴 ସତର୍କ",
-
-    warningText:
-    "ଏହି ସେବା ଯାଞ୍ଚ ହୋଇନାହିଁ। ଦୟାକରି ଆପଣଙ୍କ OTP, ପାସୱାର୍ଡ କିମ୍ବା ବ୍ୟକ୍ତିଗତ ତଥ୍ୟ କାହା ସହିତ ଅଂଶୀଦାର କରନ୍ତୁ ନାହିଁ।",
-
-    identityVerified:
-    "🟢 ପରିଚୟ ସଫଳତାର ସହିତ ଯାଞ୍ଚ ହୋଇଛି",
-
-    invalidPhone:
-    "ଦୟାକରି ସଠିକ୍ ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ।"
-},
-
-    bho: {
-
-    tagline:
-    "सुरक्षित डिजिटल पहचान आ सेवा के जाँच",
-
-    serviceTitle:
-    "🔐 सेवा के सुरक्षा जाँच",
-
-    serviceDescription:
-    "कवनो डिजिटल सेवा के इस्तेमाल करे से पहिले जाँच करीं कि ई असली बा कि ना।",
-
-    servicePlaceholder:
-    "सेवा ID डालीं, जइसे TF001",
-
-    checkButton:
-    "सेवा के जाँच करीं",
-
-    identityTitle:
-    "📱 पहचान के पुष्टि",
-
-    phonePlaceholder:
-    "मोबाइल नंबर डालीं",
-
-    sendOtp:
-    "OTP भेजीं",
-
-    otpPlaceholder:
-    "OTP डालीं",
-
-    verifyOtp:
-    "OTP के पुष्टि करीं",
-
-    voiceTitle:
-    "🔊 आवाज से मदद",
-
-    listen:
-    "🔊 सुनीं",
-
-    welcome:
-    "Bharosa में रउआ के स्वागत बा। कवनो डिजिटल सेवा इस्तेमाल करे से पहिले ओकर पहचान के जाँच करीं।",
-
-    verified:
-    "🟢 सेवा प्रमाणित बा",
-
-    organization:
-    "संस्था",
-
-    service:
-    "सेवा",
-
-    risk:
-    "जोखिम के स्तर",
-
-    warning:
-    "🔴 सावधान",
-
-    warningText:
-    "ई सेवा प्रमाणित नइखे। कृपया OTP, पासवर्ड भा निजी जानकारी केहू से साझा मत करीं।",
-
-    identityVerified:
-    "🟢 पहचान के सफलतापूर्वक पुष्टि हो गइल बा",
-
-    invalidPhone:
-    "कृपया सही मोबाइल नंबर डालीं।"
-
-},
 
     bn: {
+        logo: "ভরসা",
 
         tagline:
-        "নিরাপদ ডিজিটাল পরিচয় এবং পরিষেবা যাচাইকরণ",
+        "ব্লকচেইন ভিত্তিক ডিজিটাল পরিচয় সুরক্ষা এবং বিশ্বস্ত পরিষেবা যাচাইকরণ",
 
         serviceTitle:
-        "🔐 পরিষেবার নিরাপত্তা যাচাই",
+        "🔐 বিশ্বস্ত পরিষেবা যাচাইকরণ",
 
         serviceDescription:
-        "কোনও ডিজিটাল পরিষেবা ব্যবহার করার আগে সেটি আসল কিনা যাচাই করুন।",
+        "আপনার পরিচয় শেয়ার করার আগে পরিষেবাটি আসল কিনা যাচাই করুন।",
 
         servicePlaceholder:
-        "পরিষেবা আইডি লিখুন যেমন TF001",
+        "পরিষেবা ID লিখুন যেমন BH001",
 
         checkButton:
         "পরিষেবা যাচাই করুন",
 
         identityTitle:
-        "📱 পরিচয় যাচাই",
+        "🛡️ ডিজিটাল পরিচয় সুরক্ষা",
+
+        identityDescription:
+        "কে আপনার ডিজিটাল পরিচয় অ্যাক্সেস করছে তা পর্যবেক্ষণ ও নিয়ন্ত্রণ করুন।",
 
         phonePlaceholder:
         "মোবাইল নম্বর লিখুন",
@@ -1105,7 +1014,7 @@ const translations = {
         "OTP লিখুন",
 
         verifyOtp:
-        "OTP যাচাই করুন",
+        "পরিচয় যাচাই করুন",
 
         voiceTitle:
         "🔊 ভয়েস সহায়তা",
@@ -1114,7 +1023,7 @@ const translations = {
         "🔊 শুনুন",
 
         welcome:
-        "Bharosa-এ স্বাগতম। কোনও ডিজিটাল পরিষেবা ব্যবহার করার আগে তার পরিচয় যাচাই করুন।",
+        "ভরসায় স্বাগতম। আপনার ডিজিটাল পরিচয়, আপনার নিয়ন্ত্রণ।",
 
         verified:
         "🟢 পরিষেবা যাচাইকৃত",
@@ -1129,107 +1038,57 @@ const translations = {
         "ঝুঁকির মাত্রা",
 
         warning:
-        "🔴 সতর্কতা",
+        "🔴 নিরাপত্তা সতর্কতা",
 
         warningText:
-        "এই পরিষেবাটি যাচাই করা হয়নি। আপনার OTP, পাসওয়ার্ড বা ব্যক্তিগত তথ্য শেয়ার করবেন না।",
+        "এই পরিষেবাটি যাচাই করা হয়নি। আপনার ব্যক্তিগত তথ্য বা OTP শেয়ার করবেন না।",
 
         identityVerified:
         "🟢 পরিচয় যাচাই করা হয়েছে",
 
         invalidPhone:
-        "অনুগ্রহ করে সঠিক মোবাইল নম্বর লিখুন।"
+        "অনুগ্রহ করে সঠিক মোবাইল নম্বর লিখুন।",
 
-    },
+        otpSent:
+        "OTP পাঠানো হয়েছে।",
 
+        otpExpired:
+        "OTP-এর সময়সীমা শেষ হয়েছে।",
 
-    pa: {
+        otpWrong:
+        "ভুল OTP।",
 
-        tagline:
-        "ਸੁਰੱਖਿਅਤ ਡਿਜੀਟਲ ਪਛਾਣ ਅਤੇ ਸੇਵਾ ਤਸਦੀਕ",
+        otpUnavailable:
+        "OTP পাওয়া যাচ্ছে না।",
 
-        serviceTitle:
-        "🔐 ਸੇਵਾ ਦੀ ਸੁਰੱਖਿਆ ਜਾਂਚ",
-
-        serviceDescription:
-        "ਕਿਸੇ ਡਿਜੀਟਲ ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚ ਕਰੋ ਕਿ ਇਹ ਅਸਲੀ ਹੈ ਜਾਂ ਨਹੀਂ।",
-
-        servicePlaceholder:
-        "ਸੇਵਾ ID ਦਰਜ ਕਰੋ ਜਿਵੇਂ TF001",
-
-        checkButton:
-        "ਸੇਵਾ ਦੀ ਜਾਂਚ ਕਰੋ",
-
-        identityTitle:
-        "📱 ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ",
-
-        phonePlaceholder:
-        "ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ",
-
-        sendOtp:
-        "OTP ਭੇਜੋ",
-
-        otpPlaceholder:
-        "OTP ਦਰਜ ਕਰੋ",
-
-        verifyOtp:
-        "OTP ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
-
-        voiceTitle:
-        "🔊 ਆਵਾਜ਼ ਸਹਾਇਤਾ",
-
-        listen:
-        "🔊 ਸੁਣੋ",
-
-        welcome:
-        "Bharosa ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ। ਕਿਸੇ ਵੀ ਡਿਜੀਟਲ ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਉਸਸ ਦੀ ਪਛਾણ ਦੀ ਜਾਂਚ ਕਰੋ।",
-
-        verified:
-        "🟢 ਸੇਵਾ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ",
-
-        organization:
-        "ਸੰਸਥਾ",
-
-        service:
-        "ਸੇਵਾ",
-
-        risk:
-        "ਖਤਰੇ ਦਾ ਪੱਧਰ",
-
-        warning:
-        "🔴 ਸਾਵਧਾਨ",
-
-        warningText:
-        "ਇਹ ਸੇਵਾ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ। ਆਪਣਾ OTP, ਪਾਸਵਰਡ ਜਾਂ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਨਾ ਕਰੋ।",
-
-        identityVerified:
-        "🟢 ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ",
-
-        invalidPhone:
-        "ਕਿਰਪਾ ਕਰਕੇ ਸਹੀ ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ।"
-
+        serverError:
+        "সিকিউরিটি সার্ভারের সাথে সংযোগ করা যায়নি।"
     },
 
 
     mr: {
+        logo: "भरोसा",
 
         tagline:
-        "सुरक्षित डिजिटल ओळख आणि सेवा पडताळणी",
+        "ब्लॉकचेन आधारित डिजिटल ओळख सुरक्षा आणि विश्वसनीय सेवा पडताळणी",
 
         serviceTitle:
-        "🔐 सेवेची सुरक्षा तपासणी",
+        "🔐 विश्वसनीय सेवा पडताळणी",
 
         serviceDescription:
-        "कोणतीही डिजिटल सेवा वापरण्यापूर्वी ती खरी आहे की नाही हे तपासा.",
+        "तुमची ओळख शेअर करण्यापूर्वी डिजिटल सेवा खरी आहे की नाही हे तपासा.",
 
         servicePlaceholder:
-        "सेवा ID टाका, उदाहरणार्थ TF001",
+        "सेवा ID टाका, उदाहरणार्थ BH001",
 
         checkButton:
         "सेवा तपासा",
 
         identityTitle:
-        "📱 ओळख पडताळणी",
+        "🛡️ डिजिटल ओळख सुरक्षा",
+
+        identityDescription:
+        "तुमच्या डिजिटल ओळखीचा वापर कोण करत आहे हे पाहा आणि नियंत्रित करा.",
 
         phonePlaceholder:
         "मोबाईल नंबर टाका",
@@ -1241,7 +1100,7 @@ const translations = {
         "OTP टाका",
 
         verifyOtp:
-        "OTP पडताळा",
+        "ओळख पडताळा",
 
         voiceTitle:
         "🔊 आवाजाद्वारे मदत",
@@ -1250,10 +1109,10 @@ const translations = {
         "🔊 ऐका",
 
         welcome:
-        "ट्रस्टफोर्ज मध्ये आपले स्वागत आहे. कोणतीही डिजिटल सेवा वापरण्यापूर्वी तिची ओळख तपासा.",
+        "भरोसामध्ये आपले स्वागत आहे. तुमची डिजिटल ओळख, तुमचे नियंत्रण.",
 
         verified:
-        "🟢 सेवा प्रमाणित आहे",
+        "🟢 सेवा सत्यापित आहे",
 
         organization:
         "संस्था",
@@ -1265,39 +1124,57 @@ const translations = {
         "धोक्याची पातळी",
 
         warning:
-        "🔴 सावधान",
+        "🔴 सुरक्षा सूचना",
 
         warningText:
-        "ही सेवा प्रमाणित नाही. कृपया OTP, पासवर्ड किंवा वैयक्तिक माहिती शेअर करू नका.",
+        "ही सेवा सत्यापित नाही. तुमची वैयक्तिक माहिती किंवा OTP शेअर करू नका.",
 
         identityVerified:
         "🟢 ओळख सत्यापित झाली",
 
         invalidPhone:
-        "कृपया योग्य मोबाईल नंबर टाका."
+        "कृपया योग्य मोबाईल नंबर टाका.",
 
+        otpSent:
+        "OTP पाठवण्यात आला आहे.",
+
+        otpExpired:
+        "OTP ची वेळ संपली आहे.",
+
+        otpWrong:
+        "चुकीचा OTP.",
+
+        otpUnavailable:
+        "OTP उपलब्ध नाही.",
+
+        serverError:
+        "सुरक्षा सर्व्हरशी कनेक्ट करता आले नाही."
     },
 
 
     ta: {
+        logo: "பரோசா",
 
         tagline:
-        "பாதுகாப்பான டிஜிட்டல் அடையாளம் மற்றும் சேவை சரிபார்ப்பு",
+        "பிளாக்செயின் அடிப்படையிலான டிஜிட்டல் அடையாள பாதுகாப்பு மற்றும் நம்பகமான சேவை சரிபார்ப்பு",
 
         serviceTitle:
-        "🔐 சேவை பாதுகாப்பு சரிபார்ப்பு",
+        "🔐 நம்பகமான சேவை சரிபார்ப்பு",
 
         serviceDescription:
-        "டிஜிட்டல் சேவையைப் பயன்படுத்துவதற்கு முன்பு அது உண்மையானதா என்பதைச் சரிபார்க்கவும்.",
+        "உங்கள் அடையாளத்தைப் பகிர்வதற்கு முன் டிஜிட்டல் சேவை உண்மையானதா என்பதைச் சரிபார்க்கவும்.",
 
         servicePlaceholder:
-        "சேவை ID-ஐ உள்ளிடவும், உதாரணம் TF001",
+        "சேவை ID-ஐ உள்ளிடவும், உதாரணம் BH001",
 
         checkButton:
         "சேவையைச் சரிபார்க்கவும்",
 
         identityTitle:
-        "📱 அடையாள சரிபார்ப்பு",
+        "🛡️ டிஜிட்டல் அடையாள பாதுகாப்பு",
+
+        identityDescription:
+        "உங்கள் டிஜிட்டல் அடையாளத்தை யார் அணுகுகிறார்கள் என்பதை கண்காணித்து கட்டுப்படுத்தவும்.",
 
         phonePlaceholder:
         "மொபைல் எண்ணை உள்ளிடவும்",
@@ -1309,7 +1186,7 @@ const translations = {
         "OTP-ஐ உள்ளிடவும்",
 
         verifyOtp:
-        "OTP-ஐ சரிபார்க்கவும்",
+        "அடையாளத்தைச் சரிபார்க்கவும்",
 
         voiceTitle:
         "🔊 குரல் உதவி",
@@ -1318,7 +1195,7 @@ const translations = {
         "🔊 கேட்கவும்",
 
         welcome:
-        "டிரஸ்ட்ஃபோர்ஜ்-க்கு வரவேற்கிறோம். எந்த டிஜிட்டல் சேவையையும் பயன்படுத்துவதற்கு முன்பு அதன் அடையாளத்தைச் சரிபார்க்கவும்.",
+        "பரோசாவிற்கு வரவேற்கிறோம். உங்கள் டிஜிட்டல் அடையாளம், உங்கள் கட்டுப்பாடு.",
 
         verified:
         "🟢 சேவை சரிபார்க்கப்பட்டது",
@@ -1333,114 +1210,389 @@ const translations = {
         "ஆபத்து நிலை",
 
         warning:
-        "🔴 எச்சரிக்கை",
+        "🔴 பாதுகாப்பு எச்சரிக்கை",
 
         warningText:
-        "இந்த சேவை சரிபார்க்கப்படவில்லை. உங்கள் OTP, கடவுச்சொல் அல்லது தனிப்பட்ட தகவல்களைப் பகிர வேண்டாம்.",
+        "இந்த சேவை சரிபார்க்கப்படவில்லை. உங்கள் தனிப்பட்ட தகவல் அல்லது OTP-ஐ பகிர வேண்டாம்.",
 
         identityVerified:
         "🟢 அடையாளம் சரிபார்க்கப்பட்டது",
 
         invalidPhone:
-        "சரியான மொபைல் எண்ணை உள்ளிடவும்."
+        "சரியான மொபைல் எண்ணை உள்ளிடவும்.",
 
+        otpSent:
+        "OTP அனுப்பப்பட்டது.",
+
+        otpExpired:
+        "OTP காலாவதியாகிவிட்டது.",
+
+        otpWrong:
+        "தவறான OTP.",
+
+        otpUnavailable:
+        "OTP கிடைக்கவில்லை.",
+
+        serverError:
+        "பாதுகாப்பு சேவையகத்துடன் இணைக்க முடியவில்லை."
+    },
+
+
+    pa: {
+        logo: "ਭਰੋਸਾ",
+
+        tagline:
+        "ਬਲਾਕਚੇਨ ਆਧਾਰਿਤ ਡਿਜੀਟਲ ਪਛਾਣ ਸੁਰੱਖਿਆ ਅਤੇ ਭਰੋਸੇਯੋਗ ਸੇਵਾ ਤਸਦੀਕ",
+
+        serviceTitle:
+        "🔐 ਭਰੋਸੇਯੋਗ ਸੇਵਾ ਤਸਦੀਕ",
+
+        serviceDescription:
+        "ਆਪਣੀ ਪਛਾਣ ਸਾਂਝੀ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚ ਕਰੋ ਕਿ ਡਿਜੀਟਲ ਸੇਵਾ ਅਸਲੀ ਹੈ ਜਾਂ ਨਹੀਂ।",
+
+        servicePlaceholder:
+        "ਸੇਵਾ ID ਦਰਜ ਕਰੋ ਜਿਵੇਂ BH001",
+
+        checkButton:
+        "ਸੇਵਾ ਦੀ ਜਾਂਚ ਕਰੋ",
+
+        identityTitle:
+        "🛡️ ਡਿਜੀਟਲ ਪਛਾਣ ਸੁਰੱਖਿਆ",
+
+        identityDescription:
+        "ਦੇਖੋ ਅਤੇ ਨਿਯੰਤਰਿਤ ਕਰੋ ਕਿ ਤੁਹਾਡੀ ਡਿਜੀਟਲ ਪਛਾਣ ਨੂੰ ਕੌਣ ਐਕਸੈੱਸ ਕਰ ਰਿਹਾ ਹੈ।",
+
+        phonePlaceholder:
+        "ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ",
+
+        sendOtp:
+        "OTP ਭੇਜੋ",
+
+        otpPlaceholder:
+        "OTP ਦਰਜ ਕਰੋ",
+
+        verifyOtp:
+        "ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+
+        voiceTitle:
+        "🔊 ਆਵਾਜ਼ ਸਹਾਇਤਾ",
+
+        listen:
+        "🔊 ਸੁਣੋ",
+
+        welcome:
+        "ਭਰੋਸਾ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ। ਤੁਹਾਡੀ ਡਿਜੀਟਲ ਪਛਾਣ, ਤੁਹਾਡਾ ਨਿਯੰਤਰਣ।",
+
+        verified:
+        "🟢 ਸੇਵਾ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ",
+
+        organization:
+        "ਸੰਸਥਾ",
+
+        service:
+        "ਸੇਵਾ",
+
+        risk:
+        "ਖਤਰੇ ਦਾ ਪੱਧਰ",
+
+        warning:
+        "🔴 ਸੁਰੱਖਿਆ ਚੇਤਾਵਨੀ",
+
+        warningText:
+        "ਇਹ ਸੇਵਾ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ। ਆਪਣੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਜਾਂ OTP ਸਾਂਝਾ ਨਾ ਕਰੋ।",
+
+        identityVerified:
+        "🟢 ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ",
+
+        invalidPhone:
+        "ਕਿਰਪਾ ਕਰਕੇ ਸਹੀ ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ।",
+
+        otpSent:
+        "OTP ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+
+        otpExpired:
+        "OTP ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ।",
+
+        otpWrong:
+        "ਗਲਤ OTP।",
+
+        otpUnavailable:
+        "OTP ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+
+        serverError:
+        "ਸੁਰੱਖਿਆ ਸਰਵਰ ਨਾਲ ਕਨੈਕਟ ਨਹੀਂ ਹੋ ਸਕਿਆ।"
+    },
+
+
+    or: {
+        logo: "ଭରସା",
+
+        tagline:
+        "ବ୍ଲକଚେନ ଆଧାରିତ ଡିଜିଟାଲ ପରିଚୟ ସୁରକ୍ଷା ଏବଂ ବିଶ୍ୱସନୀୟ ସେବା ଯାଞ୍ଚ",
+
+        serviceTitle:
+        "🔐 ବିଶ୍ୱସନୀୟ ସେବା ଯାଞ୍ଚ",
+
+        serviceDescription:
+        "ଆପଣଙ୍କ ପରିଚୟ ସେୟାର କରିବା ପୂର୍ବରୁ ଡିଜିଟାଲ ସେବାଟି ପ୍ରକୃତ କି ନୁହେଁ ଯାଞ୍ଚ କରନ୍ତୁ।",
+
+        servicePlaceholder:
+        "ସେବା ID ଦିଅନ୍ତୁ, ଯେପରିକି BH001",
+
+        checkButton:
+        "ସେବା ଯାଞ୍ଚ କରନ୍ତୁ",
+
+        identityTitle:
+        "🛡️ ଡିଜିଟାଲ ପରିଚୟ ସୁରକ୍ଷା",
+
+        identityDescription:
+        "ଆପଣଙ୍କ ଡିଜିଟାଲ ପରିଚୟକୁ କିଏ ଆକ୍ସେସ୍ କରୁଛି ତାହା ଦେଖନ୍ତୁ ଏବଂ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ।",
+
+        phonePlaceholder:
+        "ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ",
+
+        sendOtp:
+        "OTP ପଠାନ୍ତୁ",
+
+        otpPlaceholder:
+        "OTP ଦିଅନ୍ତୁ",
+
+        verifyOtp:
+        "ପରିଚୟ ଯାଞ୍ଚ କରନ୍ତୁ",
+
+        voiceTitle:
+        "🔊 ଭଏସ୍ ସହାୟତା",
+
+        listen:
+        "🔊 ଶୁଣନ୍ତୁ",
+
+        welcome:
+        "ଭରସାକୁ ସ୍ୱାଗତ। ଆପଣଙ୍କ ଡିଜିଟାଲ ପରିଚୟ, ଆପଣଙ୍କ ନିୟନ୍ତ୍ରଣ।",
+
+        verified:
+        "🟢 ସେବା ଯାଞ୍ଚ ହୋଇଛି",
+
+        organization:
+        "ସଂସ୍ଥା",
+
+        service:
+        "ସେବା",
+
+        risk:
+        "ବିପଦ ସ୍ତର",
+
+        warning:
+        "🔴 ସୁରକ୍ଷା ସତର୍କତା",
+
+        warningText:
+        "ଏହି ସେବା ଯାଞ୍ଚ ହୋଇନାହିଁ। ଆପଣଙ୍କ ବ୍ୟକ୍ତିଗତ ତଥ୍ୟ କିମ୍ବା OTP ସେୟାର କରନ୍ତୁ ନାହିଁ।",
+
+        identityVerified:
+        "🟢 ପରିଚୟ ସଫଳତାର ସହିତ ଯାଞ୍ଚ ହୋଇଛି",
+
+        invalidPhone:
+        "ଦୟାକରି ସଠିକ୍ ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ।",
+
+        otpSent:
+        "OTP ପଠାଯାଇଛି।",
+
+        otpExpired:
+        "OTP ର ସମୟ ସମାପ୍ତ ହୋଇଛି।",
+
+        otpWrong:
+        "ଭୁଲ OTP।",
+
+        otpUnavailable:
+        "OTP ଉପଲବ୍ଧ ନାହିଁ।",
+
+        serverError:
+        "ସୁରକ୍ଷା ସର୍ଭର ସହିତ ସଂଯୋଗ ହୋଇପାରିଲା ନାହିଁ।"
+    },
+
+
+    bho: {
+        logo: "भरोसा",
+
+        tagline:
+        "ब्लॉकचेन आधारित डिजिटल पहचान सुरक्षा आ भरोसेमंद सेवा के जाँच",
+
+        serviceTitle:
+        "🔐 भरोसेमंद सेवा के जाँच",
+
+        serviceDescription:
+        "अपना पहचान साझा करे से पहिले जाँच करीं कि डिजिटल सेवा असली बा कि ना।",
+
+        servicePlaceholder:
+        "सेवा ID डालीं, जइसे BH001",
+
+        checkButton:
+        "सेवा के जाँच करीं",
+
+        identityTitle:
+        "🛡️ डिजिटल पहचान सुरक्षा",
+
+        identityDescription:
+        "देखीं आ नियंत्रित करीं कि रउआ के डिजिटल पहचान के के इस्तेमाल करत बा।",
+
+        phonePlaceholder:
+        "मोबाइल नंबर डालीं",
+
+        sendOtp:
+        "OTP भेजीं",
+
+        otpPlaceholder:
+        "OTP डालीं",
+
+        verifyOtp:
+        "पहचान के पुष्टि करीं",
+
+        voiceTitle:
+        "🔊 आवाज से मदद",
+
+        listen:
+        "🔊 सुनीं",
+
+        welcome:
+        "भरोसा में रउआ के स्वागत बा। रउआ के डिजिटल पहचान, रउआ के नियंत्रण।",
+
+        verified:
+        "🟢 सेवा प्रमाणित बा",
+
+        organization:
+        "संस्था",
+
+        service:
+        "सेवा",
+
+        risk:
+        "जोखिम के स्तर",
+
+        warning:
+        "🔴 सुरक्षा चेतावनी",
+
+        warningText:
+        "ई सेवा प्रमाणित नइखे। अपना निजी जानकारी भा OTP केहू से साझा मत करीं।",
+
+        identityVerified:
+        "🟢 पहचान के सफलतापूर्वक पुष्टि हो गइल बा",
+
+        invalidPhone:
+        "कृपया सही मोबाइल नंबर डालीं।",
+
+        otpSent:
+        "OTP भेज दिहल गइल बा।",
+
+        otpExpired:
+        "OTP के समय सीमा समाप्त हो गइल बा।",
+
+        otpWrong:
+        "OTP गलत बा।",
+
+        otpUnavailable:
+        "OTP उपलब्ध नइखे।",
+
+        serverError:
+        "सुरक्षा सर्वर से कनेक्ट ना हो पावल।"
     }
-    
 
 };
 
 
-let currentLanguage = "en";
-
-
-/* =========================
+/* =========================================
    CHANGE LANGUAGE
-========================= */
+========================================= */
+
+let currentLanguage = "en";
 
 function changeLanguage() {
 
     currentLanguage =
-        document.getElementById(
-            "language"
-        ).value;
+        document.getElementById("language").value;
 
     const t =
         translations[currentLanguage];
 
+    /* LOGO */
 
-    document.getElementById(
-        "tagline"
-    ).innerText =
+    const logo =
+        document.getElementById("logo");
+
+    if (logo) {
+        logo.innerHTML = createTricolorLogo(t.logo);
+    }
+
+
+    /* BASIC TEXT */
+
+    document.getElementById("tagline").innerText =
         t.tagline;
 
-
-    document.getElementById(
-        "serviceTitle"
-    ).innerText =
+    document.getElementById("serviceTitle").innerText =
         t.serviceTitle;
 
-
-    document.getElementById(
-        "serviceDescription"
-    ).innerText =
+    document.getElementById("serviceDescription").innerText =
         t.serviceDescription;
 
-
-    document.getElementById(
-        "serviceId"
-    ).placeholder =
+    document.getElementById("serviceId").placeholder =
         t.servicePlaceholder;
 
-
-    document.getElementById(
-        "checkButton"
-    ).innerText =
+    document.getElementById("checkButton").innerText =
         t.checkButton;
 
-
-    document.getElementById(
-        "identityTitle"
-    ).innerText =
+    document.getElementById("identityTitle").innerText =
         t.identityTitle;
 
+    document.getElementById("identityDescription").innerText =
+        t.identityDescription;
 
-    document.getElementById(
-        "phone"
-    ).placeholder =
+    document.getElementById("phone").placeholder =
         t.phonePlaceholder;
 
-
-    document.getElementById(
-        "sendOtpButton"
-    ).innerText =
+    document.getElementById("sendOtpButton").innerText =
         t.sendOtp;
 
-
-    document.getElementById(
-        "otp"
-    ).placeholder =
+    document.getElementById("otp").placeholder =
         t.otpPlaceholder;
 
-
-    document.getElementById(
-        "verifyOtpButton"
-    ).innerText =
+    document.getElementById("verifyOtpButton").innerText =
         t.verifyOtp;
 
-
-    document.getElementById(
-        "voiceTitle"
-    ).innerText =
+    document.getElementById("voiceTitle").innerText =
         t.voiceTitle;
 
-
-    document.getElementById(
-        "voiceButton"
-    ).innerText =
+    document.getElementById("voiceButton").innerText =
         t.listen;
-
 }
 
+
+/* =========================================
+   TRICOLOR LOGO
+========================================= */
+
+function createTricolorLogo(text) {
+
+    const length =
+        text.length;
+
+    const first =
+        Math.ceil(length / 3);
+
+    const second =
+        Math.ceil((length - first) / 2);
+
+    const third =
+        length - first - second;
+
+    return `
+        <span class="saffron">
+            ${text.substring(0, first)}
+        </span><span class="white">
+            ${text.substring(first, first + second)}
+        </span><span class="green">
+            ${text.substring(first + second)}
+        </span>
+    `;
+}
 
 
 /* =========================
