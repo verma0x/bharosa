@@ -150,7 +150,7 @@ body {
     margin: 0;
     font-size: 38px;
     font-weight: 800;
-   letter-spacing: 0;
+    letter-spacing: 3px;
     color: var(--saffron);
     text-shadow:
         0 0 12px rgba(255, 153, 51, 0.15);
@@ -1568,30 +1568,23 @@ function changeLanguage() {
 /* =========================================
    TRICOLOR LOGO
 ========================================= */
-
 function createTricolorLogo(text) {
+    const length = text.length;
 
-    const length =
-        text.length;
+    // Handle short text (1 or 2 letters) so green always exists
+    if (length <= 2) {
+        return '<span class="saffron">' + text[0] + '</span>' +
+               '<span class="white">' + (text[1] || '') + '</span>' +
+               '<span class="green"></span>';
+    }
 
-    const first =
-        Math.ceil(length / 3);
+    const first = Math.floor(length / 3);
+    const second = Math.floor((length - first) / 2);
+    const third = length - first - second;
 
-    const second =
-        Math.ceil((length - first) / 2);
-
-    const third =
-        length - first - second;
-
-    return `
-        <span class="saffron">
-            ${text.substring(0, first)}
-        </span><span class="white">
-            ${text.substring(first, first + second)}
-        </span><span class="green">
-            ${text.substring(first + second)}
-        </span>
-    `;
+    return '<span class="saffron">' + text.slice(0, first) + '</span>' +
+           '<span class="white">' + text.slice(first, first + second) + '</span>' +
+           '<span class="green">' + text.slice(first + second) + '</span>';
 }
 
 
