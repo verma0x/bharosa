@@ -82,10 +82,8 @@ User Verification
 ```
 
 
-### Built by Team TrustForge 💖
+### Built with 💖 by Team TrustForge 
 
 
 
 
-
-## BHAROSA - Your Identity, Your Control 
