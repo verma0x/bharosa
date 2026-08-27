@@ -79,7 +79,7 @@ Store Proof on Blockchain
 Tamper-Resistant Audit Trail
         ↓
 User Verification
-
+```
 
 
 ### Built by Team TrustForge 💖
