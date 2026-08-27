@@ -141,40 +141,24 @@ body {
    ========================================================= */
 
 .logo {
-
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 0;
+    white-space: nowrap;
     margin: 0;
-
-    font-size: 42px;
-
-    font-weight: 900;
-
-    letter-spacing: 4px;
-
 }
-
-
-/* Tricolour logo */
 
 .logo .saffron {
-
-    color: var(--saffron);
-
+    color: #ff9933;
 }
-
 
 .logo .white {
-
-    color: var(--white);
-
+    color: #ffffff;
 }
-
 
 .logo .green {
-
-    color: var(--green-light);
-
+    color: #138808;
 }
-
 
 /* =========================================================
    6. LANGUAGE SELECTOR
@@ -1308,7 +1292,7 @@ button:hover {
 const translations = {
 
     en: {
-
+          
         tagline:
         "Your Digital Identity. Your Control.",
 
@@ -1740,7 +1724,74 @@ function changeLanguage() {
         "authorizationStatus"
     ).innerText =
         t.waiting;
+function changeLanguage() {
 
+    currentLanguage =
+        document.getElementById("language").value;
+
+    const t =
+        translations[currentLanguage];
+
+
+    // =========================
+    // CHANGE BHAROSA LOGO
+    // =========================
+
+    if (currentLanguage === "en") {
+
+        document.getElementById("logo").innerHTML = `
+            <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
+        `;
+
+    } else {
+
+        document.getElementById("logo").innerHTML =
+            t.logo;
+
+    }
+
+
+    // =========================
+    // OTHER LANGUAGE CHANGES
+    // =========================
+
+    document.getElementById("tagline").innerText =
+        t.tagline;
+
+    document.getElementById("serviceTitle").innerText =
+        t.serviceTitle;
+
+    document.getElementById("serviceDescription").innerText =
+        t.serviceDescription;
+
+    document.getElementById("serviceId").placeholder =
+        t.servicePlaceholder;
+
+    document.getElementById("checkButton").innerText =
+        t.checkButton;
+
+    document.getElementById("identityTitle").innerText =
+        t.identityTitle;
+
+    document.getElementById("phone").placeholder =
+        t.phonePlaceholder;
+
+    document.getElementById("sendOtpButton").innerText =
+        t.sendOtp;
+
+    document.getElementById("otp").placeholder =
+        t.otpPlaceholder;
+
+    document.getElementById("verifyOtpButton").innerText =
+        t.verifyOtp;
+
+    document.getElementById("voiceTitle").innerText =
+        t.voiceTitle;
+
+    document.getElementById("voiceButton").innerText =
+        t.listen;
+
+}
 }
 
 
