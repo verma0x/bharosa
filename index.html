@@ -2,151 +2,127 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>BHAROSA - Digital Identity Protection</title>
-
+<title>BHAROSA — Digital Identity Protection</title>
 
 <style>
 
 /* =========================================================
-   BHAROSA - DIGITAL IDENTITY PROTECTION
-   ========================================================= */
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 80% 10%, rgba(19, 215, 184, 0.08), transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(255, 153, 51, 0.07), transparent 30%),
+        #080d14;
+
+    color: #ffffff;
+    min-height: 100vh;
+}
 
 
 /* =========================================================
-   1. GLOBAL VARIABLES
-   ========================================================= */
+   VARIABLES
+========================================================= */
 
 :root {
 
-    --bg-main: #0d1117;
+    --bg: #080d14;
+    --sidebar: #0d141e;
+    --card: #111a25;
+    --card-hover: #152231;
 
-    --bg-card: #161b22;
+    --border: rgba(255,255,255,0.08);
 
-    --bg-input: #202a36;
+    --text: #ffffff;
+    --muted: #8d9aaa;
 
-    --border: #263241;
+    --green: #19d7b8;
+    --green-dark: #0b302b;
 
-    --text-main: #ffffff;
+    --orange: #ff9933;
+    --orange-dark: #382313;
 
-    --text-secondary: #cbd5e1;
-
-    --text-muted: #94a3b8;
-
-    --saffron: #ff9933;
-
-    --white: #ffffff;
-
-    --green: #138808;
-
-    --green-light: #22c55e;
-
-    --danger: #ef4444;
-
-    --warning: #f59e0b;
+    --red: #ff5555;
+    --red-dark: #351719;
 
     --blue: #38bdf8;
-
 }
 
 
 /* =========================================================
-   2. RESET
-   ========================================================= */
+   APP
+========================================================= */
 
-* {
-
-    box-sizing: border-box;
-
+.app {
+    display: flex;
+    min-height: 100vh;
 }
 
 
-html {
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-    scroll-behavior: smooth;
+.sidebar {
 
-}
-
-
-body {
-
-    margin: 0;
-
-    padding: 0;
+    width: 250px;
 
     background:
-
-        radial-gradient(
-            circle at top,
-            #182333 0%,
-            #0d1117 45%,
-            #080b10 100%
+        linear-gradient(
+            180deg,
+            #0d141e,
+            #091018
         );
 
-    color: var(--text-main);
+    border-right: 1px solid var(--border);
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    padding: 25px 16px;
 
-    min-height: 100vh;
+    position: fixed;
 
-}
+    left: 0;
+    top: 0;
+    bottom: 0;
 
-
-/* =========================================================
-   3. MAIN CONTAINER
-   ========================================================= */
-
-.container {
-
-    width: 100%;
-
-    max-width: 900px;
-
-    margin: auto;
-
-    padding: 30px 20px 60px;
-
-}
-
-
-/* =========================================================
-   4. HEADER
-   ========================================================= */
-
-.header {
+    z-index: 100;
 
     display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 20px;
-
-    margin-bottom: 10px;
-
+    flex-direction: column;
 }
 
 
-/* =========================================================
-   5. BHAROSA LOGO
-   ========================================================= */
+/* LOGO */
 
 .logo {
-    font-size: 40px;
-    font-weight: bold;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
     letter-spacing: 0;
-    white-space: nowrap;
-    margin: 0;
+
+    text-align: center;
+
+    margin-bottom: 8px;
 }
+
+
+/* BHAROSA TRICOLOUR */
 
 .logo .saffron {
     color: #ff9933;
@@ -160,253 +136,241 @@ body {
     color: #138808;
 }
 
-/* =========================================================
-   6. LANGUAGE SELECTOR
-   ========================================================= */
 
-.language-select {
+.logo-subtitle {
 
-    padding: 10px 14px;
+    text-align: center;
 
-    border-radius: 10px;
+    color: var(--muted);
 
-    border: 1px solid #40556a;
+    font-size: 11px;
 
-    background: #101820;
-
-    color: white;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
+    margin-bottom: 30px;
 }
 
 
-.language-select:focus {
+/* NAVIGATION */
 
-    outline: none;
+.nav {
 
-    border-color: var(--saffron);
+    display: flex;
 
+    flex-direction: column;
+
+    gap: 7px;
 }
 
 
-/* =========================================================
-   7. TAGLINE
-   ========================================================= */
-
-.tagline {
-
-    color: var(--text-muted);
-
-    margin-top: 5px;
-
-    margin-bottom: 28px;
-
-    font-size: 15px;
-
-}
-
-
-/* =========================================================
-   8. GENERAL CARD
-   ========================================================= */
-
-.card {
-
-    background: var(--bg-card);
-
-    padding: 24px;
-
-    margin-bottom: 22px;
-
-    border-radius: 16px;
-
-    border: 1px solid rgba(
-        255,
-        255,
-        255,
-        0.08
-    );
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,0.20);
-
-}
-
-
-.card h2 {
-
-    margin-top: 0;
-
-}
-
-
-.card h3 {
-
-    margin-top: 0;
-
-}
-
-
-.card p {
-
-    color: var(--text-secondary);
-
-}
-
-
-/* =========================================================
-   9. INPUTS
-   ========================================================= */
-
-input {
+.nav button {
 
     width: 100%;
 
-    padding: 14px;
+    padding: 13px 14px;
 
-    margin: 10px 0 15px;
-
-    border-radius: 10px;
-
-    border: 1px solid #40556a;
-
-    background: #071522;
-
-    color: white;
-
-    font-size: 15px;
-
-}
-
-
-input:focus {
-
-    outline: none;
-
-    border-color: var(--saffron);
-
-}
-
-
-/* =========================================================
-   10. GENERAL BUTTON
-   ========================================================= */
-
-button {
-
-    padding: 13px 20px;
+    background: transparent;
 
     border: none;
 
     border-radius: 10px;
 
-    background: var(--saffron);
+    color: var(--muted);
 
-    color: #07111b;
-
-    font-weight: bold;
+    text-align: left;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    font-size: 14px;
 
+    transition: 0.25s;
 }
 
 
-button:hover {
+.nav button:hover {
 
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.05);
 
-    opacity: 0.9;
+    color: white;
+}
 
+
+.nav button.active {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(25,215,184,0.18),
+            rgba(25,215,184,0.04)
+        );
+
+    color: var(--green);
+
+    border-left: 3px solid var(--green);
+}
+
+
+/* SIDEBAR BOTTOM */
+
+.sidebar-bottom {
+
+    margin-top: auto;
+
+    border-top: 1px solid var(--border);
+
+    padding-top: 18px;
+}
+
+
+.blockchain-mini {
+
+    background: #0d1d20;
+
+    border: 1px solid rgba(25,215,184,0.2);
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+
+.blockchain-mini strong {
+
+    display: block;
+
+    color: var(--green);
+
+    margin-bottom: 5px;
 }
 
 
 /* =========================================================
-   11. IDENTITY PROTECTION HEADER
-   ========================================================= */
+   MAIN
+========================================================= */
 
-.identity-heading {
+.main {
+
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    padding: 25px 35px 50px;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+
+.page-title h1 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+}
+
+
+.page-title p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+.top-actions {
 
     display: flex;
 
     align-items: center;
 
     gap: 12px;
-
-    margin-bottom: 8px;
-
 }
 
 
-.identity-heading .icon {
+/* STATUS */
 
-    width: 42px;
+.network-status {
 
-    height: 42px;
+    padding: 8px 12px;
+
+    border-radius: 20px;
+
+    background: #0d302b;
+
+    color: var(--green);
+
+    font-size: 12px;
+
+    border: 1px solid rgba(25,215,184,0.2);
+}
+
+
+.avatar {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
 
     display: flex;
 
-    justify-content: center;
-
     align-items: center;
 
+    justify-content: center;
+
     background:
-        rgba(255,153,51,0.12);
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--green)
+        );
 
-    border-radius: 10px;
+    color: #000;
 
-    font-size: 22px;
-
+    font-weight: bold;
 }
 
 
 /* =========================================================
-   12. IDENTITY ACCESS ALERT
-   ========================================================= */
+   PAGE
+========================================================= */
 
-.access-alert {
+.page {
 
-    background: linear-gradient(
-        135deg,
-        rgba(255,153,51,0.07),
-        #161b22
-    );
+    display: none;
 
-    border: 1px solid
-        rgba(255,153,51,0.45);
-
-    border-left: 4px solid
-        var(--saffron);
-
-    border-radius: 15px;
-
-    padding: 20px;
-
-    margin-top: 20px;
-
-    margin-bottom: 22px;
-
-    animation:
-        alertAppear
-        0.5s
-        ease;
-
+    animation: fadeIn 0.3s ease;
 }
 
 
-@keyframes alertAppear {
+.page.active {
+
+    display: block;
+}
+
+
+@keyframes fadeIn {
 
     from {
 
         opacity: 0;
 
-        transform:
-            translateY(-10px);
+        transform: translateY(8px);
 
     }
 
@@ -414,8 +378,7 @@ button:hover {
 
         opacity: 1;
 
-        transform:
-            translateY(0);
+        transform: translateY(0);
 
     }
 
@@ -423,416 +386,764 @@ button:hover {
 
 
 /* =========================================================
-   13. ALERT HEADER
-   ========================================================= */
+   DASHBOARD CARDS
+========================================================= */
 
-.alert-header {
+.stats-grid {
 
-    display: flex;
+    display: grid;
 
-    align-items: center;
+    grid-template-columns:
+        repeat(4, 1fr);
 
-    gap: 14px;
+    gap: 16px;
 
-    margin-bottom: 18px;
-
+    margin-bottom: 22px;
 }
 
 
-.alert-icon {
+.stat-card {
 
-    min-width: 45px;
+    background: var(--card);
 
-    width: 45px;
+    border: 1px solid var(--border);
 
-    height: 45px;
+    border-radius: 15px;
 
-    display: flex;
+    padding: 20px;
 
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        rgba(255,153,51,0.12);
-
-    border-radius: 10px;
-
-    font-size: 21px;
-
+    transition: 0.25s;
 }
 
 
-.alert-header h3 {
+.stat-card:hover {
 
-    margin: 0;
+    transform: translateY(-3px);
 
-    font-size: 19px;
-
+    background: var(--card-hover);
 }
 
 
-.alert-header p {
+.stat-icon {
 
-    margin: 5px 0 0;
-
-    color: var(--text-muted);
-
-    font-size: 13px;
-
-}
-
-
-/* =========================================================
-   14. REQUESTER
-   ========================================================= */
-
-.requester {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 15px;
-
-    background: #202a36;
-
-    border-radius: 11px;
+    font-size: 23px;
 
     margin-bottom: 15px;
-
 }
 
 
-.requester-icon {
+.stat-label {
 
-    width: 42px;
-
-    height: 42px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #101820;
-
-    border-radius: 10px;
-
-    font-size: 22px;
-
-}
-
-
-.requester strong {
-
-    font-size: 16px;
-
-}
-
-
-.requester span {
-
-    color: var(--text-secondary);
-
-    font-size: 14px;
-
-}
-
-
-/* =========================================================
-   15. ACCESS DETAILS
-   ========================================================= */
-
-.access-details {
-
-    background:
-        rgba(13,17,23,0.75);
-
-    border-radius: 11px;
-
-    padding: 15px;
-
-}
-
-
-.access-details p {
-
-    margin: 9px 0;
-
-    font-size: 14px;
-
-}
-
-
-.access-details strong {
-
-    color: white;
-
-}
-
-
-/* =========================================================
-   16. DATA TAGS
-   ========================================================= */
-
-.data-tags {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin: 12px 0 18px;
-
-}
-
-
-.data-tags span {
-
-    display: inline-block;
-
-    padding: 7px 10px;
-
-    border-radius: 7px;
+    color: var(--muted);
 
     font-size: 12px;
 
+    margin-bottom: 7px;
+}
+
+
+.stat-value {
+
+    font-size: 27px;
+
     font-weight: bold;
-
 }
 
 
-.allowed {
+.stat-green {
 
-    background:
-        rgba(34,197,94,0.13);
-
-    color:
-        var(--green-light);
-
+    color: var(--green);
 }
 
+.stat-red {
 
-.blocked {
-
-    background:
-        rgba(239,68,68,0.12);
-
-    color:
-        #ff6b6b;
-
+    color: var(--red);
 }
 
+.stat-orange {
 
-.pending {
+    color: var(--orange);
+}
 
-    color:
-        var(--warning);
+.stat-blue {
 
+    color: var(--blue);
 }
 
 
 /* =========================================================
-   17. ALERT BUTTONS
-   ========================================================= */
+   GRID
+========================================================= */
 
-.alert-actions {
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+}
+
+
+.card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.card-header h2 {
+
+    font-size: 17px;
+}
+
+
+.card-header span {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   IDENTITY CARD
+========================================================= */
+
+.identity-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #121d29,
+            #0d171f
+        );
+
+    border: 1px solid rgba(25,215,184,0.18);
+}
+
+
+.did {
+
+    color: var(--green);
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+    word-break: break-all;
+
+    margin: 12px 0;
+}
+
+
+.verified {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    background: #0d302b;
+
+    border-radius: 20px;
+
+    color: var(--green);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ACTIVITY TABLE
+========================================================= */
+
+.table-wrapper {
+
+    overflow-x: auto;
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+}
+
+
+th {
+
+    text-align: left;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: normal;
+
+    padding: 12px 10px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+td {
+
+    padding: 14px 10px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+
+.status-pill {
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+}
+
+
+.status-success {
+
+    background: #0d302b;
+
+    color: var(--green);
+}
+
+
+.status-danger {
+
+    background: var(--red-dark);
+
+    color: var(--red);
+}
+
+
+.status-warning {
+
+    background: var(--orange-dark);
+
+    color: var(--orange);
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert {
 
     display: flex;
 
     gap: 12px;
 
-    margin-top: 18px;
+    padding: 15px;
 
+    border-radius: 12px;
+
+    margin-bottom: 10px;
+
+    background: var(--red-dark);
+
+    border: 1px solid rgba(255,85,85,0.2);
 }
 
 
-.allow-button,
-.deny-button {
+.alert-icon {
 
-    flex: 1;
+    font-size: 20px;
+}
 
-    padding: 12px;
+
+.alert h4 {
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+
+.alert p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ASSETS
+========================================================= */
+
+.assets-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.asset {
+
+    background: #0d151f;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    padding: 17px;
+
+    transition: 0.25s;
+}
+
+
+.asset:hover {
+
+    border-color: rgba(25,215,184,0.3);
+
+    transform: translateY(-3px);
+}
+
+
+.asset-icon {
+
+    font-size: 30px;
+
+    margin-bottom: 15px;
+}
+
+
+.asset h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+
+.asset p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+.nft-id {
+
+    color: var(--green);
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   ROLE CARDS
+========================================================= */
+
+.roles {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+.role {
+
+    padding: 20px;
+
+    background: #0d151f;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    text-align: center;
+}
+
+
+.role-icon {
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+
+.role h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 6px;
+}
+
+
+.role p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   AUDIT TIMELINE
+========================================================= */
+
+.timeline {
+
+    position: relative;
+
+    padding-left: 30px;
+}
+
+
+.timeline::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 8px;
+
+    top: 5px;
+
+    bottom: 5px;
+
+    width: 1px;
+
+    background: #293746;
+}
+
+
+.timeline-item {
+
+    position: relative;
+
+    margin-bottom: 25px;
+}
+
+
+.timeline-dot {
+
+    position: absolute;
+
+    left: -27px;
+
+    top: 2px;
+
+    width: 15px;
+
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    border: 3px solid #10201f;
+}
+
+
+.timeline-item.warning .timeline-dot {
+
+    background: var(--red);
+}
+
+
+.timeline-item h4 {
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+
+.timeline-item p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+.hash {
+
+    margin-top: 7px;
+
+    color: var(--green);
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    word-break: break-all;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn {
 
     border: none;
 
-    border-radius: 9px;
+    border-radius: 8px;
 
-    font-weight: bold;
+    padding: 10px 15px;
 
     cursor: pointer;
 
-    transition:
-        0.2s ease;
-
-}
-
-
-.allow-button {
-
-    background:
-        var(--green-light);
-
-    color:
-        #07110a;
-
-}
-
-
-.deny-button {
-
-    background:
-        var(--danger);
-
-    color:
-        white;
-
-}
-
-
-.allow-button:hover,
-.deny-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    opacity:
-        0.9;
-
-}
-
-
-/* =========================================================
-   18. SUCCESS / DANGER RESULT
-   ========================================================= */
-
-.safe {
-
-    margin-top: 18px;
-
-    padding: 18px;
-
-    border-radius: 12px;
-
-    border:
-        2px solid
-        var(--green-light);
-
-    background:
-        rgba(34,197,94,0.08);
-
-}
-
-
-.danger {
-
-    margin-top: 18px;
-
-    padding: 18px;
-
-    border-radius: 12px;
-
-    border:
-        2px solid
-        var(--danger);
-
-    background:
-        rgba(239,68,68,0.08);
-
-}
-
-
-.status {
-
-    font-size: 20px;
-
     font-weight: bold;
 
-    margin-bottom: 12px;
+    font-size: 12px;
 
+    transition: 0.2s;
+}
+
+
+.btn-primary {
+
+    background: var(--green);
+
+    color: #041018;
+}
+
+
+.btn-primary:hover {
+
+    opacity: 0.85;
+}
+
+
+.btn-danger {
+
+    background: var(--red-dark);
+
+    color: var(--red);
+
+    border: 1px solid rgba(255,85,85,0.2);
 }
 
 
 /* =========================================================
-   19. VOICE
-   ========================================================= */
+   SECURITY CHECK
+========================================================= */
 
-.voice {
+.security-check {
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 10px;
 
     margin-top: 15px;
+}
 
-    padding: 15px;
 
-    background:
-        #182b3d;
+input,
+select {
+
+    width: 100%;
+
+    padding: 11px 13px;
+
+    background: #080f17;
+
+    border: 1px solid var(--border);
+
+    color: white;
+
+    border-radius: 8px;
+
+    outline: none;
+}
+
+
+input:focus {
+
+    border-color: var(--green);
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 25px;
+
+    background: #152231;
+
+    border: 1px solid rgba(25,215,184,0.3);
+
+    padding: 15px 18px;
 
     border-radius: 10px;
 
+    display: none;
+
+    z-index: 999;
+
+    font-size: 13px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 
 /* =========================================================
-   20. MOBILE RESPONSIVE
-   ========================================================= */
+   MOBILE
+========================================================= */
 
-@media (max-width: 650px) {
+.mobile-menu {
 
-    .container {
+    display: none;
 
-        padding:
-            20px 14px 40px;
+    background: none;
 
+    border: none;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+
+@media(max-width:1000px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
+    .content-grid {
 
-    .header {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-
+        grid-template-columns: 1fr;
     }
 
+    .assets-grid {
 
-    .logo {
-
-        font-size:
-            34px;
-
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
+    .roles {
 
-    .language-select {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:700px) {
+
+    .sidebar {
+
+        transform: translateX(-100%);
+
+        transition: 0.3s;
+    }
+
+    .sidebar.open {
+
+        transform: translateX(0);
+    }
+
+    .main {
+
+        margin-left: 0;
 
         width: 100%;
 
+        padding: 20px;
     }
 
+    .mobile-menu {
 
-    .card {
-
-        padding:
-            18px;
-
+        display: block;
     }
 
+    .topbar {
 
-    .alert-actions {
-
-        flex-direction:
-            column;
-
+        align-items: flex-start;
     }
 
+    .network-status {
+
+        display: none;
+    }
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .assets-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .roles {
+
+        grid-template-columns: 1fr;
+    }
 }
-
 
 </style>
 
@@ -842,32 +1153,1213 @@ button:hover {
 <body>
 
 
-<!-- =========================================================
-     MAIN CONTAINER
-     ========================================================= -->
-
-<div class="container">
+<div class="app">
 
 
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
 
-<div class="header">
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+
+        <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
+
+    </div>
+
+    <div class="logo-subtitle">
+        Digital Identity Protection
+    </div>
 
 
-    <!-- BHAROSA TRICOLOUR LOGO -->
+    <nav class="nav">
 
-    <h1 class="logo">
-          <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
-    </h1>
+        <button
+            class="active"
+            onclick="showPage('dashboard', this)">
+
+            🏠 Dashboard
+
+        </button>
 
 
-    <!-- LANGUAGE -->
+        <button
+            onclick="showPage('identity', this)">
+
+            🪪 My Identity
+
+        </button>
+
+
+        <button
+            onclick="showPage('access', this)">
+
+            🔐 Access Control
+
+        </button>
+
+
+        <button
+            onclick="showPage('assets', this)">
+
+            📜 Digital Assets
+
+        </button>
+
+
+        <button
+            onclick="showPage('audit', this)">
+
+            🔎 Audit Trail
+
+        </button>
+
+
+        <button
+            onclick="showPage('alerts', this)">
+
+            🚨 Security Alerts
+
+        </button>
+
+
+        <button
+            onclick="showPage('settings', this)">
+
+            ⚙️ Settings
+
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="blockchain-mini">
+
+            <strong>⛓ Blockchain Network</strong>
+
+            Test Network Connected
+
+            <br>
+
+            Block #18,492
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<header class="topbar">
+
+    <button
+        class="mobile-menu"
+        onclick="toggleSidebar()">
+
+        ☰
+
+    </button>
+
+
+    <div class="page-title">
+
+        <h1 id="pageTitle">
+            Dashboard
+        </h1>
+
+        <p id="pageSubtitle">
+            Your digital identity security overview
+        </p>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <div class="network-status">
+
+            ● Blockchain Connected
+
+        </div>
+
+        <div class="avatar">
+
+            U
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+    id="dashboard"
+    class="page active">
+
+
+<div class="stats-grid">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🪪
+        </div>
+
+        <div class="stat-label">
+            Identity Status
+        </div>
+
+        <div class="stat-value stat-green">
+            Verified
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🔐
+        </div>
+
+        <div class="stat-label">
+            Access Events
+        </div>
+
+        <div class="stat-value">
+            24
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📜
+        </div>
+
+        <div class="stat-label">
+            Digital Assets
+        </div>
+
+        <div class="stat-value stat-blue">
+            5
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🚨
+        </div>
+
+        <div class="stat-label">
+            Security Alerts
+        </div>
+
+        <div class="stat-value stat-red">
+            2
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="content-grid">
+
+
+<!-- LEFT -->
+
+<div>
+
+
+    <!-- IDENTITY -->
+
+    <div class="card identity-card">
+
+        <div class="card-header">
+
+            <h2>
+                🪪 Decentralized Identity
+            </h2>
+
+            <span class="verified">
+                ● Cryptographically Verified
+            </span>
+
+        </div>
+
+
+        <p style="color:var(--muted);font-size:12px;">
+            Your self-sovereign digital identity
+        </p>
+
+
+        <div class="did">
+
+            did:bh:7f82c9a1b4e6d02a91...
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            onclick="showToast('Identity proof verified successfully.')">
+
+            Verify Identity
+
+        </button>
+
+    </div>
+
+
+    <!-- RECENT ACCESS -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>
+                🔐 Recent Identity Access
+            </h2>
+
+            <span>
+                View all
+            </span>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>WHO</th>
+                    <th>WHAT</th>
+                    <th>WHY</th>
+                    <th>WHEN</th>
+                    <th>STATUS</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>ABC Bank</td>
+
+                    <td>PAN</td>
+
+                    <td>Loan KYC</td>
+
+                    <td>10:42 AM</td>
+
+                    <td>
+                        <span class="status-pill status-success">
+                            Authorized
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Gov Service</td>
+
+                    <td>Address</td>
+
+                    <td>Verification</td>
+
+                    <td>09:18 AM</td>
+
+                    <td>
+                        <span class="status-pill status-success">
+                            Authorized
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Unknown</td>
+
+                    <td>Identity</td>
+
+                    <td>Unknown</td>
+
+                    <td>08:31 AM</td>
+
+                    <td>
+                        <span class="status-pill status-danger">
+                            Blocked
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- RIGHT -->
+
+<div>
+
+
+    <!-- SECURITY -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>
+                🚨 Security Alert
+            </h2>
+
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-icon">
+                ⚠️
+            </div>
+
+            <div>
+
+                <h4>
+                    Unauthorized Access Attempt
+                </h4>
+
+                <p>
+                    An unknown service attempted to access your identity at 08:31 AM.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn btn-danger"
+            onclick="showToast('Security incident marked for investigation.')">
+
+            Investigate
+
+        </button>
+
+    </div>
+
+
+    <!-- BLOCKCHAIN -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>
+                ⛓ Blockchain Status
+            </h2>
+
+        </div>
+
+
+        <div style="font-size:13px;">
+
+            <p style="color:var(--muted);margin-bottom:10px;">
+                Network
+            </p>
+
+            <strong>
+                BHAROSA Test Network
+            </strong>
+
+
+            <p style="color:var(--muted);margin-top:15px;margin-bottom:5px;">
+                Latest Block
+            </p>
+
+            <span class="did">
+                #18,492
+            </span>
+
+
+            <p style="color:var(--muted);margin-top:10px;">
+                ✓ Audit records synchronized
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     IDENTITY PAGE
+===================================================== -->
+
+<section
+    id="identity"
+    class="page">
+
+
+<div class="card identity-card">
+
+    <div class="card-header">
+
+        <h2>
+            🪪 My Decentralized Identity
+        </h2>
+
+        <span class="verified">
+            ● VERIFIED
+        </span>
+
+    </div>
+
+
+    <p style="color:var(--muted);margin-bottom:10px;">
+        Decentralized Identifier
+    </p>
+
+
+    <div class="did">
+
+        did:bh:7f82c9a1b4e6d02a91f0d8a...
+
+    </div>
+
+
+    <div class="stats-grid" style="margin-top:20px;">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Identity Status
+            </div>
+
+            <div class="stat-value stat-green">
+                Active
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Verification
+            </div>
+
+            <div class="stat-value stat-green">
+                Valid
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Access Requests
+            </div>
+
+            <div class="stat-value">
+                24
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Failed Attempts
+            </div>
+
+            <div class="stat-value stat-red">
+                2
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔐 Identity Security
+        </h2>
+
+    </div>
+
+
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+
+        BHAROSA uses cryptographic proofs to allow your identity
+        to be verified without exposing unnecessary personal information.
+
+    </p>
+
+    <br>
+
+    <button
+        class="btn btn-primary"
+        onclick="showToast('Cryptographic identity proof generated.')">
+
+        Generate Identity Proof
+
+    </button>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     ACCESS CONTROL
+===================================================== -->
+
+<section
+    id="access"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔐 Role-Based Access Control
+        </h2>
+
+        <span>
+            RBAC
+        </span>
+
+    </div>
+
+
+    <div class="roles">
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                👑
+            </div>
+
+            <h3>
+                Admin
+            </h3>
+
+            <p>
+                Full system control
+            </p>
+
+        </div>
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                🧑‍💼
+            </div>
+
+            <h3>
+                Manager
+            </h3>
+
+            <p>
+                Manage authorized operations
+            </p>
+
+        </div>
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                🔎
+            </div>
+
+            <h3>
+                Auditor
+            </h3>
+
+            <p>
+                Read audit records
+            </p>
+
+        </div>
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                👤
+            </div>
+
+            <h3>
+                User
+            </h3>
+
+            <p>
+                Control personal access
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            Access Requests
+        </h2>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ORGANIZATION</th>
+                <th>REQUESTED DATA</th>
+                <th>PURPOSE</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+            <tr>
+
+                <td>ABC Bank</td>
+
+                <td>PAN</td>
+
+                <td>Loan KYC</td>
+
+                <td>
+                    <span class="status-pill status-warning">
+                        Pending
+                    </span>
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="approveAccess(this)">
+
+                        Approve
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Unknown Service</td>
+
+                <td>Full Identity</td>
+
+                <td>Unknown</td>
+
+                <td>
+
+                    <span class="status-pill status-danger">
+                        Suspicious
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="showToast('Access blocked.')">
+
+                        Block
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+        </tbody>
+
+    </table>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     DIGITAL ASSETS
+===================================================== -->
+
+<section
+    id="assets"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            📜 Digital Assets
+        </h2>
+
+        <button
+            class="btn btn-primary"
+            onclick="showToast('Minting requires an authorized administrator.')">
+
+            + Mint Asset
+
+        </button>
+
+    </div>
+
+
+    <div class="assets-grid">
+
+
+        <div class="asset">
+
+            <div class="asset-icon">
+                🎓
+            </div>
+
+            <h3>
+                Degree Certificate
+            </h3>
+
+            <p>
+                Verified academic credential
+            </p>
+
+            <div class="nft-id">
+                NFT #BH-001
+            </div>
+
+        </div>
+
+
+        <div class="asset">
+
+            <div class="asset-icon">
+                🪪
+            </div>
+
+            <h3>
+                Digital ID Card
+            </h3>
+
+            <p>
+                Blockchain-linked identity asset
+            </p>
+
+            <div class="nft-id">
+                NFT #BH-002
+            </div>
+
+        </div>
+
+
+        <div class="asset">
+
+            <div class="asset-icon">
+                📜
+            </div>
+
+            <h3>
+                Government Certificate
+            </h3>
+
+            <p>
+                Digitally verifiable document
+            </p>
+
+            <div class="nft-id">
+                NFT #BH-003
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            ⛓ Ownership History
+        </h2>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Asset Created
+            </h4>
+
+            <p>
+                Degree Certificate NFT created by authorized administrator.
+            </p>
+
+            <div class="hash">
+                Hash: 8f82c9a1...e71d
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Asset Assigned
+            </h4>
+
+            <p>
+                NFT assigned to your decentralized identity.
+            </p>
+
+            <div class="hash">
+                Hash: 91d82f4b...a832
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Ownership Verified
+            </h4>
+
+            <p>
+                Blockchain verification successfully completed.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     AUDIT TRAIL
+===================================================== -->
+
+<section
+    id="audit"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔎 Immutable Audit Trail
+        </h2>
+
+        <span>
+            Blockchain Records
+        </span>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                ABC Bank accessed PAN
+            </h4>
+
+            <p>
+                Purpose: Loan KYC
+                <br>
+                Time: Today, 10:42 AM
+                <br>
+                Authorization: Approved
+            </p>
+
+            <div class="hash">
+                Block: #18492 | Hash: 7c92a81f...
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Government Service accessed Address
+            </h4>
+
+            <p>
+                Purpose: Address Verification
+                <br>
+                Time: Today, 09:18 AM
+                <br>
+                Authorization: Approved
+            </p>
+
+            <div class="hash">
+                Block: #18491 | Hash: 2af82d91...
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item warning">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                ⚠ Unauthorized Access Attempt
+            </h4>
+
+            <p>
+                Unknown Service attempted to access Identity.
+                <br>
+                Time: Today, 08:31 AM
+                <br>
+                Authorization: Denied
+            </p>
+
+            <div class="hash">
+                Block: #18490 | Hash: 91f0a82d...
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SECURITY ALERTS
+===================================================== -->
+
+<section
+    id="alerts"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🚨 Security Alerts
+        </h2>
+
+    </div>
+
+
+    <div class="alert">
+
+        <div class="alert-icon">
+            🔴
+        </div>
+
+        <div>
+
+            <h4>
+                Unauthorized Identity Access
+            </h4>
+
+            <p>
+                Unknown Service attempted to access your identity.
+                Access was blocked automatically.
+            </p>
+
+            <br>
+
+            <button
+                class="btn btn-danger"
+                onclick="showToast('Incident marked as reviewed.')">
+
+                Mark as Reviewed
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="alert"
+         style="
+            background:#382313;
+            border-color:rgba(255,153,51,0.2);
+         ">
+
+        <div class="alert-icon">
+            🟠
+        </div>
+
+        <div>
+
+            <h4>
+                New Access Request
+            </h4>
+
+            <p>
+                ABC Bank requested access to your PAN
+                for Loan KYC.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<section
+    id="settings"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            ⚙️ Settings
+        </h2>
+
+    </div>
+
+
+    <label style="color:var(--muted);font-size:12px;">
+        Language
+    </label>
+
+    <br><br>
 
     <select
-        id="language"
-        class="language-select"
+        id="languageSelect"
         onchange="changeLanguage()">
 
         <option value="en">
@@ -882,10 +2374,6 @@ button:hover {
             বাংলা
         </option>
 
-        <option value="pa">
-            ਪੰਜਾਬੀ
-        </option>
-
         <option value="mr">
             मराठी
         </option>
@@ -894,918 +2382,248 @@ button:hover {
             தமிழ்
         </option>
 
-        <option value="bho">
-            भोजपुरी
-        </option>
-
         <option value="or">
             ଓଡ଼ିଆ
         </option>
 
+        <option value="bho">
+            भोजपुरी
+        </option>
+
     </select>
 
+
+    <br><br>
+
+
+    <button
+        class="btn btn-primary"
+        onclick="showToast('Security settings saved.')">
+
+        Save Settings
+
+    </button>
+
 </div>
 
 
-<!-- =========================================================
-     TAGLINE
-     ========================================================= -->
-
-<p
-    id="tagline"
-    class="tagline">
-
-    Your Digital Identity. Your Control.
-
-</p>
-
-
-
-<!-- =========================================================
-     MAIN IDENTITY PROTECTION CARD
-     ========================================================= -->
-
 <div class="card">
 
+    <div class="card-header">
 
-    <div class="identity-heading">
-
-        <div class="icon">
-            🛡️
-        </div>
-
-        <div>
-
-            <h2
-                id="identityProtectionTitle">
-
-                Digital Identity Protection
-
-            </h2>
-
-        </div>
+        <h2>
+            🔊 Accessibility
+        </h2>
 
     </div>
 
 
-    <p id="identityProtectionDescription">
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
 
-        BHAROSA protects your digital identity
-        by keeping you informed about who wants
-        to access your information, what they
-        want to access and why.
+        BHAROSA supports multilingual interfaces and
+        voice assistance to improve accessibility for
+        users with limited digital literacy.
 
     </p>
 
 
-    <!-- =====================================================
-         IDENTITY ACCESS ALERT
-         ===================================================== -->
-
-    <div
-        id="identityAccessAlert"
-        class="access-alert">
-
-
-        <!-- ALERT HEADER -->
-
-        <div class="alert-header">
-
-            <div class="alert-icon">
-
-                🔔
-
-            </div>
-
-
-            <div>
-
-                <h3 id="alertTitle">
-
-                    Identity Access Request
-
-                </h3>
-
-
-                <p id="alertDescription">
-
-                    Someone is requesting access
-                    to your identity.
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- REQUESTER -->
-
-        <div class="requester">
-
-            <div class="requester-icon">
-
-                🏦
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    ABC Bank
-                </strong>
-
-                <br>
-
-                <span id="requestText">
-
-                    wants to access your identity
-
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- REQUESTED INFORMATION -->
-
-        <div class="access-details">
-
-
-            <p>
-
-                <strong id="requestedInfo">
-
-                    Requested Information
-
-                </strong>
-
-            </p>
-
-
-            <div class="data-tags">
-
-                <span class="allowed">
-
-                    ✓ Name
-
-                </span>
-
-
-                <span class="allowed">
-
-                    ✓ Date of Birth
-
-                </span>
-
-
-                <span class="blocked">
-
-                    ✕ Government ID
-
-                </span>
-
-            </div>
-
-
-            <p>
-
-                <strong id="purposeLabel">
-
-                    Purpose:
-
-                </strong>
-
-                KYC Verification
-
-            </p>
-
-
-            <p>
-
-                <strong id="authorizationLabel">
-
-                    Authorization:
-
-                </strong>
-
-                <span
-                    class="pending"
-                    id="authorizationStatus">
-
-                    Waiting for your decision
-
-                </span>
-
-            </p>
-
-
-        </div>
-
-
-        <!-- USER DECISION BUTTONS -->
-
-        <div class="alert-actions">
-
-
-            <button
-                type="button"
-                class="allow-button"
-                onclick="allowIdentityAccess()">
-
-                ✓ Allow Access
-
-            </button>
-
-
-            <button
-                type="button"
-                class="deny-button"
-                onclick="denyIdentityAccess()">
-
-                ✕ Deny Access
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
-
-</div>
-
-
-
-<!-- =========================================================
-     SERVICE VERIFICATION
-     ========================================================= -->
-
-<div class="card">
-
-
-    <h2>
-
-        🔐 Service Security Check
-
-    </h2>
-
-
-    <p>
-
-        Check whether a digital service
-        is genuine before using it.
-
-    </p>
-
-
-    <input
-        id="serviceId"
-        type="text"
-        placeholder="Enter Service ID e.g. TF001">
+    <br>
 
 
     <button
-        onclick="checkService()">
+        class="btn btn-primary"
+        onclick="speak('Welcome to BHAROSA. Your identity, your data, your control.')">
 
-        Check Service
+        🔊 Test Voice
 
     </button>
-
-
-    <div id="serviceResult"></div>
-
 
 </div>
 
 
-
-<!-- =========================================================
-     IDENTITY VERIFICATION / OTP
-     ========================================================= -->
-
-<div class="card">
+</section>
 
 
-    <h2>
-
-        📱 Identity Verification
-
-    </h2>
-
-
-    <p>
-
-        Verify your identity using
-        secure OTP verification.
-
-    </p>
-
-
-    <input
-        id="phone"
-        type="text"
-        placeholder="Enter mobile number">
-
-
-    <button
-        onclick="sendOTP()">
-
-        Send OTP
-
-    </button>
-
-
-    <input
-        id="otp"
-        type="text"
-        placeholder="Enter OTP">
-
-
-    <button
-        onclick="verifyOTP()">
-
-        Verify OTP
-
-    </button>
-
-
-    <div id="otpResult"></div>
-
+</main>
 
 </div>
 
 
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
-<!-- =========================================================
-     VOICE ASSISTANCE
-     ========================================================= -->
+<div
+    id="toast"
+    class="toast">
 
-<div class="card">
-
-
-    <h2>
-
-        🔊 Voice Assistance
-
-    </h2>
-
-
-    <p>
-
-        Listen to important security
-        information using voice assistance.
-
-    </p>
-
-
-    <button
-        onclick="speakWelcome()">
-
-        🔊 Listen
-
-    </button>
-
+    Action completed successfully.
 
 </div>
 
-
-
-</div>
-
-
-
-<!-- =========================================================
-     JAVASCRIPT
-     ========================================================= -->
 
 <script>
 
-
 /* =========================================================
-   LANGUAGE DATA
-   ========================================================= */
+   PAGE NAVIGATION
+========================================================= */
 
-const translations = {
+function showPage(pageId, button) {
 
-    en: {
-        logo: "BHAROSA",
-          
-        tagline:
-        "Your Digital Identity. Your Control.",
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
 
-        identityTitle:
-        "Digital Identity Protection",
+            page.classList.remove("active");
 
-        identityDescription:
-        "BHAROSA protects your digital identity by keeping you informed about who wants to access your information, what they want to access and why.",
+        });
 
-        alertTitle:
-        "Identity Access Request",
 
-        alertDescription:
-        "Someone is requesting access to your identity.",
+    document
+        .getElementById(pageId)
+        .classList.add("active");
 
-        requestText:
-        "wants to access your identity",
 
-        requestedInfo:
-        "Requested Information",
+    document
+        .querySelectorAll(".nav button")
+        .forEach(btn => {
 
-        purpose:
-        "Purpose:",
+            btn.classList.remove("active");
 
-        authorization:
-        "Authorization:",
+        });
 
-        waiting:
-        "Waiting for your decision",
 
-        allow:
-        "✓ Allow Access",
+    button.classList.add("active");
 
-        deny:
-        "✕ Deny Access",
 
-        welcome:
-        "Welcome to BHAROSA. Your digital identity is under your control."
+    const titles = {
 
-    },
+        dashboard: [
+            "Dashboard",
+            "Your digital identity security overview"
+        ],
 
+        identity: [
+            "My Identity",
+            "Manage your decentralized identity"
+        ],
 
-    hi: {
-      logo: "भरोसा",
-          
-        tagline:
-        "आपकी डिजिटल पहचान। आपका नियंत्रण।",
+        access: [
+            "Access Control",
+            "Control who can access your identity"
+        ],
 
-        identityTitle:
-        "डिजिटल पहचान सुरक्षा",
+        assets: [
+            "Digital Assets",
+            "Manage blockchain-backed digital assets"
+        ],
 
-        identityDescription:
-        "BHAROSA आपको बताता है कि आपकी पहचान तक कौन पहुँचने की कोशिश कर रहा है, कौन सी जानकारी चाहिए और क्यों।",
+        audit: [
+            "Audit Trail",
+            "Transparent and tamper-resistant activity history"
+        ],
 
-        alertTitle:
-        "पहचान एक्सेस अनुरोध",
+        alerts: [
+            "Security Alerts",
+            "Monitor suspicious identity activity"
+        ],
 
-        alertDescription:
-        "कोई आपकी डिजिटल पहचान तक पहुँचने का अनुरोध कर रहा है।",
+        settings: [
+            "Settings",
+            "Configure your BHAROSA experience"
+        ]
 
-        requestText:
-        "आपकी पहचान तक पहुँच चाहता है",
+    };
 
-        requestedInfo:
-        "मांगी गई जानकारी",
 
-        purpose:
-        "उद्देश्य:",
+    document
+        .getElementById("pageTitle")
+        .innerText =
+        titles[pageId][0];
 
-        authorization:
-        "अनुमति:",
 
-        waiting:
-        "आपके निर्णय की प्रतीक्षा",
+    document
+        .getElementById("pageSubtitle")
+        .innerText =
+        titles[pageId][1];
 
-        allow:
-        "✓ एक्सेस की अनुमति दें",
 
-        deny:
-        "✕ एक्सेस रोकें",
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
 
-        welcome:
-        "BHAROSA में आपका स्वागत है। आपकी डिजिटल पहचान आपके नियंत्रण में है।"
-
-    },
-
-
-    bn: {
-           logo: "ভরসা",
-
-        tagline:
-        "আপনার ডিজিটাল পরিচয়। আপনার নিয়ন্ত্রণ।",
-
-        identityTitle:
-        "ডিজিটাল পরিচয় সুরক্ষা",
-
-        identityDescription:
-        "BHAROSA আপনাকে জানায় কে আপনার পরিচয় অ্যাক্সেস করতে চায়, কী তথ্য চায় এবং কেন চায়।",
-
-        alertTitle:
-        "পরিচয় অ্যাক্সেস অনুরোধ",
-
-        alertDescription:
-        "কেউ আপনার পরিচয় অ্যাক্সেস করার অনুরোধ করছে।",
-
-        requestText:
-        "আপনার পরিচয় অ্যাক্সেস করতে চায়",
-
-        requestedInfo:
-        "অনুরোধ করা তথ্য",
-
-        purpose:
-        "উদ্দেশ্য:",
-
-        authorization:
-        "অনুমোদন:",
-
-        waiting:
-        "আপনার সিদ্ধান্তের অপেক্ষায়",
-
-        allow:
-        "✓ অ্যাক্সেস অনুমতি দিন",
-
-        deny:
-        "✕ অ্যাক্সেস বন্ধ করুন",
-
-        welcome:
-        "BHAROSA-তে স্বাগতম। আপনার ডিজিটাল পরিচয় আপনার নিয়ন্ত্রণে।"
-
-    },
-
-
-    pa: {
-logo: "ਭਰੋਸਾ",
-        tagline:
-        "ਤੁਹਾਡੀ ਡਿਜੀਟਲ ਪਛਾਣ। ਤੁਹਾਡਾ ਕੰਟਰੋਲ।",
-
-        identityTitle:
-        "ਡਿਜੀਟਲ ਪਛਾਣ ਸੁਰੱਖਿਆ",
-
-        identityDescription:
-        "BHAROSA ਤੁਹਾਨੂੰ ਦੱਸਦਾ ਹੈ ਕਿ ਤੁਹਾਡੀ ਪਛਾਣ ਤੱਕ ਕੌਣ ਪਹੁੰਚਣਾ ਚਾਹੁੰਦਾ ਹੈ, ਕਿਹੜੀ ਜਾਣਕਾਰੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ ਕਿਉਂ।",
-
-        alertTitle:
-        "ਪਛਾਣ ਐਕਸੈਸ ਬੇਨਤੀ",
-
-        alertDescription:
-        "ਕੋਈ ਤੁਹਾਡੀ ਡਿਜੀਟਲ ਪਛਾਣ ਤੱਕ ਪਹੁੰਚ ਦੀ ਬੇਨਤੀ ਕਰ ਰਿਹਾ ਹੈ।",
-
-        requestText:
-        "ਤੁਹਾਡੀ ਪਛਾਣ ਤੱਕ ਪਹੁੰਚ ਚਾਹੁੰਦਾ ਹੈ",
-
-        requestedInfo:
-        "ਮੰਗੀ ਗਈ ਜਾਣਕਾਰੀ",
-
-        purpose:
-        "ਉਦੇਸ਼:",
-
-        authorization:
-        "ਅਧਿਕਾਰ:",
-
-        waiting:
-        "ਤੁਹਾਡੇ ਫੈਸਲੇ ਦੀ ਉਡੀਕ",
-
-        allow:
-        "✓ ਐਕਸੈਸ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ",
-
-        deny:
-        "✕ ਐਕਸੈਸ ਰੋਕੋ",
-
-        welcome:
-        "BHAROSA ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ। ਤੁਹਾਡੀ ਡਿਜੀਟਲ ਪਛਾਣ ਤੁਹਾਡੇ ਕੰਟਰੋਲ ਵਿੱਚ ਹੈ।"
-
-    },
-
-
-    mr: {
-          logo: "भरोसा",
-
-        tagline:
-        "तुमची डिजिटल ओळख। तुमचे नियंत्रण.",
-
-        identityTitle:
-        "डिजिटल ओळख संरक्षण",
-
-        identityDescription:
-        "BHAROSA तुम्हाला तुमची ओळख कोण वापरू इच्छित आहे, कोणती माहिती हवी आहे आणि का हवी आहे हे सांगते.",
-
-        alertTitle:
-        "ओळख प्रवेश विनंती",
-
-        alertDescription:
-        "कोणी तुमच्या डिजिटल ओळखीचा प्रवेश मागत आहे.",
-
-        requestText:
-        "तुमच्या ओळखीचा प्रवेश हवा आहे",
-
-        requestedInfo:
-        "मागितलेली माहिती",
-
-        purpose:
-        "उद्देश:",
-
-        authorization:
-        "परवानगी:",
-
-        waiting:
-        "तुमच्या निर्णयाची प्रतीक्षा",
-
-        allow:
-        "✓ प्रवेशाची परवानगी द्या",
-
-        deny:
-        "✕ प्रवेश थांबवा",
-
-        welcome:
-        "BHAROSA मध्ये आपले स्वागत आहे. तुमची डिजिटल ओळख तुमच्या नियंत्रणात आहे."
-
-    },
-
-
-    ta: {
-          logo: "நம்பிக்கை",
-
-
-        tagline:
-        "உங்கள் டிஜிட்டல் அடையாளம். உங்கள் கட்டுப்பாடு.",
-
-        identityTitle:
-        "டிஜிட்டல் அடையாள பாதுகாப்பு",
-
-        identityDescription:
-        "BHAROSA உங்கள் அடையாளத்தை யார் அணுக விரும்புகிறார்கள், எந்த தகவலை அணுக விரும்புகிறார்கள் மற்றும் ஏன் என்பதை உங்களுக்குத் தெரிவிக்கும்.",
-
-        alertTitle:
-        "அடையாள அணுகல் கோரிக்கை",
-
-        alertDescription:
-        "யாரோ உங்கள் டிஜிட்டல் அடையாளத்தை அணுக கோரிக்கை விடுத்துள்ளனர்.",
-
-        requestText:
-        "உங்கள் அடையாளத்தை அணுக விரும்புகிறது",
-
-        requestedInfo:
-        "கோரப்பட்ட தகவல்",
-
-        purpose:
-        "நோக்கம்:",
-
-        authorization:
-        "அனுமதி:",
-
-        waiting:
-        "உங்கள் முடிவுக்காக காத்திருக்கிறது",
-
-        allow:
-        "✓ அணுகலை அனுமதிக்கவும்",
-
-        deny:
-        "✕ அணுகலைத் தடுக்கவும்",
-
-        welcome:
-        "BHAROSA-க்கு வரவேற்கிறோம். உங்கள் டிஜிட்டல் அடையாளம் உங்கள் கட்டுப்பாட்டில் உள்ளது."
-
-    },
-
-
-    bho: {
-          logo: "भरोसा",
-
-        tagline:
-        "रउरा डिजिटल पहचान। रउरे कंट्रोल।",
-
-        identityTitle:
-        "डिजिटल पहचान सुरक्षा",
-
-        identityDescription:
-        "BHAROSA रउआ के बतावेला कि रउरा पहचान के के इस्तेमाल करे चाहत बा, कवन जानकारी चाहीं आ काहे चाहीं।",
-
-        alertTitle:
-        "पहचान एक्सेस के अनुरोध",
-
-        alertDescription:
-        "केहू रउरा डिजिटल पहचान तक पहुँच के अनुरोध करत बा।",
-
-        requestText:
-        "रउरा पहचान तक पहुँच चाहत बा",
-
-        requestedInfo:
-        "मंगाइल जानकारी",
-
-        purpose:
-        "उद्देश्य:",
-
-        authorization:
-        "अनुमति:",
-
-        waiting:
-        "रउरा के फैसला के इंतजार",
-
-        allow:
-        "✓ एक्सेस के अनुमति दीं",
-
-        deny:
-        "✕ एक्सेस रोक दीं",
-
-        welcome:
-        "BHAROSA में रउआ के स्वागत बा। रउरा डिजिटल पहचान रउरे कंट्रोल में बा।"
-
-    },
-
-
-    or: {
-          logo: "ଭରସା",
-
-        tagline:
-        "ଆପଣଙ୍କର ଡିଜିଟାଲ ପରିଚୟ। ଆପଣଙ୍କର ନିୟନ୍ତ୍ରଣ।",
-
-        identityTitle:
-        "ଡିଜିଟାଲ ପରିଚୟ ସୁରକ୍ଷା",
-
-        identityDescription:
-        "BHAROSA ଆପଣଙ୍କୁ ଜଣାଇବ କିଏ ଆପଣଙ୍କ ପରିଚୟକୁ ପ୍ରବେଶ କରିବାକୁ ଚାହୁଁଛି, କେଉଁ ତଥ୍ୟ ଆବଶ୍ୟକ ଏବଂ କାହିଁକି।",
-
-        alertTitle:
-        "ପରିଚୟ ପ୍ରବେଶ ଅନୁରୋଧ",
-
-        alertDescription:
-        "କେହି ଆପଣଙ୍କ ଡିଜିଟାଲ ପରିଚୟକୁ ପ୍ରବେଶ କରିବାକୁ ଅନୁରୋଧ କରୁଛନ୍ତି।",
-
-        requestText:
-        "ଆପଣଙ୍କ ପରିଚୟକୁ ପ୍ରବେଶ କରିବାକୁ ଚାହୁଁଛି",
-
-        requestedInfo:
-        "ଅନୁରୋଧ କରାଯାଇଥିବା ତଥ୍ୟ",
-
-        purpose:
-        "ଉଦ୍ଦେଶ୍ୟ:",
-
-        authorization:
-        "ଅନୁମତି:",
-
-        waiting:
-        "ଆପଣଙ୍କ ନିଷ୍ପତ୍ତି ପାଇଁ ଅପେକ୍ଷା",
-
-        allow:
-        "✓ ପ୍ରବେଶ ଅନୁମତି ଦିଅନ୍ତୁ",
-
-        deny:
-        "✕ ପ୍ରବେଶ ବନ୍ଦ କରନ୍ତୁ",
-
-        welcome:
-        "BHAROSA କୁ ସ୍ୱାଗତ। ଆପଣଙ୍କ ଡିଜିଟାଲ ପରିଚୟ ଆପଣଙ୍କ ନିୟନ୍ତ୍ରଣରେ ଅଛି।"
-
-    }
-
-};
-
-
-let currentLanguage = "en";
+}
 
 
 /* =========================================================
-   LANGUAGE CHANGE
-   ========================================================= */
+   MOBILE SIDEBAR
+========================================================= */
 
-function changeLanguage() {
+function toggleSidebar() {
 
-    currentLanguage =
-        document.getElementById(
-            "language"
-        ).value;
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
 
-
-    const t =
-        translations[
-            currentLanguage
-        ];
+}
 
 
-    document.getElementById(
-        "tagline"
-    ).innerText =
-        t.tagline;
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
 
 
-    document.getElementById(
-        "identityProtectionTitle"
-    ).innerText =
-        t.identityTitle;
+    toast.innerText = message;
+
+    toast.style.display = "block";
 
 
-    document.getElementById(
-        "identityProtectionDescription"
-    ).innerText =
-        t.identityDescription;
+    setTimeout(() => {
+
+        toast.style.display = "none";
+
+    }, 3000);
+
+}
 
 
-    document.getElementById(
-        "alertTitle"
-    ).innerText =
-        t.alertTitle;
+/* =========================================================
+   ACCESS APPROVAL
+========================================================= */
 
+function approveAccess(button) {
 
-    document.getElementById(
-        "alertDescription"
-    ).innerText =
-        t.alertDescription;
-
-
-    document.getElementById(
-        "requestText"
-    ).innerText =
-        t.requestText;
-
-
-    document.getElementById(
-        "requestedInfo"
-    ).innerText =
-        t.requestedInfo;
-
-
-    document.getElementById(
-        "purposeLabel"
-    ).innerText =
-        t.purpose;
-
-
-    document.getElementById(
-        "authorizationLabel"
-    ).innerText =
-        t.authorization;
-
-
-    document.getElementById(
-        "authorizationStatus"
-    ).innerText =
-        t.waiting;
-function changeLanguage() {
-
-    currentLanguage =
-        document.getElementById("language").value;
-
-    const t =
-        translations[currentLanguage];
-
-
-    // =========================
-    // CHANGE BHAROSA LOGO
-    // =========================
-
-    if (currentLanguage === "en") {
-
-        document.getElementById("logo").innerHTML = `
-            <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
+    button.parentElement.parentElement
+        .querySelector("td:nth-child(4)")
+        .innerHTML = `
+            <span class="status-pill status-success">
+                Authorized
+            </span>
         `;
 
-    } else {
 
-        document.getElementById("logo").innerHTML =
-            t.logo;
+    button.parentElement.innerHTML = `
+        <span style="color:#19d7b8;font-size:11px;">
+            ✓ Approved
+        </span>
+    `;
 
-    }
 
+    showToast(
+        "Access authorized and recorded on the audit trail."
+    );
 
-    // =========================
-    // OTHER LANGUAGE CHANGES
-    // =========================
-
-    document.getElementById("tagline").innerText =
-        t.tagline;
-
-    document.getElementById("serviceTitle").innerText =
-        t.serviceTitle;
-
-    document.getElementById("serviceDescription").innerText =
-        t.serviceDescription;
-
-    document.getElementById("serviceId").placeholder =
-        t.servicePlaceholder;
-
-    document.getElementById("checkButton").innerText =
-        t.checkButton;
-
-    document.getElementById("identityTitle").innerText =
-        t.identityTitle;
-
-    document.getElementById("phone").placeholder =
-        t.phonePlaceholder;
-
-    document.getElementById("sendOtpButton").innerText =
-        t.sendOtp;
-
-    document.getElementById("otp").placeholder =
-        t.otpPlaceholder;
-
-    document.getElementById("verifyOtpButton").innerText =
-        t.verifyOtp;
-
-    document.getElementById("voiceTitle").innerText =
-        t.voiceTitle;
-
-    document.getElementById("voiceButton").innerText =
-        t.listen;
-
-}
 }
 
 
 /* =========================================================
-   VOICE ASSISTANCE
-   ========================================================= */
+   VOICE
+========================================================= */
 
 function speak(text) {
 
@@ -1813,595 +2631,252 @@ function speak(text) {
         !("speechSynthesis" in window)
     ) {
 
+        showToast(
+            "Voice assistance is not supported by this browser."
+        );
+
         return;
 
     }
 
 
     const speech =
-        new SpeechSynthesisUtterance(
-            text
-        );
+        new SpeechSynthesisUtterance(text);
 
 
-    const voiceLanguages = {
+    speech.lang = "en-IN";
 
-        en: "en-US",
+    speech.rate = 0.9;
 
-        hi: "hi-IN",
-
-        bn: "bn-IN",
-
-        pa: "pa-IN",
-
-        mr: "mr-IN",
-
-        ta: "ta-IN",
-
-        bho: "hi-IN",
-
-        or: "or-IN"
-
-    };
-
-
-    speech.lang =
-        voiceLanguages[
-            currentLanguage
-        ] ||
-        "en-US";
-
-
-    speech.rate = 1;
-
-
-    window.speechSynthesis.speak(
-        speech
-    );
-
-}
-
-
-function speakWelcome() {
-
-    speak(
-        translations[
-            currentLanguage
-        ].welcome
-    );
+    speechSynthesis.speak(speech);
 
 }
 
 
 /* =========================================================
-   IDENTITY ACCESS - ALLOW
-   ========================================================= */
+   LANGUAGE
+========================================================= */
 
-function allowIdentityAccess() {
+const translations = {
 
-    const alertBox =
+    en: {
+
+        logo: "BHAROSA",
+
+        dashboard: "Dashboard",
+
+        identity: "My Identity",
+
+        access: "Access Control",
+
+        assets: "Digital Assets",
+
+        audit: "Audit Trail",
+
+        alerts: "Security Alerts",
+
+        settings: "Settings"
+
+    },
+
+
+    hi: {
+
+        logo: "भरोसा",
+
+        dashboard: "डैशबोर्ड",
+
+        identity: "मेरी पहचान",
+
+        access: "एक्सेस नियंत्रण",
+
+        assets: "डिजिटल संपत्तियाँ",
+
+        audit: "ऑडिट रिकॉर्ड",
+
+        alerts: "सुरक्षा चेतावनी",
+
+        settings: "सेटिंग्स"
+
+    },
+
+
+    bn: {
+
+        logo: "ভরসা",
+
+        dashboard: "ড্যাশবোর্ড",
+
+        identity: "আমার পরিচয়",
+
+        access: "অ্যাক্সেস নিয়ন্ত্রণ",
+
+        assets: "ডিজিটাল সম্পদ",
+
+        audit: "অডিট ট্রেইল",
+
+        alerts: "নিরাপত্তা সতর্কতা",
+
+        settings: "সেটিংস"
+
+    },
+
+
+    mr: {
+
+        logo: "भरोसा",
+
+        dashboard: "डॅशबोर्ड",
+
+        identity: "माझी ओळख",
+
+        access: "प्रवेश नियंत्रण",
+
+        assets: "डिजिटल मालमत्ता",
+
+        audit: "ऑडिट ट्रेल",
+
+        alerts: "सुरक्षा सूचना",
+
+        settings: "सेटिंग्ज"
+
+    },
+
+
+    ta: {
+
+        logo: "பரோசா",
+
+        dashboard: "டாஷ்போர்டு",
+
+        identity: "எனது அடையாளம்",
+
+        access: "அணுகல் கட்டுப்பாடு",
+
+        assets: "டிஜிட்டல் சொத்துகள்",
+
+        audit: "தணிக்கை பதிவு",
+
+        alerts: "பாதுகாப்பு எச்சரிக்கைகள்",
+
+        settings: "அமைப்புகள்"
+
+    },
+
+
+    or: {
+
+        logo: "ଭରସା",
+
+        dashboard: "ଡ୍ୟାସବୋର୍ଡ",
+
+        identity: "ମୋର ପରିଚୟ",
+
+        access: "ପ୍ରବେଶ ନିୟନ୍ତ୍ରଣ",
+
+        assets: "ଡିଜିଟାଲ ସମ୍ପତ୍ତି",
+
+        audit: "ଅଡିଟ୍ ରେକର୍ଡ",
+
+        alerts: "ସୁରକ୍ଷା ସତର୍କତା",
+
+        settings: "ସେଟିଂସ୍"
+
+    },
+
+
+    bho: {
+
+        logo: "भरोसा",
+
+        dashboard: "डैशबोर्ड",
+
+        identity: "हमार पहचान",
+
+        access: "पहुँच नियंत्रण",
+
+        assets: "डिजिटल संपत्ति",
+
+        audit: "ऑडिट रिकॉर्ड",
+
+        alerts: "सुरक्षा चेतावनी",
+
+        settings: "सेटिंग"
+
+    }
+
+};
+
+
+function changeLanguage() {
+
+    const language =
         document.getElementById(
-            "identityAccessAlert"
+            "languageSelect"
+        ).value;
+
+
+    const t =
+        translations[language];
+
+
+    /*
+       BHAROSA LOGO CHANGES
+       WITH THE SELECTED LANGUAGE
+    */
+
+    document.querySelector(".logo")
+        .innerText = t.logo;
+
+
+    /*
+       Rebuild the tricolour logo
+       when English is selected.
+    */
+
+    if (language === "en") {
+
+        document.querySelector(".logo")
+            .innerHTML = `
+                <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
+            `;
+
+    }
+
+
+    const navButtons =
+        document.querySelectorAll(
+            ".nav button"
         );
 
 
-    alertBox.innerHTML = `
+    navButtons[0].innerHTML =
+        "🏠 " + t.dashboard;
 
-        <div class="alert-header">
+    navButtons[1].innerHTML =
+        "🪪 " + t.identity;
 
-            <div
-                class="alert-icon"
-                style="
-                    background:
-                    rgba(34,197,94,0.12);
-                ">
+    navButtons[2].innerHTML =
+        "🔐 " + t.access;
 
-                🟢
+    navButtons[3].innerHTML =
+        "📜 " + t.assets;
 
-            </div>
+    navButtons[4].innerHTML =
+        "🔎 " + t.audit;
 
+    navButtons[5].innerHTML =
+        "🚨 " + t.alerts;
 
-            <div>
-
-                <h3>
-                    Access Authorized
-                </h3>
-
-                <p>
-                    You authorized this identity access.
-                </p>
-
-            </div>
-
-        </div>
+    navButtons[6].innerHTML =
+        "⚙️ " + t.settings;
 
 
-        <div class="requester">
-
-            <div class="requester-icon">
-                🏦
-            </div>
-
-
-            <div>
-
-                <strong>
-                    ABC Bank
-                </strong>
-
-                <br>
-
-                <span>
-                    identity access approved
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="access-details">
-
-            <p>
-
-                <strong>
-                    Accessed Information
-                </strong>
-
-            </p>
-
-
-            <div class="data-tags">
-
-                <span class="allowed">
-                    ✓ Name
-                </span>
-
-                <span class="allowed">
-                    ✓ Date of Birth
-                </span>
-
-            </div>
-
-
-            <p>
-
-                <strong>
-                    Purpose:
-                </strong>
-
-                KYC Verification
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Authorization:
-                </strong>
-
-                <span class="allowed">
-
-                    ✓ Authorized by you
-
-                </span>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Audit Status:
-                </strong>
-
-                <span class="allowed">
-
-                    ✓ Activity recorded
-
-                </span>
-
-            </p>
-
-        </div>
-
-    `;
-
-
-    speak(
-        "Identity access authorized."
+    showToast(
+        "Language changed successfully."
     );
 
 }
-
-
-/* =========================================================
-   IDENTITY ACCESS - DENY
-   ========================================================= */
-
-function denyIdentityAccess() {
-
-    const alertBox =
-        document.getElementById(
-            "identityAccessAlert"
-        );
-
-
-    alertBox.innerHTML = `
-
-        <div class="alert-header">
-
-            <div
-                class="alert-icon"
-                style="
-                    background:
-                    rgba(239,68,68,0.12);
-                ">
-
-                🛑
-
-            </div>
-
-
-            <div>
-
-                <h3>
-                    Access Blocked
-                </h3>
-
-                <p>
-                    The identity access request was denied.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="requester">
-
-            <div class="requester-icon">
-                🏦
-            </div>
-
-
-            <div>
-
-                <strong>
-                    ABC Bank
-                </strong>
-
-                <br>
-
-                <span>
-                    access request blocked
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="access-details">
-
-            <p>
-
-                <strong>
-                    Security Action
-                </strong>
-
-            </p>
-
-
-            <p>
-                🛑 Identity data was not shared.
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Reason:
-                </strong>
-
-                User denied authorization.
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Audit Status:
-                </strong>
-
-                <span class="allowed">
-
-                    ✓ Activity recorded
-
-                </span>
-
-            </p>
-
-        </div>
-
-    `;
-
-
-    speak(
-        "Identity access has been blocked."
-    );
-
-}
-
-
-/* =========================================================
-   SERVICE VERIFICATION - DEMO
-   ========================================================= */
-
-function checkService() {
-
-    const serviceId =
-        document.getElementById(
-            "serviceId"
-        ).value.trim();
-
-
-    const result =
-        document.getElementById(
-            "serviceResult"
-        );
-
-
-    if (!serviceId) {
-
-        result.innerHTML = `
-
-            <div class="danger">
-
-                <div class="status">
-                    🔴 Service ID Required
-                </div>
-
-                <p>
-                    Please enter a Service ID.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /* DEMO VERIFIED SERVICE */
-
-    if (
-        serviceId.toUpperCase()
-        ===
-        "TF001"
-    ) {
-
-        result.innerHTML = `
-
-            <div class="safe">
-
-                <div class="status">
-
-                    🟢 Service Verified
-
-                </div>
-
-
-                <p>
-
-                    <strong>
-                        Organization:
-                    </strong>
-
-                    Government Service Center
-
-                </p>
-
-
-                <p>
-
-                    <strong>
-                        Service ID:
-                    </strong>
-
-                    TF001
-
-                </p>
-
-
-                <p>
-
-                    <strong>
-                        Risk Level:
-                    </strong>
-
-                    LOW
-
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-    else {
-
-        result.innerHTML = `
-
-            <div class="danger">
-
-                <div class="status">
-
-                    🔴 Warning
-
-                </div>
-
-
-                <p>
-
-                    This service could not
-                    be verified.
-
-                </p>
-
-
-                <p>
-
-                    Do not share your OTP,
-                    password or personal
-                    information.
-
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   OTP - DEMO
-   ========================================================= */
-
-let demoOTP = null;
-
-
-function sendOTP() {
-
-    const phone =
-        document.getElementById(
-            "phone"
-        ).value.trim();
-
-
-    const result =
-        document.getElementById(
-            "otpResult"
-        );
-
-
-    if (
-        phone.length < 10
-    ) {
-
-        result.innerHTML = `
-
-            <div class="danger">
-
-                🔴 Please enter a valid
-                mobile number.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /* Generate demo OTP */
-
-    demoOTP =
-        Math.floor(
-            100000 +
-            Math.random() *
-            900000
-        ).toString();
-
-
-    result.innerHTML = `
-
-        <div class="safe">
-
-            🟢 OTP sent successfully.
-
-            <br><br>
-
-            <strong>
-                Demo OTP:
-                ${demoOTP}
-            </strong>
-
-        </div>
-
-    `;
-
-}
-
-
-function verifyOTP() {
-
-    const otp =
-        document.getElementById(
-            "otp"
-        ).value.trim();
-
-
-    const result =
-        document.getElementById(
-            "otpResult"
-        );
-
-
-    if (
-        otp &&
-        otp === demoOTP
-    ) {
-
-        result.innerHTML = `
-
-            <div class="safe">
-
-                <div class="status">
-
-                    🟢 Identity Verified
-
-                </div>
-
-
-                <p>
-
-                    Your identity has been
-                    successfully verified.
-
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-    else {
-
-        result.innerHTML = `
-
-            <div class="danger">
-
-                🔴 Incorrect OTP.
-
-            </div>
-
-        `;
-
-    }
-
-}
-
 
 </script>
 
