@@ -1,13 +1,19 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
 
 <title>BHAROSA — Digital Identity Protection</title>
+
+<!-- QR GENERATION -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- QR CAMERA SCANNER -->
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
 <style>
 
 /* =========================================================
@@ -30,7 +36,6 @@ body {
         radial-gradient(circle at 80% 10%, rgba(19, 215, 184, 0.08), transparent 30%),
         radial-gradient(circle at 10% 90%, rgba(255, 153, 51, 0.07), transparent 30%),
         #080d14;
-
     color: #ffffff;
     min-height: 100vh;
 }
@@ -41,26 +46,19 @@ body {
 ========================================================= */
 
 :root {
-
     --bg: #080d14;
     --sidebar: #0d141e;
     --card: #111a25;
     --card-hover: #152231;
-
     --border: rgba(255,255,255,0.08);
-
     --text: #ffffff;
     --muted: #8d9aaa;
-
     --green: #19d7b8;
     --green-dark: #0b302b;
-
     --orange: #ff9933;
     --orange-dark: #382313;
-
     --red: #ff5555;
     --red-dark: #351719;
-
     --blue: #38bdf8;
 }
 
@@ -80,28 +78,15 @@ body {
 ========================================================= */
 
 .sidebar {
-
     width: 250px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #0d141e,
-            #091018
-        );
-
+    background: linear-gradient(180deg, #0d141e, #091018);
     border-right: 1px solid var(--border);
-
     padding: 25px 16px;
-
     position: fixed;
-
     left: 0;
     top: 0;
     bottom: 0;
-
     z-index: 100;
-
     display: flex;
     flex-direction: column;
 }
@@ -110,20 +95,11 @@ body {
 /* LOGO */
 
 .logo {
-
     font-size: 28px;
-
     font-weight: 900;
-
-    letter-spacing: 0;
-
     text-align: center;
-
     margin-bottom: 8px;
 }
-
-
-/* BHAROSA TRICOLOUR */
 
 .logo .saffron {
     color: #ff9933;
@@ -137,15 +113,10 @@ body {
     color: #138808;
 }
 
-
 .logo-subtitle {
-
     text-align: center;
-
     color: var(--muted);
-
     font-size: 11px;
-
     margin-bottom: 30px;
 }
 
@@ -153,58 +124,37 @@ body {
 /* NAVIGATION */
 
 .nav {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 7px;
 }
 
-
 .nav button {
-
     width: 100%;
-
     padding: 13px 14px;
-
     background: transparent;
-
     border: none;
-
     border-radius: 10px;
-
     color: var(--muted);
-
     text-align: left;
-
     cursor: pointer;
-
     font-size: 14px;
-
     transition: 0.25s;
 }
 
-
 .nav button:hover {
-
     background: rgba(255,255,255,0.05);
-
     color: white;
 }
 
-
 .nav button.active {
-
     background:
         linear-gradient(
             90deg,
             rgba(25,215,184,0.18),
             rgba(25,215,184,0.04)
         );
-
     color: var(--green);
-
     border-left: 3px solid var(--green);
 }
 
@@ -212,37 +162,23 @@ body {
 /* SIDEBAR BOTTOM */
 
 .sidebar-bottom {
-
     margin-top: auto;
-
     border-top: 1px solid var(--border);
-
     padding-top: 18px;
 }
 
-
 .blockchain-mini {
-
     background: #0d1d20;
-
     border: 1px solid rgba(25,215,184,0.2);
-
     padding: 12px;
-
     border-radius: 10px;
-
     font-size: 12px;
-
     color: var(--muted);
 }
 
-
 .blockchain-mini strong {
-
     display: block;
-
     color: var(--green);
-
     margin-bottom: 5px;
 }
 
@@ -252,11 +188,8 @@ body {
 ========================================================= */
 
 .main {
-
     margin-left: 250px;
-
     width: calc(100% - 250px);
-
     padding: 25px 35px 50px;
 }
 
@@ -266,83 +199,46 @@ body {
 ========================================================= */
 
 .topbar {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 30px;
 }
 
-
 .page-title h1 {
-
     font-size: 28px;
-
     margin-bottom: 5px;
 }
 
-
 .page-title p {
-
     color: var(--muted);
-
     font-size: 13px;
 }
 
-
 .top-actions {
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
 }
 
-
-/* STATUS */
-
 .network-status {
-
     padding: 8px 12px;
-
     border-radius: 20px;
-
     background: #0d302b;
-
     color: var(--green);
-
     font-size: 12px;
-
     border: 1px solid rgba(25,215,184,0.2);
 }
 
-
 .avatar {
-
     width: 38px;
     height: 38px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--orange),
-            var(--green)
-        );
-
+    background: linear-gradient(135deg, var(--orange), var(--green));
     color: #000;
-
     font-weight: bold;
 }
 
@@ -352,37 +248,24 @@ body {
 ========================================================= */
 
 .page {
-
     display: none;
-
     animation: fadeIn 0.3s ease;
 }
 
-
 .page.active {
-
     display: block;
 }
 
-
 @keyframes fadeIn {
-
     from {
-
         opacity: 0;
-
         transform: translateY(8px);
-
     }
 
     to {
-
         opacity: 1;
-
         transform: translateY(0);
-
     }
-
 }
 
 
@@ -391,83 +274,54 @@ body {
 ========================================================= */
 
 .stats-grid {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-
     margin-bottom: 22px;
 }
 
-
 .stat-card {
-
     background: var(--card);
-
     border: 1px solid var(--border);
-
     border-radius: 15px;
-
     padding: 20px;
-
     transition: 0.25s;
 }
 
-
 .stat-card:hover {
-
     transform: translateY(-3px);
-
     background: var(--card-hover);
 }
 
-
 .stat-icon {
-
     font-size: 23px;
-
     margin-bottom: 15px;
 }
 
-
 .stat-label {
-
     color: var(--muted);
-
     font-size: 12px;
-
     margin-bottom: 7px;
 }
 
-
 .stat-value {
-
     font-size: 27px;
-
     font-weight: bold;
 }
 
-
 .stat-green {
-
     color: var(--green);
 }
 
 .stat-red {
-
     color: var(--red);
 }
 
 .stat-orange {
-
     color: var(--orange);
 }
 
 .stat-blue {
-
     color: var(--blue);
 }
 
@@ -477,12 +331,8 @@ body {
 ========================================================= */
 
 .content-grid {
-
     display: grid;
-
-    grid-template-columns:
-        1.5fr 1fr;
-
+    grid-template-columns: 1.5fr 1fr;
     gap: 20px;
 }
 
@@ -492,41 +342,26 @@ body {
 ========================================================= */
 
 .card {
-
     background: var(--card);
-
     border: 1px solid var(--border);
-
     border-radius: 15px;
-
     padding: 22px;
-
     margin-bottom: 20px;
 }
-
 
 .card-header {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 20px;
 }
 
-
 .card-header h2 {
-
     font-size: 17px;
 }
 
-
 .card-header span {
-
     color: var(--muted);
-
     font-size: 12px;
 }
 
@@ -536,52 +371,32 @@ body {
 ========================================================= */
 
 .identity-card {
-
-    background:
-        linear-gradient(
-            135deg,
-            #121d29,
-            #0d171f
-        );
-
+    background: linear-gradient(135deg, #121d29, #0d171f);
     border: 1px solid rgba(25,215,184,0.18);
 }
 
-
 .did {
-
     color: var(--green);
-
     font-family: monospace;
-
     font-size: 13px;
-
     word-break: break-all;
-
     margin: 12px 0;
 }
 
-
 .verified {
-
     display: inline-flex;
-
     align-items: center;
-
     gap: 6px;
-
     padding: 6px 10px;
-
     background: #0d302b;
-
     border-radius: 20px;
-
     color: var(--green);
-
     font-size: 11px;
 }
+
+
 /* =====================================================
-   BHAROSA 2.0 — IDENTITY PROTECTION
+   IDENTITY PROTECTION
 ===================================================== */
 
 .identity-protection {
@@ -638,7 +453,7 @@ body {
 }
 
 
-/* STATS */
+/* SECURITY STATS */
 
 .security-stats {
     display: grid;
@@ -657,7 +472,7 @@ body {
     gap: 15px;
 }
 
-.stat-icon {
+.security-stat-card .stat-icon {
     width: 45px;
     height: 45px;
     border-radius: 12px;
@@ -666,6 +481,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 21px;
+    margin: 0;
 }
 
 .security-stat-card span {
@@ -680,7 +496,7 @@ body {
 }
 
 
-/* CARDS */
+/* IDENTITY GRID */
 
 .identity-grid {
     display: grid;
@@ -689,7 +505,7 @@ body {
     margin-bottom: 25px;
 }
 
-.identity-card,
+.identity-grid .identity-card,
 .protection-card,
 .access-monitor,
 .alerts-card,
@@ -756,7 +572,6 @@ body {
     font-size: 16px;
 }
 
-
 .identity-details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -809,6 +624,15 @@ body {
     color: #dce4e8;
 }
 
+.primary-btn:hover {
+    opacity: 0.88;
+}
+
+.secondary-btn:hover,
+.refresh-btn:hover {
+    border-color: #19d7b8;
+}
+
 
 /* PROTECTION SCORE */
 
@@ -828,6 +652,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .score-circle strong {
@@ -864,7 +689,112 @@ body {
 }
 
 
-/* ACCESS MONITOR */
+/* =====================================================
+   QR IDENTITY VERIFICATION
+===================================================== */
+
+.qr-card {
+    background: #10171d;
+    border: 1px solid #1d2a32;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+}
+
+.qr-card input {
+    max-width: 600px;
+    margin: 15px auto 0;
+}
+
+.qr-card h3 {
+    font-size: 16px;
+}
+
+#identityQR {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px auto;
+    padding: 15px;
+    width: fit-content;
+    background: white;
+    border-radius: 12px;
+}
+
+#identityQR img {
+    display: block;
+}
+
+#qrIdentityText {
+    color: #9fb0c0;
+    word-break: break-all;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+
+/* QR SCANNER */
+
+#qr-reader {
+    background: #080f17;
+    border: 1px solid #26343d;
+    border-radius: 14px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#qr-reader video {
+    border-radius: 10px;
+}
+
+#qr-reader__dashboard {
+    color: #9fb0c0 !important;
+    font-size: 12px;
+}
+
+#qr-reader__dashboard button {
+    background: #19d7b8 !important;
+    color: #06100e !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    cursor: pointer;
+}
+
+#qr-reader__dashboard select {
+    background: #080f17 !important;
+    color: white !important;
+    border: 1px solid #33444e !important;
+    border-radius: 7px !important;
+}
+
+.qr-success {
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid #19d7b8;
+    background: #0c302b;
+    color: #19d7b8;
+    text-align: left;
+}
+
+.qr-danger {
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid #ff5555;
+    background: #321719;
+    color: #ff7777;
+    text-align: left;
+}
+
+.qr-success p,
+.qr-danger p {
+    margin-top: 6px;
+}
+
+
+/* =====================================================
+   ACCESS MONITOR
+===================================================== */
 
 .access-monitor {
     margin-bottom: 25px;
@@ -939,7 +869,9 @@ body {
 }
 
 
-/* ALERTS + RBAC */
+/* =====================================================
+   ALERTS + RBAC
+===================================================== */
 
 .protection-bottom-grid {
     display: grid;
@@ -1104,14 +1036,320 @@ body {
 }
 
 
-/* RESPONSIVE */
+/* =========================================================
+   ACTIVITY TABLE
+========================================================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    text-align: left;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: normal;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.status-pill {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+.status-success {
+    background: #0d302b;
+    color: var(--green);
+}
+
+.status-danger {
+    background: var(--red-dark);
+    color: var(--red);
+}
+
+.status-warning {
+    background: var(--orange-dark);
+    color: var(--orange);
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert {
+    display: flex;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: var(--red-dark);
+    border: 1px solid rgba(255,85,85,0.2);
+}
+
+.alert-icon {
+    font-size: 20px;
+}
+
+.alert h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.alert p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ASSETS
+========================================================= */
+
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.asset {
+    background: #0d151f;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 17px;
+    transition: 0.25s;
+}
+
+.asset:hover {
+    border-color: rgba(25,215,184,0.3);
+    transform: translateY(-3px);
+}
+
+.asset-icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.asset h3 {
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.asset p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.nft-id {
+    color: var(--green);
+    font-family: monospace;
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   ROLE CARDS
+========================================================= */
+
+.roles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.role {
+    padding: 20px;
+    background: #0d151f;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.role-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.role h3 {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.role p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   AUDIT TIMELINE
+========================================================= */
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    bottom: 5px;
+    width: 1px;
+    background: #293746;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -27px;
+    top: 2px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 3px solid #10201f;
+}
+
+.timeline-item.warning .timeline-dot {
+    background: var(--red);
+}
+
+.timeline-item h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.timeline-item p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.hash {
+    margin-top: 7px;
+    color: var(--green);
+    font-family: monospace;
+    font-size: 9px;
+    word-break: break-all;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background: var(--green);
+    color: #041018;
+}
+
+.btn-primary:hover {
+    opacity: 0.85;
+}
+
+.btn-danger {
+    background: var(--red-dark);
+    color: var(--red);
+    border: 1px solid rgba(255,85,85,0.2);
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+input,
+select {
+    width: 100%;
+    padding: 11px 13px;
+    background: #080f17;
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 8px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--green);
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: #152231;
+    border: 1px solid rgba(25,215,184,0.3);
+    padding: 15px 18px;
+    border-radius: 10px;
+    display: none;
+    z-index: 999;
+    font-size: 13px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media (max-width: 1000px) {
 
+    .stats-grid,
     .security-stats {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .content-grid,
     .identity-grid,
     .protection-bottom-grid {
         grid-template-columns: 1fr;
@@ -1120,10 +1358,55 @@ body {
     .blockchain-audit {
         grid-template-columns: 1fr;
     }
+
+    .assets-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .roles {
+        grid-template-columns: repeat(2,1fr);
+    }
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+        transition: 0.3s;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+    .network-status {
+        display: none;
+    }
+
+    .stats-grid,
+    .security-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .assets-grid,
+    .roles {
+        grid-template-columns: 1fr;
+    }
 
     .identity-protection {
         padding: 20px;
@@ -1132,10 +1415,6 @@ body {
     .section-header {
         flex-direction: column;
         gap: 15px;
-    }
-
-    .security-stats {
-        grid-template-columns: 1fr;
     }
 
     .identity-details {
@@ -1149,626 +1428,17 @@ body {
     .access-table {
         min-width: 800px;
     }
-}
 
-/* =========================================================
-   ACTIVITY TABLE
-========================================================= */
-
-.table-wrapper {
-
-    overflow-x: auto;
-}
-
-
-table {
-
-    width: 100%;
-
-    border-collapse: collapse;
-
-    font-size: 13px;
-}
-
-
-th {
-
-    text-align: left;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    font-weight: normal;
-
-    padding: 12px 10px;
-
-    border-bottom: 1px solid var(--border);
-}
-
-
-td {
-
-    padding: 14px 10px;
-
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-
-.status-pill {
-
-    padding: 5px 9px;
-
-    border-radius: 20px;
-
-    font-size: 10px;
-}
-
-
-.status-success {
-
-    background: #0d302b;
-
-    color: var(--green);
-}
-
-
-.status-danger {
-
-    background: var(--red-dark);
-
-    color: var(--red);
-}
-
-
-.status-warning {
-
-    background: var(--orange-dark);
-
-    color: var(--orange);
-}
-
-
-/* =========================================================
-   ALERT
-========================================================= */
-
-.alert {
-
-    display: flex;
-
-    gap: 12px;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    margin-bottom: 10px;
-
-    background: var(--red-dark);
-
-    border: 1px solid rgba(255,85,85,0.2);
-}
-
-
-.alert-icon {
-
-    font-size: 20px;
-}
-
-
-.alert h4 {
-
-    font-size: 13px;
-
-    margin-bottom: 5px;
-}
-
-
-.alert p {
-
-    color: var(--muted);
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   ASSETS
-========================================================= */
-
-.assets-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 15px;
-}
-
-
-.asset {
-
-    background: #0d151f;
-
-    border: 1px solid var(--border);
-
-    border-radius: 13px;
-
-    padding: 17px;
-
-    transition: 0.25s;
-}
-
-
-.asset:hover {
-
-    border-color: rgba(25,215,184,0.3);
-
-    transform: translateY(-3px);
-}
-
-
-.asset-icon {
-
-    font-size: 30px;
-
-    margin-bottom: 15px;
-}
-
-
-.asset h3 {
-
-    font-size: 14px;
-
-    margin-bottom: 7px;
-}
-
-
-.asset p {
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    line-height: 1.6;
-}
-
-
-.nft-id {
-
-    color: var(--green);
-
-    font-family: monospace;
-
-    font-size: 10px;
-
-    margin-top: 10px;
-}
-
-
-/* =========================================================
-   ROLE CARDS
-========================================================= */
-
-.roles {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 15px;
-}
-
-
-.role {
-
-    padding: 20px;
-
-    background: #0d151f;
-
-    border-radius: 12px;
-
-    border: 1px solid var(--border);
-
-    text-align: center;
-}
-
-
-.role-icon {
-
-    font-size: 28px;
-
-    margin-bottom: 10px;
-}
-
-
-.role h3 {
-
-    font-size: 14px;
-
-    margin-bottom: 6px;
-}
-
-
-.role p {
-
-    color: var(--muted);
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   AUDIT TIMELINE
-========================================================= */
-
-.timeline {
-
-    position: relative;
-
-    padding-left: 30px;
-}
-
-
-.timeline::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 8px;
-
-    top: 5px;
-
-    bottom: 5px;
-
-    width: 1px;
-
-    background: #293746;
-}
-
-
-.timeline-item {
-
-    position: relative;
-
-    margin-bottom: 25px;
-}
-
-
-.timeline-dot {
-
-    position: absolute;
-
-    left: -27px;
-
-    top: 2px;
-
-    width: 15px;
-
-    height: 15px;
-
-    border-radius: 50%;
-
-    background: var(--green);
-
-    border: 3px solid #10201f;
-}
-
-
-.timeline-item.warning .timeline-dot {
-
-    background: var(--red);
-}
-
-
-.timeline-item h4 {
-
-    font-size: 13px;
-
-    margin-bottom: 5px;
-}
-
-
-.timeline-item p {
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    line-height: 1.6;
-}
-
-
-.hash {
-
-    margin-top: 7px;
-
-    color: var(--green);
-
-    font-family: monospace;
-
-    font-size: 9px;
-
-    word-break: break-all;
-}
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
-
-.btn {
-
-    border: none;
-
-    border-radius: 8px;
-
-    padding: 10px 15px;
-
-    cursor: pointer;
-
-    font-weight: bold;
-
-    font-size: 12px;
-
-    transition: 0.2s;
-}
-
-
-.btn-primary {
-
-    background: var(--green);
-
-    color: #041018;
-}
-
-
-.btn-primary:hover {
-
-    opacity: 0.85;
-}
-
-
-.btn-danger {
-
-    background: var(--red-dark);
-
-    color: var(--red);
-
-    border: 1px solid rgba(255,85,85,0.2);
-}
-
-
-/* =========================================================
-   SECURITY CHECK
-========================================================= */
-
-.security-check {
-
-    display: grid;
-
-    grid-template-columns: 1fr auto;
-
-    gap: 10px;
-
-    margin-top: 15px;
-}
-
-
-input,
-select {
-
-    width: 100%;
-
-    padding: 11px 13px;
-
-    background: #080f17;
-
-    border: 1px solid var(--border);
-
-    color: white;
-
-    border-radius: 8px;
-
-    outline: none;
-}
-
-
-input:focus {
-
-    border-color: var(--green);
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast {
-
-    position: fixed;
-
-    right: 25px;
-
-    bottom: 25px;
-
-    background: #152231;
-
-    border: 1px solid rgba(25,215,184,0.3);
-
-    padding: 15px 18px;
-
-    border-radius: 10px;
-
-    display: none;
-
-    z-index: 999;
-
-    font-size: 13px;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-.mobile-menu {
-
-    display: none;
-
-    background: none;
-
-    border: none;
-
-    color: white;
-
-    font-size: 25px;
-
-    cursor: pointer;
-}
-
-
-@media(max-width:1000px) {
-
-    .stats-grid {
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .content-grid {
-
-        grid-template-columns: 1fr;
-    }
-
-    .assets-grid {
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .roles {
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-}
-
-
-@media(max-width:700px) {
-
-    .sidebar {
-
-        transform: translateX(-100%);
-
-        transition: 0.3s;
-    }
-
-    .sidebar.open {
-
-        transform: translateX(0);
-    }
-
-    .main {
-
-        margin-left: 0;
-
-        width: 100%;
-
-        padding: 20px;
-    }
-
-    .mobile-menu {
-
-        display: block;
-    }
-
-    .topbar {
-
-        align-items: flex-start;
-    }
-
-    .network-status {
-
-        display: none;
-    }
-
-    .stats-grid {
-
-        grid-template-columns: 1fr;
-    }
-
-    .assets-grid {
-
-        grid-template-columns: 1fr;
-    }
-
-    .roles {
-
+    .blockchain-audit {
         grid-template-columns: 1fr;
     }
 }
-   /* =========================
-   QR IDENTITY VERIFICATION
-========================= */
 
-.qr-card {
-    text-align: center;
-}
-
-#identityQR {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 25px auto;
-    padding: 15px;
-    width: fit-content;
-    background: white;
-    border-radius: 12px;
-}
-
-#identityQR img {
-    display: block;
-}
-
-#qrIdentityText {
-    color: #9fb0c0;
-    word-break: break-all;
-}
-
-#qrVerificationResult {
-    margin-top: 20px;
-}
-
-.qr-success {
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #19d7b8;
-    background: #0c302b;
-    color: #19d7b8;
-}
-
-.qr-danger {
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #ff5555;
-    background: #321719;
-    color: #ff7777;
-}
-   
 </style>
-
 </head>
 
 
 <body>
-
 
 <div class="app">
 
@@ -1792,60 +1462,33 @@ input:focus {
 
     <nav class="nav">
 
-        <button
-            class="active"
-            onclick="showPage('dashboard', this)">
-
+        <button class="active"
+                onclick="showPage('dashboard', this)">
             🏠 Dashboard
-
         </button>
 
-
-        <button
-            onclick="showPage('identity', this)">
-
+        <button onclick="showPage('identity', this)">
             🪪 My Identity
-
         </button>
 
-
-        <button
-            onclick="showPage('access', this)">
-
+        <button onclick="showPage('access', this)">
             🔐 Access Control
-
         </button>
 
-
-        <button
-            onclick="showPage('assets', this)">
-
+        <button onclick="showPage('assets', this)">
             📜 Digital Assets
-
         </button>
 
-
-        <button
-            onclick="showPage('audit', this)">
-
+        <button onclick="showPage('audit', this)">
             🔎 Audit Trail
-
         </button>
 
-
-        <button
-            onclick="showPage('alerts', this)">
-
+        <button onclick="showPage('alerts', this)">
             🚨 Security Alerts
-
         </button>
 
-
-        <button
-            onclick="showPage('settings', this)">
-
+        <button onclick="showPage('settings', this)">
             ⚙️ Settings
-
         </button>
 
     </nav>
@@ -1879,12 +1522,9 @@ input:focus {
 
 <header class="topbar">
 
-    <button
-        class="mobile-menu"
-        onclick="toggleSidebar()">
-
+    <button class="mobile-menu"
+            onclick="toggleSidebar()">
         ☰
-
     </button>
 
 
@@ -1904,15 +1544,11 @@ input:focus {
     <div class="top-actions">
 
         <div class="network-status">
-
             ● Blockchain Connected
-
         </div>
 
         <div class="avatar">
-
             U
-
         </div>
 
     </div>
@@ -1924,9 +1560,7 @@ input:focus {
      DASHBOARD
 ===================================================== -->
 
-<section
-    id="dashboard"
-    class="page active">
+<section id="dashboard" class="page active">
 
 
 <div class="stats-grid">
@@ -1934,9 +1568,7 @@ input:focus {
 
     <div class="stat-card">
 
-        <div class="stat-icon">
-            🪪
-        </div>
+        <div class="stat-icon">🪪</div>
 
         <div class="stat-label">
             Identity Status
@@ -1951,9 +1583,7 @@ input:focus {
 
     <div class="stat-card">
 
-        <div class="stat-icon">
-            🔐
-        </div>
+        <div class="stat-icon">🔐</div>
 
         <div class="stat-label">
             Access Events
@@ -1968,9 +1598,7 @@ input:focus {
 
     <div class="stat-card">
 
-        <div class="stat-icon">
-            📜
-        </div>
+        <div class="stat-icon">📜</div>
 
         <div class="stat-label">
             Digital Assets
@@ -1985,9 +1613,7 @@ input:focus {
 
     <div class="stat-card">
 
-        <div class="stat-icon">
-            🚨
-        </div>
+        <div class="stat-icon">🚨</div>
 
         <div class="stat-label">
             Security Alerts
@@ -2005,12 +1631,8 @@ input:focus {
 <div class="content-grid">
 
 
-<!-- LEFT -->
-
 <div>
 
-
-    <!-- IDENTITY -->
 
     <div class="card identity-card">
 
@@ -2033,15 +1655,12 @@ input:focus {
 
 
         <div class="did">
-
             did:bh:7f82c9a1b4e6d02a91...
-
         </div>
 
 
-        <button
-            class="btn btn-primary"
-            onclick="showToast('Identity proof verified successfully.')">
+        <button class="btn btn-primary"
+                onclick="showToast('Identity proof verified successfully.')">
 
             Verify Identity
 
@@ -2049,8 +1668,6 @@ input:focus {
 
     </div>
 
-
-    <!-- RECENT ACCESS -->
 
     <div class="card">
 
@@ -2074,13 +1691,11 @@ input:focus {
             <thead>
 
                 <tr>
-
                     <th>WHO</th>
                     <th>WHAT</th>
                     <th>WHY</th>
                     <th>WHEN</th>
                     <th>STATUS</th>
-
                 </tr>
 
             </thead>
@@ -2091,11 +1706,8 @@ input:focus {
                 <tr>
 
                     <td>ABC Bank</td>
-
                     <td>PAN</td>
-
                     <td>Loan KYC</td>
-
                     <td>10:42 AM</td>
 
                     <td>
@@ -2110,11 +1722,8 @@ input:focus {
                 <tr>
 
                     <td>Gov Service</td>
-
                     <td>Address</td>
-
                     <td>Verification</td>
-
                     <td>09:18 AM</td>
 
                     <td>
@@ -2129,11 +1738,8 @@ input:focus {
                 <tr>
 
                     <td>Unknown</td>
-
                     <td>Identity</td>
-
                     <td>Unknown</td>
-
                     <td>08:31 AM</td>
 
                     <td>
@@ -2156,12 +1762,8 @@ input:focus {
 </div>
 
 
-<!-- RIGHT -->
-
 <div>
 
-
-    <!-- SECURITY -->
 
     <div class="card">
 
@@ -2187,7 +1789,8 @@ input:focus {
                 </h4>
 
                 <p>
-                    An unknown service attempted to access your identity at 08:31 AM.
+                    An unknown service attempted to access
+                    your identity at 08:31 AM.
                 </p>
 
             </div>
@@ -2195,9 +1798,8 @@ input:focus {
         </div>
 
 
-        <button
-            class="btn btn-danger"
-            onclick="showToast('Security incident marked for investigation.')">
+        <button class="btn btn-danger"
+                onclick="showToast('Security incident marked for investigation.')">
 
             Investigate
 
@@ -2205,8 +1807,6 @@ input:focus {
 
     </div>
 
-
-    <!-- BLOCKCHAIN -->
 
     <div class="card">
 
@@ -2251,7 +1851,6 @@ input:focus {
 
 </div>
 
-
 </section>
 
 
@@ -2259,9 +1858,7 @@ input:focus {
      IDENTITY PAGE
 ===================================================== -->
 
-<section
-    id="identity"
-    class="page">
+<section id="identity" class="page">
 
 
 <div class="card identity-card">
@@ -2285,9 +1882,7 @@ input:focus {
 
 
     <div class="did">
-
         did:bh:7f82c9a1b4e6d02a91f0d8a...
-
     </div>
 
 
@@ -2369,9 +1964,8 @@ input:focus {
 
     <br>
 
-    <button
-        class="btn btn-primary"
-        onclick="showToast('Cryptographic identity proof generated.')">
+    <button class="btn btn-primary"
+            onclick="verifyIdentity()">
 
         Generate Identity Proof
 
@@ -2381,135 +1975,254 @@ input:focus {
 
 
 </section>
-   <!-- =====================================================
+
+
+<!-- =====================================================
      BHAROSA 2.0 — IDENTITY PROTECTION
 ===================================================== -->
 
-<section id="identity-protection" class="identity-protection">
+<section id="identity-protection"
+         class="identity-protection page">
 
-    <!-- Header -->
+
+    <!-- HEADER -->
+
     <div class="section-header">
+
         <div>
-            <span class="section-tag">BHAROSA 2.0 SECURITY</span>
-            <h1>🔐 Identity Protection</h1>
+
+            <span class="section-tag">
+                BHAROSA 2.0 SECURITY
+            </span>
+
+            <h1>
+                🔐 Identity Protection
+            </h1>
+
             <p>
                 Monitor, control and protect how your digital identity
                 is accessed across trusted services.
             </p>
+
         </div>
+
 
         <div class="identity-status">
+
             <span class="status-dot"></span>
+
             Identity Protected
+
         </div>
+
     </div>
 
 
-    <!-- Security Overview -->
+    <!-- SECURITY OVERVIEW -->
+
     <div class="security-stats">
 
+
         <div class="security-stat-card">
-            <div class="stat-icon">🆔</div>
+
+            <div class="stat-icon">
+                🆔
+            </div>
+
             <div>
+
                 <span>DID Status</span>
-                <strong>Verified</strong>
+
+                <strong>
+                    Verified
+                </strong>
+
             </div>
+
         </div>
 
+
         <div class="security-stat-card">
-            <div class="stat-icon">👁️</div>
+
+            <div class="stat-icon">
+                👁️
+            </div>
+
             <div>
+
                 <span>Access Events</span>
-                <strong id="accessCount">24</strong>
+
+                <strong id="accessCount">
+                    24
+                </strong>
+
             </div>
+
         </div>
 
+
         <div class="security-stat-card">
-            <div class="stat-icon">🚨</div>
+
+            <div class="stat-icon">
+                🚨
+            </div>
+
             <div>
+
                 <span>Threats Blocked</span>
-                <strong id="blockedCount">3</strong>
+
+                <strong id="blockedCount">
+                    3
+                </strong>
+
             </div>
+
         </div>
 
+
         <div class="security-stat-card">
-            <div class="stat-icon">⛓️</div>
-            <div>
-                <span>Blockchain</span>
-                <strong>Synced</strong>
+
+            <div class="stat-icon">
+                ⛓️
             </div>
+
+            <div>
+
+                <span>Blockchain</span>
+
+                <strong>
+                    Synced
+                </strong>
+
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- Digital Identity Card -->
+    <!-- IDENTITY -->
+
     <div class="identity-grid">
+
 
         <div class="identity-card">
 
             <div class="card-title-row">
+
                 <div>
-                    <span class="small-label">DECENTRALIZED IDENTITY</span>
-                    <h2>My Digital Identity</h2>
+
+                    <span class="small-label">
+                        DECENTRALIZED IDENTITY
+                    </span>
+
+                    <h2>
+                        My Digital Identity
+                    </h2>
+
                 </div>
+
 
                 <span class="verified-badge">
                     ✓ Verified
                 </span>
+
             </div>
+
 
             <div class="did-box">
 
-                <span class="did-label">DID</span>
+                <span class="did-label">
+                    DID
+                </span>
+
 
                 <div class="did-value">
-                    did:bharosa:7f82a91c4e5d
-                    <button onclick="copyDID()">📋</button>
+
+                    <span id="mainDID">
+                        did:bharosa:7f82a91c4e5d
+                    </span>
+
+                    <button onclick="copyDID()">
+                        📋
+                    </button>
+
                 </div>
 
             </div>
+
 
             <div class="identity-details">
 
                 <div>
-                    <span>Identity Hash</span>
+
+                    <span>
+                        Identity Hash
+                    </span>
+
                     <strong>
                         8a7f...91c2
                     </strong>
+
                 </div>
 
+
                 <div>
-                    <span>Created</span>
+
+                    <span>
+                        Created
+                    </span>
+
                     <strong>
                         28 Aug 2026
                     </strong>
+
                 </div>
 
+
                 <div>
-                    <span>Last Verified</span>
+
+                    <span>
+                        Last Verified
+                    </span>
+
                     <strong>
                         02 Sep 2026
                     </strong>
+
                 </div>
 
+
                 <div>
-                    <span>Security Level</span>
+
+                    <span>
+                        Security Level
+                    </span>
+
                     <strong class="secure-text">
                         HIGH
                     </strong>
+
                 </div>
 
             </div>
+
 
             <div class="identity-actions">
 
-                <button class="primary-btn" onclick="verifyIdentity()">
+                <button class="primary-btn"
+                        onclick="verifyIdentity()">
+
                     ✓ Verify Identity
+
                 </button>
 
-                <button class="secondary-btn" onclick="viewIdentityHash()">
+
+                <button class="secondary-btn"
+                        onclick="viewIdentityHash()">
+
                     View Hash
+
                 </button>
 
             </div>
@@ -2517,48 +2230,102 @@ input:focus {
         </div>
 
 
-        <!-- Protection Status -->
+        <!-- PROTECTION -->
+
         <div class="protection-card">
 
             <div class="card-title-row">
+
                 <div>
-                    <span class="small-label">SECURITY STATUS</span>
-                    <h2>Protection Overview</h2>
+
+                    <span class="small-label">
+                        SECURITY STATUS
+                    </span>
+
+                    <h2>
+                        Protection Overview
+                    </h2>
+
                 </div>
+
             </div>
+
 
             <div class="protection-score">
 
+
                 <div class="score-circle">
-                    <strong>94%</strong>
-                    <span>Protected</span>
+
+                    <strong>
+                        94%
+                    </strong>
+
+                    <span>
+                        Protected
+                    </span>
+
                 </div>
+
 
                 <div class="score-info">
 
-                    <div class="security-check">
-                        <span>✓</span>
-                        <div>
-                            <strong>Identity Verified</strong>
-                            <small>DID successfully verified</small>
-                        </div>
-                    </div>
 
                     <div class="security-check">
+
                         <span>✓</span>
+
                         <div>
-                            <strong>Access Control Active</strong>
-                            <small>RBAC permissions enabled</small>
+
+                            <strong>
+                                Identity Verified
+                            </strong>
+
+                            <small>
+                                DID successfully verified
+                            </small>
+
                         </div>
+
                     </div>
 
+
                     <div class="security-check">
+
                         <span>✓</span>
+
                         <div>
-                            <strong>Blockchain Audit Active</strong>
-                            <small>Records are being tracked</small>
+
+                            <strong>
+                                Access Control Active
+                            </strong>
+
+                            <small>
+                                RBAC permissions enabled
+                            </small>
+
                         </div>
+
                     </div>
+
+
+                    <div class="security-check">
+
+                        <span>✓</span>
+
+                        <div>
+
+                            <strong>
+                                Blockchain Audit Active
+                            </strong>
+
+                            <small>
+                                Records are being tracked
+                            </small>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
@@ -2567,66 +2334,206 @@ input:focus {
         </div>
 
     </div>
-   <!-- =========================
-     QR IDENTITY VERIFICATION
-========================= -->
-
-<div class="card qr-card">
-
-    <h2>📱 QR Identity Verification</h2>
-
-    <p>
-        Generate a secure QR code linked to your BHAROSA digital identity.
-    </p>
-
-    <input
-        type="text"
-        id="didInput"
-        placeholder="Enter your Identity ID / DID"
-    >
-
-    <button onclick="generateIdentityQR()">
-        🔐 Generate Identity QR
-    </button>
-
-    <div id="qrResult" style="display:none;">
-
-        <h3>Identity QR</h3>
-
-        <div id="identityQR"></div>
-
-        <p id="qrIdentityText"></p>
-
-        <button onclick="verifyIdentityQR()">
-            🔎 Verify Identity
-        </button>
-
-        <div id="qrVerificationResult"></div>
-
-    </div>
-
-</div>
 
 
     <!-- =================================================
-         IDENTITY ACCESS MONITOR
-    ================================================== -->
+         QR VERIFICATION
+    ================================================= -->
+
+    <div class="qr-card">
+
+
+        <div class="card-header">
+
+            <h2>
+                📱 QR Identity Verification
+            </h2>
+
+            <span class="verified">
+                🔐 Secure Verification
+            </span>
+
+        </div>
+
+
+        <p>
+            Generate a QR code for your BHAROSA decentralized identity
+            or scan an existing BHAROSA identity QR to verify it.
+        </p>
+
+
+        <!-- GENERATE -->
+
+        <div style="margin-top:25px;">
+
+            <h3>
+                Generate Identity QR
+            </h3>
+
+
+            <input
+                type="text"
+                id="didInput"
+                placeholder="Enter your Identity ID / DID"
+                value="did:bharosa:7f82a91c4e5d"
+            >
+
+
+            <button
+                class="primary-btn"
+                style="margin-top:12px;"
+                onclick="generateIdentityQR()">
+
+                🔐 Generate Identity QR
+
+            </button>
+
+        </div>
+
+
+        <!-- QR -->
+
+        <div
+            id="qrResult"
+            style="display:none;margin-top:25px;">
+
+            <h3>
+                Your BHAROSA Identity QR
+            </h3>
+
+            <p style="color:var(--muted);font-size:12px;margin-top:6px;">
+                Scan this QR to verify the identity.
+            </p>
+
+
+            <div id="identityQR"></div>
+
+
+            <p id="qrIdentityText"></p>
+
+        </div>
+
+
+        <!-- DIVIDER -->
+
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:15px;
+            margin:30px 0;
+            color:#667681;
+            font-size:12px;
+        ">
+
+            <div style="
+                flex:1;
+                height:1px;
+                background:#26343d;
+            "></div>
+
+            OR
+
+            <div style="
+                flex:1;
+                height:1px;
+                background:#26343d;
+            "></div>
+
+        </div>
+
+
+        <!-- SCANNER -->
+
+        <div>
+
+            <h3>
+                🔎 Scan Identity QR
+            </h3>
+
+
+            <p style="
+                color:var(--muted);
+                font-size:12px;
+                margin:8px 0 15px;
+            ">
+
+                Scan a BHAROSA identity QR using your camera.
+
+            </p>
+
+
+            <button
+                class="primary-btn"
+                onclick="startQRScanner()">
+
+                📷 Start QR Scanner
+
+            </button>
+
+
+            <button
+                class="secondary-btn"
+                onclick="stopQRScanner()"
+                style="margin-left:8px;">
+
+                ⏹ Stop Scanner
+
+            </button>
+
+
+            <div
+                id="qr-reader"
+                style="
+                    width:100%;
+                    max-width:500px;
+                    margin:25px auto 0;
+                    display:none;
+                ">
+            </div>
+
+
+            <div
+                id="qrVerificationResult"
+                style="margin-top:20px;">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ACCESS MONITOR
+    ================================================= -->
 
     <div class="access-monitor">
+
 
         <div class="section-title-row">
 
             <div>
-                <span class="small-label">REAL-TIME MONITORING</span>
-                <h2>👁️ Identity Access Monitor</h2>
-                <p>
+
+                <span class="small-label">
+                    REAL-TIME MONITORING
+                </span>
+
+                <h2>
+                    👁️ Identity Access Monitor
+                </h2>
+
+                <p style="color:#7d8c96;font-size:13px;">
                     See who accessed your identity, what they accessed,
                     why they accessed it and whether the request was authorized.
                 </p>
+
             </div>
 
-            <button class="refresh-btn" onclick="refreshAccessLog()">
+
+            <button class="refresh-btn"
+                    onclick="refreshAccessLog()">
+
                 ↻ Refresh
+
             </button>
 
         </div>
@@ -2637,95 +2544,184 @@ input:focus {
             <table class="access-table">
 
                 <thead>
+
                     <tr>
+
                         <th>Requester</th>
                         <th>Accessed Data</th>
                         <th>Purpose</th>
                         <th>Date & Time</th>
                         <th>Authorization</th>
+
                     </tr>
+
                 </thead>
+
 
                 <tbody id="accessLog">
 
+
                     <tr>
+
                         <td>
+
                             <div class="requester">
-                                <span class="requester-icon">🏛️</span>
+
+                                <span class="requester-icon">
+                                    🏛️
+                                </span>
+
                                 <div>
-                                    <strong>Government Service Portal</strong>
-                                    <small>TF001</small>
+
+                                    <strong>
+                                        Government Service Portal
+                                    </strong>
+
+                                    <small>
+                                        TF001
+                                    </small>
+
                                 </div>
+
                             </div>
+
                         </td>
 
-                        <td>Basic Identity</td>
-
-                        <td>Service Verification</td>
-
-                        <td>02 Sep 2026<br>10:42 AM</td>
 
                         <td>
+                            Basic Identity
+                        </td>
+
+
+                        <td>
+                            Service Verification
+                        </td>
+
+
+                        <td>
+                            02 Sep 2026<br>
+                            10:42 AM
+                        </td>
+
+
+                        <td>
+
                             <span class="access-approved">
                                 ✓ Authorized
                             </span>
+
                         </td>
+
                     </tr>
 
 
                     <tr>
+
                         <td>
+
                             <div class="requester">
-                                <span class="requester-icon">🏢</span>
+
+                                <span class="requester-icon">
+                                    🏢
+                                </span>
+
                                 <div>
-                                    <strong>Digital Service Center</strong>
-                                    <small>TF002</small>
+
+                                    <strong>
+                                        Digital Service Center
+                                    </strong>
+
+                                    <small>
+                                        TF002
+                                    </small>
+
                                 </div>
+
                             </div>
+
                         </td>
 
-                        <td>Identity Proof</td>
-
-                        <td>Document Verification</td>
-
-                        <td>02 Sep 2026<br>09:18 AM</td>
 
                         <td>
+                            Identity Proof
+                        </td>
+
+
+                        <td>
+                            Document Verification
+                        </td>
+
+
+                        <td>
+                            02 Sep 2026<br>
+                            09:18 AM
+                        </td>
+
+
+                        <td>
+
                             <span class="access-approved">
                                 ✓ Authorized
                             </span>
+
                         </td>
+
                     </tr>
 
 
                     <tr class="danger-row">
 
                         <td>
+
                             <div class="requester">
-                                <span class="requester-icon danger-icon">
+
+                                <span class="requester-icon">
                                     ⚠️
                                 </span>
 
                                 <div>
-                                    <strong>Unknown Requester</strong>
-                                    <small>UNKNOWN</small>
+
+                                    <strong>
+                                        Unknown Requester
+                                    </strong>
+
+                                    <small>
+                                        UNKNOWN
+                                    </small>
+
                                 </div>
+
                             </div>
+
                         </td>
 
-                        <td>Full Identity</td>
-
-                        <td>Unknown</td>
-
-                        <td>01 Sep 2026<br>11:36 PM</td>
 
                         <td>
+                            Full Identity
+                        </td>
+
+
+                        <td>
+                            Unknown
+                        </td>
+
+
+                        <td>
+                            01 Sep 2026<br>
+                            11:36 PM
+                        </td>
+
+
+                        <td>
+
                             <span class="access-denied">
                                 ✕ Blocked
                             </span>
+
                         </td>
 
                     </tr>
+
 
                 </tbody>
 
@@ -2737,22 +2733,30 @@ input:focus {
 
 
     <!-- =================================================
-         SECURITY ALERTS + RBAC
-    ================================================== -->
+         ALERTS + RBAC
+    ================================================= -->
 
     <div class="protection-bottom-grid">
 
 
-        <!-- Security Alerts -->
+        <!-- ALERTS -->
 
         <div class="alerts-card">
 
             <div class="section-title-row">
 
                 <div>
-                    <span class="small-label">THREAT DETECTION</span>
-                    <h2>🚨 Security Alerts</h2>
+
+                    <span class="small-label">
+                        THREAT DETECTION
+                    </span>
+
+                    <h2>
+                        🚨 Security Alerts
+                    </h2>
+
                 </div>
+
 
                 <span class="alert-count">
                     3 Active
@@ -2761,12 +2765,17 @@ input:focus {
             </div>
 
 
-            <div class="alert-item critical">
+            <div class="alert-item">
 
-                <div class="alert-symbol">⚠️</div>
+                <div class="alert-symbol">
+                    ⚠️
+                </div>
 
                 <div>
-                    <strong>Unauthorized Access Attempt</strong>
+
+                    <strong>
+                        Unauthorized Access Attempt
+                    </strong>
 
                     <p>
                         Unknown requester attempted to access
@@ -2776,6 +2785,7 @@ input:focus {
                     <small>
                         01 Sep 2026 • 11:36 PM
                     </small>
+
                 </div>
 
                 <span class="blocked-label">
@@ -2785,12 +2795,17 @@ input:focus {
             </div>
 
 
-            <div class="alert-item warning">
+            <div class="alert-item">
 
-                <div class="alert-symbol">!</div>
+                <div class="alert-symbol">
+                    !
+                </div>
 
                 <div>
-                    <strong>Repeated Access Request</strong>
+
+                    <strong>
+                        Repeated Access Request
+                    </strong>
 
                     <p>
                         Same requester made multiple verification attempts.
@@ -2799,6 +2814,7 @@ input:focus {
                     <small>
                         31 Aug 2026 • 04:21 PM
                     </small>
+
                 </div>
 
                 <span class="blocked-label">
@@ -2808,12 +2824,17 @@ input:focus {
             </div>
 
 
-            <div class="alert-item info">
+            <div class="alert-item">
 
-                <div class="alert-symbol">i</div>
+                <div class="alert-symbol">
+                    i
+                </div>
 
                 <div>
-                    <strong>Permission Updated</strong>
+
+                    <strong>
+                        Permission Updated
+                    </strong>
 
                     <p>
                         Auditor access permissions were modified.
@@ -2822,6 +2843,7 @@ input:focus {
                     <small>
                         30 Aug 2026 • 01:05 PM
                     </small>
+
                 </div>
 
                 <span class="reviewed-label">
@@ -2840,12 +2862,17 @@ input:focus {
             <div class="section-title-row">
 
                 <div>
+
                     <span class="small-label">
                         ROLE-BASED ACCESS CONTROL
                     </span>
 
-                    <h2>🛡️ Access Permissions</h2>
+                    <h2>
+                        🛡️ Access Permissions
+                    </h2>
+
                 </div>
+
 
                 <span class="rbac-active">
                     RBAC ACTIVE
@@ -2856,11 +2883,20 @@ input:focus {
 
             <div class="role-item">
 
-                <div class="role-icon">👑</div>
+                <div class="role-icon">
+                    👑
+                </div>
 
                 <div class="role-info">
-                    <strong>Admin</strong>
-                    <small>Full system management</small>
+
+                    <strong>
+                        Admin
+                    </strong>
+
+                    <small>
+                        Full system management
+                    </small>
+
                 </div>
 
                 <span class="role-status">
@@ -2872,11 +2908,20 @@ input:focus {
 
             <div class="role-item">
 
-                <div class="role-icon">📋</div>
+                <div class="role-icon">
+                    📋
+                </div>
 
                 <div class="role-info">
-                    <strong>Manager</strong>
-                    <small>Manage identity & assets</small>
+
+                    <strong>
+                        Manager
+                    </strong>
+
+                    <small>
+                        Manage identity & assets
+                    </small>
+
                 </div>
 
                 <span class="role-status">
@@ -2888,11 +2933,20 @@ input:focus {
 
             <div class="role-item">
 
-                <div class="role-icon">🔎</div>
+                <div class="role-icon">
+                    🔎
+                </div>
 
                 <div class="role-info">
-                    <strong>Auditor</strong>
-                    <small>View audit records</small>
+
+                    <strong>
+                        Auditor
+                    </strong>
+
+                    <small>
+                        View audit records
+                    </small>
+
                 </div>
 
                 <span class="role-status">
@@ -2904,11 +2958,20 @@ input:focus {
 
             <div class="role-item">
 
-                <div class="role-icon">👤</div>
+                <div class="role-icon">
+                    👤
+                </div>
 
                 <div class="role-info">
-                    <strong>User</strong>
-                    <small>Manage own identity</small>
+
+                    <strong>
+                        User
+                    </strong>
+
+                    <small>
+                        Manage own identity
+                    </small>
+
                 </div>
 
                 <span class="role-status active-role">
@@ -2924,7 +2987,7 @@ input:focus {
 
     <!-- =================================================
          BLOCKCHAIN AUDIT
-    ================================================== -->
+    ================================================= -->
 
     <div class="blockchain-audit">
 
@@ -2934,7 +2997,9 @@ input:focus {
                 IMMUTABLE AUDIT TRAIL
             </span>
 
-            <h2>⛓️ Identity Blockchain Record</h2>
+            <h2>
+                ⛓️ Identity Blockchain Record
+            </h2>
 
             <p>
                 Important identity and access events are cryptographically
@@ -2951,8 +3016,15 @@ input:focus {
             </div>
 
             <div>
-                <span>Blockchain Status</span>
-                <strong>● Connected</strong>
+
+                <span>
+                    Blockchain Status
+                </span>
+
+                <strong>
+                    ● Connected
+                </strong>
+
             </div>
 
         </div>
@@ -2961,23 +3033,54 @@ input:focus {
         <div class="block-details">
 
             <div>
-                <span>Latest Block</span>
-                <strong>#18,492,731</strong>
+
+                <span>
+                    Latest Block
+                </span>
+
+                <strong>
+                    #18,492,731
+                </strong>
+
             </div>
 
-            <div>
-                <span>Identity Events</span>
-                <strong>24</strong>
-            </div>
 
             <div>
-                <span>Integrity</span>
-                <strong>✓ Verified</strong>
+
+                <span>
+                    Identity Events
+                </span>
+
+                <strong>
+                    24
+                </strong>
+
             </div>
 
+
             <div>
-                <span>Network</span>
-                <strong>EVM</strong>
+
+                <span>
+                    Integrity
+                </span>
+
+                <strong>
+                    ✓ Verified
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Network
+                </span>
+
+                <strong>
+                    EVM
+                </strong>
+
             </div>
 
         </div>
@@ -2991,9 +3094,7 @@ input:focus {
      ACCESS CONTROL
 ===================================================== -->
 
-<section
-    id="access"
-    class="page">
+<section id="access" class="page">
 
 
 <div class="card">
@@ -3122,16 +3223,24 @@ input:focus {
 
             <tr>
 
-                <td>ABC Bank</td>
-
-                <td>PAN</td>
-
-                <td>Loan KYC</td>
+                <td>
+                    ABC Bank
+                </td>
 
                 <td>
+                    PAN
+                </td>
+
+                <td>
+                    Loan KYC
+                </td>
+
+                <td>
+
                     <span class="status-pill status-warning">
                         Pending
                     </span>
+
                 </td>
 
                 <td>
@@ -3151,11 +3260,17 @@ input:focus {
 
             <tr>
 
-                <td>Unknown Service</td>
+                <td>
+                    Unknown Service
+                </td>
 
-                <td>Full Identity</td>
+                <td>
+                    Full Identity
+                </td>
 
-                <td>Unknown</td>
+                <td>
+                    Unknown
+                </td>
 
                 <td>
 
@@ -3196,9 +3311,7 @@ input:focus {
      DIGITAL ASSETS
 ===================================================== -->
 
-<section
-    id="assets"
-    class="page">
+<section id="assets" class="page">
 
 
 <div class="card">
@@ -3370,9 +3483,7 @@ input:focus {
      AUDIT TRAIL
 ===================================================== -->
 
-<section
-    id="audit"
-    class="page">
+<section id="audit" class="page">
 
 
 <div class="card">
@@ -3474,9 +3585,7 @@ input:focus {
      SECURITY ALERTS
 ===================================================== -->
 
-<section
-    id="alerts"
-    class="page">
+<section id="alerts" class="page">
 
 
 <div class="card">
@@ -3557,9 +3666,7 @@ input:focus {
      SETTINGS
 ===================================================== -->
 
-<section
-    id="settings"
-    class="page">
+<section id="settings" class="page">
 
 
 <div class="card">
@@ -3579,9 +3686,9 @@ input:focus {
 
     <br><br>
 
-    <select
-        id="languageSelect"
-        onchange="changeLanguage()">
+
+    <select id="languageSelect"
+            onchange="changeLanguage()">
 
         <option value="en">
             English
@@ -3674,12 +3781,8 @@ input:focus {
      TOAST
 ===================================================== -->
 
-<div
-    id="toast"
-    class="toast">
-
+<div id="toast" class="toast">
     Action completed successfully.
-
 </div>
 
 
@@ -3714,7 +3817,9 @@ function showPage(pageId, button) {
         });
 
 
-    button.classList.add("active");
+    if (button) {
+        button.classList.add("active");
+    }
 
 
     const titles = {
@@ -3727,6 +3832,11 @@ function showPage(pageId, button) {
         identity: [
             "My Identity",
             "Manage your decentralized identity"
+        ],
+
+        "identity-protection": [
+            "Identity Protection",
+            "Monitor and protect your digital identity"
         ],
 
         access: [
@@ -3776,6 +3886,7 @@ function showPage(pageId, button) {
 }
 
 
+
 /* =========================================================
    MOBILE SIDEBAR
 ========================================================= */
@@ -3787,6 +3898,7 @@ function toggleSidebar() {
         .classList.toggle("open");
 
 }
+
 
 
 /* =========================================================
@@ -3813,25 +3925,36 @@ function showToast(message) {
 }
 
 
+
 /* =========================================================
    ACCESS APPROVAL
 ========================================================= */
 
 function approveAccess(button) {
 
-    button.parentElement.parentElement
-        .querySelector("td:nth-child(4)")
+    const row =
+        button.closest("tr");
+
+
+    row.querySelector("td:nth-child(4)")
         .innerHTML = `
+
             <span class="status-pill status-success">
                 Authorized
             </span>
+
         `;
 
 
     button.parentElement.innerHTML = `
-        <span style="color:#19d7b8;font-size:11px;">
+
+        <span style="
+            color:#19d7b8;
+            font-size:11px;
+        ">
             ✓ Approved
         </span>
+
     `;
 
 
@@ -3842,15 +3965,14 @@ function approveAccess(button) {
 }
 
 
+
 /* =========================================================
    VOICE
 ========================================================= */
 
 function speak(text) {
 
-    if (
-        !("speechSynthesis" in window)
-    ) {
+    if (!("speechSynthesis" in window)) {
 
         showToast(
             "Voice assistance is not supported by this browser."
@@ -3874,6 +3996,7 @@ function speak(text) {
 }
 
 
+
 /* =========================================================
    LANGUAGE
 ========================================================= */
@@ -3883,145 +4006,90 @@ const translations = {
     en: {
 
         logo: "BHAROSA",
-
         dashboard: "Dashboard",
-
         identity: "My Identity",
-
         access: "Access Control",
-
         assets: "Digital Assets",
-
         audit: "Audit Trail",
-
         alerts: "Security Alerts",
-
         settings: "Settings"
 
     },
 
-
     hi: {
 
         logo: "भरोसा",
-
         dashboard: "डैशबोर्ड",
-
         identity: "मेरी पहचान",
-
         access: "एक्सेस नियंत्रण",
-
         assets: "डिजिटल संपत्तियाँ",
-
         audit: "ऑडिट रिकॉर्ड",
-
         alerts: "सुरक्षा चेतावनी",
-
         settings: "सेटिंग्स"
 
     },
 
-
     bn: {
 
         logo: "ভরসা",
-
         dashboard: "ড্যাশবোর্ড",
-
         identity: "আমার পরিচয়",
-
         access: "অ্যাক্সেস নিয়ন্ত্রণ",
-
         assets: "ডিজিটাল সম্পদ",
-
         audit: "অডিট ট্রেইল",
-
         alerts: "নিরাপত্তা সতর্কতা",
-
         settings: "সেটিংস"
 
     },
 
-
     mr: {
 
         logo: "भरोसा",
-
         dashboard: "डॅशबोर्ड",
-
         identity: "माझी ओळख",
-
         access: "प्रवेश नियंत्रण",
-
         assets: "डिजिटल मालमत्ता",
-
         audit: "ऑडिट ट्रेल",
-
         alerts: "सुरक्षा सूचना",
-
         settings: "सेटिंग्ज"
 
     },
 
-
     ta: {
 
         logo: "பரோசா",
-
         dashboard: "டாஷ்போர்டு",
-
         identity: "எனது அடையாளம்",
-
         access: "அணுகல் கட்டுப்பாடு",
-
         assets: "டிஜிட்டல் சொத்துகள்",
-
         audit: "தணிக்கை பதிவு",
-
         alerts: "பாதுகாப்பு எச்சரிக்கைகள்",
-
         settings: "அமைப்புகள்"
 
     },
 
-
     or: {
 
         logo: "ଭରସା",
-
         dashboard: "ଡ୍ୟାସବୋର୍ଡ",
-
         identity: "ମୋର ପରିଚୟ",
-
         access: "ପ୍ରବେଶ ନିୟନ୍ତ୍ରଣ",
-
         assets: "ଡିଜିଟାଲ ସମ୍ପତ୍ତି",
-
         audit: "ଅଡିଟ୍ ରେକର୍ଡ",
-
         alerts: "ସୁରକ୍ଷା ସତର୍କତା",
-
         settings: "ସେଟିଂସ୍"
 
     },
 
-
     bho: {
 
         logo: "भरोसा",
-
         dashboard: "डैशबोर्ड",
-
         identity: "हमार पहचान",
-
         access: "पहुँच नियंत्रण",
-
         assets: "डिजिटल संपत्ति",
-
         audit: "ऑडिट रिकॉर्ड",
-
         alerts: "सुरक्षा चेतावनी",
-
         settings: "सेटिंग"
 
     }
@@ -4041,26 +4109,21 @@ function changeLanguage() {
         translations[language];
 
 
-    /*
-       BHAROSA LOGO CHANGES
-       WITH THE SELECTED LANGUAGE
-    */
-
-    document.querySelector(".logo")
-        .innerText = t.logo;
+    const logo =
+        document.querySelector(".logo");
 
 
-    /*
-       Rebuild the tricolour logo
-       when English is selected.
-    */
+    logo.innerText =
+        t.logo;
+
 
     if (language === "en") {
 
-        document.querySelector(".logo")
-            .innerHTML = `
-                <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
-            `;
+        logo.innerHTML = `
+            <span class="saffron">BHA</span>
+            <span class="white">RO</span>
+            <span class="green">SA</span>
+        `;
 
     }
 
@@ -4098,128 +4161,210 @@ function changeLanguage() {
     );
 
 }
-   /* =====================================================
-   BHAROSA 2.0 — IDENTITY PROTECTION JS
+
+
+
+/* =====================================================
+   IDENTITY FUNCTIONS
 ===================================================== */
 
 function copyDID() {
 
-    const did = "did:bharosa:7f82a91c4e5d";
+    const did =
+        document.getElementById(
+            "mainDID"
+        ).innerText;
 
-    navigator.clipboard.writeText(did);
 
-    alert("DID copied to clipboard.");
+    if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ) {
+
+        navigator.clipboard.writeText(did)
+
+            .then(() => {
+
+                showToast(
+                    "DID copied to clipboard."
+                );
+
+            })
+
+            .catch(() => {
+
+                showToast(
+                    "Unable to copy DID."
+                );
+
+            });
+
+    }
+
 }
+
 
 
 function verifyIdentity() {
 
-    const button = event.target;
+    showToast(
+        "⏳ Verifying identity..."
+    );
 
-    button.innerHTML = "⏳ Verifying...";
 
     setTimeout(() => {
 
-        button.innerHTML = "✓ Identity Verified";
-
-        alert(
-            "BHAROSA Identity Verified Successfully.\n\n" +
-            "DID: did:bharosa:7f82a91c4e5d\n" +
-            "Status: Verified"
+        showToast(
+            "✓ BHAROSA Identity Verified Successfully."
         );
 
     }, 1000);
+
 }
+
 
 
 function viewIdentityHash() {
 
-    alert(
-        "Identity Hash\n\n" +
-        "8a7f2d91c4e5d8b3a7f9c21d..."
+    showToast(
+        "Identity Hash: 8a7f2d91c4e5d8b3a7f9c21d..."
     );
+
 }
+
 
 
 function refreshAccessLog() {
 
-    const button = document.querySelector(".refresh-btn");
+    const button =
+        document.querySelector(
+            ".refresh-btn"
+        );
 
-    button.innerHTML = "⟳ Checking...";
+
+    button.innerHTML =
+        "⟳ Checking...";
+
 
     setTimeout(() => {
 
-        button.innerHTML = "✓ Updated";
+        button.innerHTML =
+            "✓ Updated";
+
+
+        showToast(
+            "Identity access log updated."
+        );
+
 
         setTimeout(() => {
-            button.innerHTML = "↻ Refresh";
+
+            button.innerHTML =
+                "↻ Refresh";
+
         }, 1200);
 
     }, 800);
+
 }
-   /* =========================
+
+
+
+/* =====================================================
    QR IDENTITY VERIFICATION
-========================= */
+===================================================== */
 
 let currentIdentityQR = "";
 
+let qrScanner = null;
 
-/*
-   Generate QR Code
-*/
+let scannerRunning = false;
+
+
+
+/* =====================================================
+   GENERATE QR
+===================================================== */
 
 function generateIdentityQR() {
 
+    const didInput =
+        document.getElementById(
+            "didInput"
+        );
+
+
     const did =
-        document.getElementById("didInput")
-        .value
-        .trim();
+        didInput.value.trim();
+
 
     const qrContainer =
-        document.getElementById("identityQR");
+        document.getElementById(
+            "identityQR"
+        );
+
 
     const qrResult =
-        document.getElementById("qrResult");
+        document.getElementById(
+            "qrResult"
+        );
+
 
     const qrText =
-        document.getElementById("qrIdentityText");
+        document.getElementById(
+            "qrIdentityText"
+        );
 
 
     if (!did) {
 
-        alert(
+        showToast(
             "Please enter your Identity ID / DID."
         );
 
+        didInput.focus();
+
         return;
+
     }
 
 
-    /*
-       Clear previous QR
-    */
+    if (
+        !did.startsWith(
+            "did:bharosa:"
+        )
+    ) {
+
+        showToast(
+            "Please enter a valid BHAROSA DID."
+        );
+
+        return;
+
+    }
+
 
     qrContainer.innerHTML = "";
 
 
     /*
-       Data stored inside QR
+       Data encoded into QR.
 
-       IMPORTANT:
-       We are NOT storing personal
-       information inside the QR.
+       No personal information is stored.
     */
 
     const identityData = {
 
         platform: "BHAROSA",
 
+        version: "2.0",
+
         type: "Digital Identity",
 
         did: did,
 
         verification:
-        "BHAROSA Identity Verification"
+            "BHAROSA Identity Verification"
 
     };
 
@@ -4228,10 +4373,6 @@ function generateIdentityQR() {
         JSON.stringify(identityData);
 
 
-    /*
-       Create QR
-    */
-
     new QRCode(
 
         qrContainer,
@@ -4239,14 +4380,16 @@ function generateIdentityQR() {
         {
 
             text:
-            currentIdentityQR,
+                currentIdentityQR,
 
-            width: 200,
+            width:
+                220,
 
-            height: 200,
+            height:
+                220,
 
             correctLevel:
-            QRCode.CorrectLevel.H
+                QRCode.CorrectLevel.H
 
         }
 
@@ -4266,9 +4409,10 @@ function generateIdentityQR() {
     ).innerHTML = "";
 
 
-    /*
-       Voice assistance
-    */
+    showToast(
+        "✓ BHAROSA identity QR generated."
+    );
+
 
     if (typeof speak === "function") {
 
@@ -4282,11 +4426,17 @@ function generateIdentityQR() {
 
 
 
-/*
-   Verify Identity QR
-*/
+/* =====================================================
+   START CAMERA SCANNER
+===================================================== */
 
-function verifyIdentityQR() {
+function startQRScanner() {
+
+    const reader =
+        document.getElementById(
+            "qr-reader"
+        );
+
 
     const result =
         document.getElementById(
@@ -4294,39 +4444,245 @@ function verifyIdentityQR() {
         );
 
 
-    if (!currentIdentityQR) {
+    if (scannerRunning) {
+
+        showToast(
+            "QR scanner is already running."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        typeof Html5Qrcode ===
+        "undefined"
+    ) {
 
         result.innerHTML = `
 
             <div class="qr-danger">
 
-                🔴 No identity QR found.
+                🔴 QR scanner library could not
+                be loaded.
 
             </div>
 
         `;
 
         return;
+
     }
+
+
+    reader.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <div style="
+            padding:12px;
+            border-radius:10px;
+            background:#111d25;
+            color:#9fb0c0;
+            font-size:12px;
+        ">
+
+            📷 Starting camera scanner...
+
+        </div>
+
+    `;
+
+
+    qrScanner =
+        new Html5Qrcode(
+            "qr-reader"
+        );
+
+
+    const config = {
+
+        fps: 10,
+
+        qrbox: {
+            width: 250,
+            height: 250
+        },
+
+        aspectRatio: 1.0
+
+    };
+
+
+    qrScanner.start(
+
+        {
+            facingMode:
+                "environment"
+        },
+
+        config,
+
+        function(decodedText) {
+
+            onQRCodeScanned(
+                decodedText
+            );
+
+        },
+
+        function(errorMessage) {
+
+            /*
+               Scanner continuously checks
+               camera frames.
+            */
+
+        }
+
+    )
+
+    .then(() => {
+
+        scannerRunning = true;
+
+
+        result.innerHTML = `
+
+            <div style="
+                padding:12px;
+                border-radius:10px;
+                background:#0d302b;
+                color:#19d7b8;
+                font-size:12px;
+            ">
+
+                📷 Scanner active.
+                Point your camera at a BHAROSA QR.
+
+            </div>
+
+        `;
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Camera error:",
+            error
+        );
+
+
+        reader.style.display =
+            "none";
+
+
+        scannerRunning =
+            false;
+
+
+        result.innerHTML = `
+
+            <div class="qr-danger">
+
+                🔴 Unable to access camera.
+
+                <br><br>
+
+                Please allow camera permission
+                and try again.
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+
+/* =====================================================
+   QR SCANNED
+===================================================== */
+
+function onQRCodeScanned(
+    decodedText
+) {
+
+    stopQRScanner();
+
+
+    verifyScannedIdentity(
+        decodedText
+    );
+
+}
+
+
+
+/* =====================================================
+   VERIFY SCANNED QR
+===================================================== */
+
+function verifyScannedIdentity(
+    qrData
+) {
+
+    const result =
+        document.getElementById(
+            "qrVerificationResult"
+        );
 
 
     try {
 
         const identity =
-            JSON.parse(
-                currentIdentityQR
+            JSON.parse(qrData);
+
+
+        const validPlatform =
+            identity.platform ===
+            "BHAROSA";
+
+
+        const validType =
+            identity.type ===
+            "Digital Identity";
+
+
+        const validVersion =
+            identity.version ===
+            "2.0";
+
+
+        const validDID =
+            typeof identity.did ===
+            "string" &&
+            identity.did.startsWith(
+                "did:bharosa:"
             );
 
 
-        /*
-           Basic verification
-        */
+        const validVerification =
+            identity.verification ===
+            "BHAROSA Identity Verification";
+
 
         if (
-            identity.platform === "BHAROSA" &&
-            identity.type === "Digital Identity" &&
-            identity.did
+
+            validPlatform &&
+            validType &&
+            validVersion &&
+            validDID &&
+            validVerification
+
         ) {
+
 
             result.innerHTML = `
 
@@ -4338,17 +4694,42 @@ function verifyIdentityQR() {
 
                     <p>
                         <b>Platform:</b>
-                        ${identity.platform}
+                        BHAROSA
                     </p>
 
                     <p>
-                        <b>Identity ID:</b>
-                        ${identity.did}
+                        <b>Identity Type:</b>
+                        Digital Identity
                     </p>
 
-                    <p>
-                        <b>Status:</b>
-                        Cryptographically Verifiable
+                    <p style="
+                        word-break:break-all;
+                        margin-top:8px;
+                    ">
+
+                        <b>DID:</b>
+
+                        ${escapeHTML(identity.did)}
+
+                    </p>
+
+                    <p style="
+                        margin-top:10px;
+                        color:#19d7b8;
+                    ">
+
+                        ✓ BHAROSA identity format verified
+
+                    </p>
+
+                    <p style="
+                        margin-top:5px;
+                        color:#8fa29f;
+                        font-size:11px;
+                    ">
+
+                        QR verification successful
+
                     </p>
 
                 </div>
@@ -4356,7 +4737,15 @@ function verifyIdentityQR() {
             `;
 
 
-            if (typeof speak === "function") {
+            showToast(
+                "✓ BHAROSA identity verified."
+            );
+
+
+            if (
+                typeof speak ===
+                "function"
+            ) {
 
                 speak(
                     "The BHAROSA identity has been successfully verified."
@@ -4368,33 +4757,175 @@ function verifyIdentityQR() {
 
         else {
 
-            result.innerHTML = `
-
-                <div class="qr-danger">
-
-                    🔴 Invalid BHAROSA Identity
-
-                </div>
-
-            `;
+            showInvalidIdentity();
 
         }
 
     }
 
-    catch (error) {
+    catch(error) {
 
-        result.innerHTML = `
+        console.error(
+            "QR verification error:",
+            error
+        );
 
-            <div class="qr-danger">
-
-                🔴 Invalid QR data.
-
-            </div>
-
-        `;
+        showInvalidIdentity();
 
     }
+
+}
+
+
+
+/* =====================================================
+   INVALID IDENTITY
+===================================================== */
+
+function showInvalidIdentity() {
+
+    const result =
+        document.getElementById(
+            "qrVerificationResult"
+        );
+
+
+    result.innerHTML = `
+
+        <div class="qr-danger">
+
+            <h3>
+                🔴 Invalid BHAROSA Identity
+            </h3>
+
+            <p>
+                The scanned QR code is not a valid
+                BHAROSA digital identity.
+            </p>
+
+        </div>
+
+    `;
+
+
+    showToast(
+        "✕ Identity verification failed."
+    );
+
+
+    if (
+        typeof speak ===
+        "function"
+    ) {
+
+        speak(
+            "The scanned identity could not be verified."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   STOP SCANNER
+===================================================== */
+
+function stopQRScanner() {
+
+    if (
+        qrScanner &&
+        scannerRunning
+    ) {
+
+        qrScanner.stop()
+
+            .then(() => {
+
+                qrScanner.clear();
+
+                scannerRunning =
+                    false;
+
+
+                document.getElementById(
+                    "qr-reader"
+                ).style.display =
+                    "none";
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Scanner stop error:",
+                    error
+                );
+
+
+                scannerRunning =
+                    false;
+
+
+                document.getElementById(
+                    "qr-reader"
+                ).style.display =
+                    "none";
+
+            });
+
+    }
+
+    else {
+
+        const reader =
+            document.getElementById(
+                "qr-reader"
+            );
+
+
+        reader.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -4402,5 +4933,5 @@ function verifyIdentityQR() {
 
 
 </body>
-
 </html>
+```
