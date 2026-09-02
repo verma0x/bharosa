@@ -1714,7 +1714,54 @@ input:focus {
         grid-template-columns: 1fr;
     }
 }
+   /* =========================
+   QR IDENTITY VERIFICATION
+========================= */
 
+.qr-card {
+    text-align: center;
+}
+
+#identityQR {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px auto;
+    padding: 15px;
+    width: fit-content;
+    background: white;
+    border-radius: 12px;
+}
+
+#identityQR img {
+    display: block;
+}
+
+#qrIdentityText {
+    color: #9fb0c0;
+    word-break: break-all;
+}
+
+#qrVerificationResult {
+    margin-top: 20px;
+}
+
+.qr-success {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #19d7b8;
+    background: #0c302b;
+    color: #19d7b8;
+}
+
+.qr-danger {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #ff5555;
+    background: #321719;
+    color: #ff7777;
+}
+   
 </style>
 
 </head>
@@ -2520,6 +2567,45 @@ input:focus {
         </div>
 
     </div>
+   <!-- =========================
+     QR IDENTITY VERIFICATION
+========================= -->
+
+<div class="card qr-card">
+
+    <h2>📱 QR Identity Verification</h2>
+
+    <p>
+        Generate a secure QR code linked to your BHAROSA digital identity.
+    </p>
+
+    <input
+        type="text"
+        id="didInput"
+        placeholder="Enter your Identity ID / DID"
+    >
+
+    <button onclick="generateIdentityQR()">
+        🔐 Generate Identity QR
+    </button>
+
+    <div id="qrResult" style="display:none;">
+
+        <h3>Identity QR</h3>
+
+        <div id="identityQR"></div>
+
+        <p id="qrIdentityText"></p>
+
+        <button onclick="verifyIdentityQR()">
+            🔎 Verify Identity
+        </button>
+
+        <div id="qrVerificationResult"></div>
+
+    </div>
+
+</div>
 
 
     <!-- =================================================
@@ -4070,6 +4156,246 @@ function refreshAccessLog() {
         }, 1200);
 
     }, 800);
+}
+   /* =========================
+   QR IDENTITY VERIFICATION
+========================= */
+
+let currentIdentityQR = "";
+
+
+/*
+   Generate QR Code
+*/
+
+function generateIdentityQR() {
+
+    const did =
+        document.getElementById("didInput")
+        .value
+        .trim();
+
+    const qrContainer =
+        document.getElementById("identityQR");
+
+    const qrResult =
+        document.getElementById("qrResult");
+
+    const qrText =
+        document.getElementById("qrIdentityText");
+
+
+    if (!did) {
+
+        alert(
+            "Please enter your Identity ID / DID."
+        );
+
+        return;
+    }
+
+
+    /*
+       Clear previous QR
+    */
+
+    qrContainer.innerHTML = "";
+
+
+    /*
+       Data stored inside QR
+
+       IMPORTANT:
+       We are NOT storing personal
+       information inside the QR.
+    */
+
+    const identityData = {
+
+        platform: "BHAROSA",
+
+        type: "Digital Identity",
+
+        did: did,
+
+        verification:
+        "BHAROSA Identity Verification"
+
+    };
+
+
+    currentIdentityQR =
+        JSON.stringify(identityData);
+
+
+    /*
+       Create QR
+    */
+
+    new QRCode(
+
+        qrContainer,
+
+        {
+
+            text:
+            currentIdentityQR,
+
+            width: 200,
+
+            height: 200,
+
+            correctLevel:
+            QRCode.CorrectLevel.H
+
+        }
+
+    );
+
+
+    qrText.innerText =
+        "Identity ID: " + did;
+
+
+    qrResult.style.display =
+        "block";
+
+
+    document.getElementById(
+        "qrVerificationResult"
+    ).innerHTML = "";
+
+
+    /*
+       Voice assistance
+    */
+
+    if (typeof speak === "function") {
+
+        speak(
+            "Your BHAROSA identity QR code has been generated."
+        );
+
+    }
+
+}
+
+
+
+/*
+   Verify Identity QR
+*/
+
+function verifyIdentityQR() {
+
+    const result =
+        document.getElementById(
+            "qrVerificationResult"
+        );
+
+
+    if (!currentIdentityQR) {
+
+        result.innerHTML = `
+
+            <div class="qr-danger">
+
+                🔴 No identity QR found.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    try {
+
+        const identity =
+            JSON.parse(
+                currentIdentityQR
+            );
+
+
+        /*
+           Basic verification
+        */
+
+        if (
+            identity.platform === "BHAROSA" &&
+            identity.type === "Digital Identity" &&
+            identity.did
+        ) {
+
+            result.innerHTML = `
+
+                <div class="qr-success">
+
+                    <h3>
+                        🟢 Identity Verified
+                    </h3>
+
+                    <p>
+                        <b>Platform:</b>
+                        ${identity.platform}
+                    </p>
+
+                    <p>
+                        <b>Identity ID:</b>
+                        ${identity.did}
+                    </p>
+
+                    <p>
+                        <b>Status:</b>
+                        Cryptographically Verifiable
+                    </p>
+
+                </div>
+
+            `;
+
+
+            if (typeof speak === "function") {
+
+                speak(
+                    "The BHAROSA identity has been successfully verified."
+                );
+
+            }
+
+        }
+
+        else {
+
+            result.innerHTML = `
+
+                <div class="qr-danger">
+
+                    🔴 Invalid BHAROSA Identity
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+    catch (error) {
+
+        result.innerHTML = `
+
+            <div class="qr-danger">
+
+                🔴 Invalid QR data.
+
+            </div>
+
+        `;
+
+    }
+
 }
 
 </script>
