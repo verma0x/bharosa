@@ -1,1144 +1,1792 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
 
-<title>BHAROSA — Decentralized Identity Protection</title>
-
-<!-- QR GENERATION -->
+<title>BHAROSA — Digital Identity Protection</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-<!-- QR SCANNING -->
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
 <style>
 
 /* =========================================================
-   BHAROSA GLOBAL STYLES
+   RESET
 ========================================================= */
 
-:root{
-    --bg:#071014;
-    --panel:#0c151a;
-    --panel2:#101b21;
-    --border:#1c2b33;
-
-    --primary:#19d7b8;
-    --primary-dark:#0fa991;
-
-    --text:#f3f8f7;
-    --muted:#91a3aa;
-
-    --danger:#ff5b61;
-    --warning:#ffc857;
-    --success:#19d7b8;
-
-    --sidebar-width:250px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+html {
+    scroll-behavior: smooth;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
+body {
+    font-family: Inter, Arial, sans-serif;
     background:
-        radial-gradient(
-            circle at 80% 10%,
-            rgba(25,215,184,.08),
-            transparent 30%
-        ),
-        var(--bg);
+        radial-gradient(circle at 80% 10%, rgba(19, 215, 184, 0.08), transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(255, 153, 51, 0.07), transparent 30%),
+        #080d14;
 
-    color:var(--text);
-    min-height:100vh;
+    color: #ffffff;
+    min-height: 100vh;
 }
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --bg: #080d14;
+    --sidebar: #0d141e;
+    --card: #111a25;
+    --card-hover: #152231;
+
+    --border: rgba(255,255,255,0.08);
+
+    --text: #ffffff;
+    --muted: #8d9aaa;
+
+    --green: #19d7b8;
+    --green-dark: #0b302b;
+
+    --orange: #ff9933;
+    --orange-dark: #382313;
+
+    --red: #ff5555;
+    --red-dark: #351719;
+
+    --blue: #38bdf8;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
 
 /* =========================================================
    SIDEBAR
 ========================================================= */
 
-.sidebar{
-    position:fixed;
-    left:0;
-    top:0;
+.sidebar {
 
-    width:var(--sidebar-width);
-    height:100vh;
-
-    background:#091217;
-
-    border-right:1px solid var(--border);
-
-    padding:22px 15px;
-
-    z-index:1000;
-
-    display:flex;
-    flex-direction:column;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    padding:8px 12px 25px;
-
-    border-bottom:1px solid var(--border);
-}
-
-.logo-icon{
-    width:40px;
-    height:40px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
+    width: 250px;
 
     background:
         linear-gradient(
-            135deg,
-            #19d7b8,
-            #087d70
+            180deg,
+            #0d141e,
+            #091018
         );
 
-    color:#06100e;
+    border-right: 1px solid var(--border);
 
-    font-size:21px;
-    font-weight:900;
+    padding: 25px 16px;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
 }
 
-.logo-text{
-    font-size:21px;
-    font-weight:800;
-    letter-spacing:1px;
+
+/* LOGO */
+
+.logo {
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    letter-spacing: 0;
+
+    text-align: center;
+
+    margin-bottom: 8px;
 }
 
-.logo-sub{
-    font-size:10px;
-    color:var(--muted);
-    margin-top:2px;
+
+/* BHAROSA TRICOLOUR */
+
+.logo .saffron {
+    color: #ff9933;
 }
 
-.nav{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-
-    margin-top:22px;
-
-    overflow-y:auto;
+.logo .white {
+    color: #ffffff;
 }
 
-.nav button{
-    border:none;
-    outline:none;
-
-    background:transparent;
-    color:#91a3aa;
-
-    text-align:left;
-
-    padding:13px 14px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:14px;
-
-    transition:.2s;
+.logo .green {
+    color: #138808;
 }
 
-.nav button:hover{
-    background:#101d23;
-    color:white;
+
+.logo-subtitle {
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-bottom: 30px;
 }
 
-.nav button.active{
+
+/* NAVIGATION */
+
+.nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.nav button {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 10px;
+
+    color: var(--muted);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.25s;
+}
+
+
+.nav button:hover {
+
+    background: rgba(255,255,255,0.05);
+
+    color: white;
+}
+
+
+.nav button.active {
+
     background:
         linear-gradient(
             90deg,
-            rgba(25,215,184,.15),
-            rgba(25,215,184,.04)
+            rgba(25,215,184,0.18),
+            rgba(25,215,184,0.04)
         );
 
-    color:var(--primary);
+    color: var(--green);
 
-    border-left:3px solid var(--primary);
+    border-left: 3px solid var(--green);
 }
 
-.sidebar-footer{
-    margin-top:auto;
 
-    border-top:1px solid var(--border);
+/* SIDEBAR BOTTOM */
 
-    padding:18px 10px 4px;
+.sidebar-bottom {
 
-    color:var(--muted);
+    margin-top: auto;
 
-    font-size:11px;
+    border-top: 1px solid var(--border);
 
-    line-height:1.6;
+    padding-top: 18px;
 }
+
+
+.blockchain-mini {
+
+    background: #0d1d20;
+
+    border: 1px solid rgba(25,215,184,0.2);
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+
+.blockchain-mini strong {
+
+    display: block;
+
+    color: var(--green);
+
+    margin-bottom: 5px;
+}
+
 
 /* =========================================================
    MAIN
 ========================================================= */
 
-.main{
-    margin-left:var(--sidebar-width);
+.main {
 
-    min-height:100vh;
+    margin-left: 250px;
 
-    padding:28px 34px;
+    width: calc(100% - 250px);
+
+    padding: 25px 35px 50px;
 }
+
 
 /* =========================================================
-   HEADER
+   TOP BAR
 ========================================================= */
 
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.topbar {
 
-    margin-bottom:30px;
+    display: flex;
 
-    gap:20px;
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
 }
 
-.page-title h1{
-    font-size:27px;
-    margin-bottom:5px;
+
+.page-title h1 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
 }
 
-.page-title p{
-    color:var(--muted);
-    font-size:13px;
+
+.page-title p {
+
+    color: var(--muted);
+
+    font-size: 13px;
 }
 
-.user-box{
-    display:flex;
-    align-items:center;
-    gap:10px;
+
+.top-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
 }
 
-.status-pill{
-    padding:8px 12px;
 
-    border:1px solid rgba(25,215,184,.3);
+/* STATUS */
 
-    border-radius:30px;
+.network-status {
 
-    color:var(--primary);
+    padding: 8px 12px;
 
-    background:rgba(25,215,184,.06);
+    border-radius: 20px;
 
-    font-size:12px;
+    background: #0d302b;
+
+    color: var(--green);
+
+    font-size: 12px;
+
+    border: 1px solid rgba(25,215,184,0.2);
 }
 
-.avatar{
-    width:38px;
-    height:38px;
 
-    border-radius:50%;
+.avatar {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     background:
         linear-gradient(
             135deg,
-            #19d7b8,
-            #0b756a
+            var(--orange),
+            var(--green)
         );
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    color: #000;
 
-    color:#06100e;
-    font-weight:800;
+    font-weight: bold;
 }
+
 
 /* =========================================================
-   PAGES
+   PAGE
 ========================================================= */
 
-.page{
-    display:none;
+.page {
+
+    display: none;
+
+    animation: fadeIn 0.3s ease;
 }
 
-.page.active{
-    display:block;
+
+.page.active {
+
+    display: block;
 }
+
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
 
 /* =========================================================
-   CARDS
+   DASHBOARD CARDS
 ========================================================= */
 
-.grid{
-    display:grid;
+.stats-grid {
+
+    display: grid;
 
     grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(220px,1fr)
-        );
+        repeat(4, 1fr);
 
-    gap:18px;
+    gap: 16px;
+
+    margin-bottom: 22px;
 }
 
-.card{
+
+.stat-card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    transition: 0.25s;
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-3px);
+
+    background: var(--card-hover);
+}
+
+
+.stat-icon {
+
+    font-size: 23px;
+
+    margin-bottom: 15px;
+}
+
+
+.stat-label {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 7px;
+}
+
+
+.stat-value {
+
+    font-size: 27px;
+
+    font-weight: bold;
+}
+
+
+.stat-green {
+
+    color: var(--green);
+}
+
+.stat-red {
+
+    color: var(--red);
+}
+
+.stat-orange {
+
+    color: var(--orange);
+}
+
+.stat-blue {
+
+    color: var(--blue);
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+}
+
+
+.card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.card-header h2 {
+
+    font-size: 17px;
+}
+
+
+.card-header span {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   IDENTITY CARD
+========================================================= */
+
+.identity-card {
+
     background:
         linear-gradient(
-            145deg,
-            rgba(16,27,33,.95),
-            rgba(10,18,22,.95)
+            135deg,
+            #121d29,
+            #0d171f
         );
 
-    border:1px solid var(--border);
-
-    border-radius:17px;
-
-    padding:20px;
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.15);
+    border: 1px solid rgba(25,215,184,0.18);
 }
 
-.card h3{
-    font-size:14px;
-    margin-bottom:8px;
+
+.did {
+
+    color: var(--green);
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+    word-break: break-all;
+
+    margin: 12px 0;
 }
 
-.card p{
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.6;
+
+.verified {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    background: #0d302b;
+
+    border-radius: 20px;
+
+    color: var(--green);
+
+    font-size: 11px;
+}
+/* =====================================================
+   BHAROSA 2.0 — IDENTITY PROTECTION
+===================================================== */
+
+.identity-protection {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px;
+    color: #f4f7f9;
 }
 
-.stat-number{
-    font-size:29px;
 
-    font-weight:800;
+/* HEADER */
 
-    color:var(--primary);
-
-    margin:8px 0;
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
 }
 
-.stat-label{
-    color:var(--muted);
-
-    font-size:11px;
+.section-header h1 {
+    margin: 8px 0;
+    font-size: 32px;
 }
 
-/* =========================================================
-   SECTION HEAD
-========================================================= */
-
-.section-head{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:18px;
+.section-header p {
+    color: #91a0ad;
+    max-width: 650px;
 }
 
-.section-head h2{
-    font-size:17px;
+.section-tag,
+.small-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #19d7b8;
+    font-weight: 700;
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
+.identity-status {
+    padding: 10px 16px;
+    border: 1px solid #19d7b8;
+    border-radius: 30px;
+    color: #19d7b8;
+    font-size: 13px;
+}
 
-button{
-    font-family:inherit;
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #19d7b8;
+    border-radius: 50%;
+    margin-right: 7px;
+}
+
+
+/* STATS */
+
+.security-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.security-stat-card {
+    background: #10171d;
+    border: 1px solid #1d2a32;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: #16242b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+}
+
+.security-stat-card span {
+    display: block;
+    color: #84929e;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.security-stat-card strong {
+    font-size: 19px;
+}
+
+
+/* CARDS */
+
+.identity-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.identity-card,
+.protection-card,
+.access-monitor,
+.alerts-card,
+.permissions-card,
+.blockchain-audit {
+    background: #10171d;
+    border: 1px solid #1d2a32;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.card-title-row,
+.section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.card-title-row h2,
+.section-title-row h2 {
+    margin: 7px 0;
+    font-size: 21px;
+}
+
+.verified-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #10352f;
+    color: #19d7b8;
+    font-size: 12px;
+}
+
+
+/* DID */
+
+.did-box {
+    background: #0a1015;
+    border: 1px solid #24333c;
+    padding: 17px;
+    border-radius: 12px;
+    margin: 25px 0;
+}
+
+.did-label {
+    display: block;
+    color: #758591;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.did-value {
+    font-family: monospace;
+    color: #19d7b8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.did-value button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.identity-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.identity-details span {
+    display: block;
+    color: #74838e;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.identity-details strong {
+    font-size: 14px;
+}
+
+.secure-text {
+    color: #19d7b8;
+}
+
+
+/* BUTTONS */
+
+.identity-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
 }
 
 .primary-btn,
 .secondary-btn,
-.danger-btn{
-    border:none;
-
-    padding:11px 16px;
-
-    border-radius:9px;
-
-    cursor:pointer;
-
-    font-size:12px;
-
-    transition:.2s;
+.refresh-btn {
+    padding: 11px 17px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
-.primary-btn{
-    background:var(--primary);
-
-    color:#06100e;
-
-    font-weight:700;
+.primary-btn {
+    border: none;
+    background: #19d7b8;
+    color: #06100e;
 }
 
-.primary-btn:hover{
-    background:#24e6c5;
-
-    transform:translateY(-1px);
+.secondary-btn,
+.refresh-btn {
+    background: transparent;
+    border: 1px solid #33444e;
+    color: #dce4e8;
 }
 
-.secondary-btn{
-    background:#142229;
 
-    color:#d9e5e5;
+/* PROTECTION SCORE */
 
-    border:1px solid var(--border);
+.protection-score {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
 }
 
-.secondary-btn:hover{
-    border-color:#36505b;
+.score-circle {
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    border: 10px solid #19d7b8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.danger-btn{
-    background:#35191b;
-
-    color:#ff8588;
-
-    border:1px solid #602529;
+.score-circle strong {
+    font-size: 29px;
 }
 
-/* =========================================================
-   IDENTITY
-========================================================= */
-
-.identity-box{
-    display:grid;
-
-    grid-template-columns:
-        minmax(220px, .8fr)
-        minmax(300px, 1.5fr);
-
-    gap:20px;
+.score-circle span {
+    color: #7f909b;
+    font-size: 12px;
 }
 
-.identity-card{
-    text-align:center;
-
-    padding:30px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(25,215,184,.08),
-            transparent 65%
-        ),
-
-        #0d171c;
-
-    border:1px solid var(--border);
-
-    border-radius:18px;
+.score-info {
+    flex: 1;
 }
 
-.identity-symbol{
-    width:90px;
-    height:90px;
-
-    margin:0 auto 20px;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:38px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(25,215,184,.2),
-            rgba(25,215,184,.04)
-        );
-
-    border:1px solid rgba(25,215,184,.3);
+.security-check {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 
-.did{
-    padding:15px;
-
-    margin-top:15px;
-
-    border-radius:10px;
-
-    background:#071014;
-
-    border:1px solid var(--border);
-
-    word-break:break-all;
-
-    font-family:monospace;
-
-    font-size:11px;
-
-    color:#a9b8bd;
+.security-check > span {
+    color: #19d7b8;
 }
 
-/* =========================================================
-   TABLE
-========================================================= */
-
-.table{
-    width:100%;
-
-    border-collapse:collapse;
+.security-check strong,
+.security-check small {
+    display: block;
 }
 
-.table th,
-.table td{
-    padding:13px 10px;
-
-    border-bottom:1px solid var(--border);
-
-    text-align:left;
-
-    font-size:12px;
+.security-check small {
+    color: #74838e;
+    margin-top: 3px;
 }
 
-.table th{
-    color:#7f939a;
+
+/* ACCESS MONITOR */
+
+.access-monitor {
+    margin-bottom: 25px;
 }
 
-.table td{
-    color:#c9d4d7;
+.access-table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
 }
 
-/* =========================================================
-   BADGES
-========================================================= */
-
-.badge{
-    display:inline-block;
-
-    padding:5px 9px;
-
-    border-radius:20px;
-
-    font-size:10px;
+.access-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.badge.green{
-    color:var(--primary);
-
-    background:rgba(25,215,184,.08);
+.access-table th {
+    text-align: left;
+    color: #74838e;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 14px;
+    border-bottom: 1px solid #26343d;
 }
 
-.badge.red{
-    color:#ff777b;
-
-    background:rgba(255,80,90,.08);
+.access-table td {
+    padding: 17px 14px;
+    border-bottom: 1px solid #1d2931;
+    font-size: 13px;
 }
 
-.badge.yellow{
-    color:#ffd36a;
-
-    background:rgba(255,200,87,.08);
+.requester {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* =========================================================
-   INPUTS
-========================================================= */
-
-input,
-select,
-textarea{
-    width:100%;
-
-    background:#080f14;
-
-    color:white;
-
-    border:1px solid #263740;
-
-    border-radius:9px;
-
-    padding:12px 13px;
-
-    outline:none;
-
-    font-family:inherit;
-
-    font-size:12px;
+.requester-icon {
+    width: 35px;
+    height: 35px;
+    background: #18252c;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:var(--primary);
-
-    box-shadow:
-        0 0 0 2px rgba(25,215,184,.08);
+.requester small {
+    display: block;
+    color: #6f7e88;
+    margin-top: 3px;
 }
 
-label{
-    display:block;
-
-    font-size:11px;
-
-    color:#8fa2a8;
-
-    margin-bottom:7px;
+.access-approved,
+.access-denied {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
 }
 
-/* =========================================================
-   QR
-========================================================= */
-
-.qr-card{
-    background:
-        linear-gradient(
-            145deg,
-            #101a20,
-            #0a1216
-        );
-
-    border:1px solid var(--border);
-
-    border-radius:18px;
-
-    padding:25px;
-
-    text-align:center;
+.access-approved {
+    background: #10352f;
+    color: #19d7b8;
 }
 
-.qr-card .card-header{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin-bottom:10px;
+.access-denied {
+    background: #391d21;
+    color: #ff7078;
 }
 
-.qr-card .card-header h2{
-    font-size:18px;
+.danger-row {
+    background: rgba(255, 70, 80, 0.035);
 }
 
-.verified{
-    color:var(--primary);
 
-    background:rgba(25,215,184,.07);
+/* ALERTS + RBAC */
 
-    border:1px solid rgba(25,215,184,.25);
-
-    border-radius:20px;
-
-    padding:6px 10px;
-
-    font-size:10px;
-
-    white-space:nowrap;
+.protection-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
 }
 
-.qr-card > p{
-    color:var(--muted);
-
-    font-size:12px;
-
-    line-height:1.6;
+.alert-count,
+.rbac-active {
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 15px;
+    background: #39251a;
+    color: #ffb366;
 }
 
-.qr-input{
-    max-width:600px;
-
-    margin:15px auto 0;
+.alert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 17px 0;
+    border-bottom: 1px solid #202d35;
 }
 
-#identityQR{
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    margin:25px auto;
-
-    padding:15px;
-
-    width:fit-content;
-
-    background:white;
-
-    border-radius:12px;
-
-    min-height:250px;
+.alert-symbol {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: #38201f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#identityQR img,
-#identityQR canvas{
-    display:block;
+.alert-item p {
+    color: #8796a0;
+    font-size: 12px;
+    margin: 5px 0;
 }
 
-#qrIdentityText{
-    color:#9fb0c0;
-
-    word-break:break-all;
-
-    font-family:monospace;
-
-    font-size:12px;
+.alert-item small {
+    color: #63717b;
 }
 
-.qr-actions{
-    display:flex;
-
-    justify-content:center;
-
-    gap:8px;
-
-    flex-wrap:wrap;
+.blocked-label,
+.reviewed-label {
+    margin-left: auto;
+    font-size: 10px;
 }
 
-.divider{
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin:30px 0;
-
-    color:#667681;
-
-    font-size:12px;
+.blocked-label {
+    color: #ff7078;
 }
 
-.divider div{
-    flex:1;
-
-    height:1px;
-
-    background:#26343d;
+.reviewed-label {
+    color: #19d7b8;
 }
 
-#qr-reader{
-    background:#080f17;
 
-    border:1px solid #26343d;
+/* RBAC */
 
-    border-radius:14px;
-
-    padding:10px;
-
-    overflow:hidden;
-
-    max-width:500px;
-
-    margin:25px auto 0;
+.role-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid #202d35;
 }
 
-#qr-reader video{
-    border-radius:10px;
+.role-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: #18252c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#qr-reader__dashboard{
-    color:#9fb0c0 !important;
-
-    font-size:12px;
+.role-info {
+    flex: 1;
 }
 
-#qr-reader__dashboard button{
-    background:#19d7b8 !important;
-
-    color:#06100e !important;
-
-    border:none !important;
-
-    border-radius:8px !important;
-
-    padding:8px 12px !important;
-
-    cursor:pointer;
+.role-info strong,
+.role-info small {
+    display: block;
 }
 
-#qr-reader__dashboard select{
-    background:#080f17 !important;
-
-    color:white !important;
-
-    border:1px solid #33444e !important;
-
-    border-radius:7px !important;
+.role-info small {
+    color: #71818c;
+    margin-top: 3px;
 }
 
-.qr-success{
-    padding:18px;
-
-    border-radius:12px;
-
-    border:2px solid #19d7b8;
-
-    background:#0c302b;
-
-    color:#19d7b8;
-
-    text-align:left;
+.role-status {
+    font-size: 10px;
+    color: #a5b1b8;
 }
 
-.qr-danger{
-    padding:18px;
-
-    border-radius:12px;
-
-    border:2px solid #ff5555;
-
-    background:#321719;
-
-    color:#ff7777;
-
-    text-align:left;
+.active-role {
+    color: #19d7b8;
 }
 
-.qr-info{
-    padding:14px;
 
-    border-radius:12px;
+/* BLOCKCHAIN */
 
-    background:#111d25;
-
-    color:#9fb0c0;
-
-    font-size:12px;
-
-    text-align:left;
+.blockchain-audit {
+    display: grid;
+    grid-template-columns: 1.5fr auto 1fr;
+    align-items: center;
+    gap: 35px;
 }
 
-.qr-success p,
-.qr-danger p{
-    margin-top:6px;
+.blockchain-audit p {
+    color: #7d8c96;
+    font-size: 13px;
+    max-width: 600px;
+}
+
+.block-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.block-icon {
+    width: 45px;
+    height: 45px;
+    background: #172b2b;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.block-status span {
+    display: block;
+    color: #788892;
+    font-size: 11px;
+}
+
+.block-status strong {
+    display: block;
+    color: #19d7b8;
+    margin-top: 4px;
+}
+
+.block-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.block-details span {
+    display: block;
+    color: #687984;
+    font-size: 10px;
+}
+
+.block-details strong {
+    font-size: 12px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+    .security-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .identity-grid,
+    .protection-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blockchain-audit {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .identity-protection {
+        padding: 20px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .security-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .identity-details {
+        grid-template-columns: 1fr;
+    }
+
+    .protection-score {
+        flex-direction: column;
+    }
+
+    .access-table {
+        min-width: 800px;
+    }
 }
 
 /* =========================================================
-   ACCESS CONTROL
+   ACTIVITY TABLE
 ========================================================= */
 
-.permission{
-    display:flex;
+.table-wrapper {
 
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:15px 0;
-
-    border-bottom:1px solid var(--border);
+    overflow-x: auto;
 }
 
-.permission:last-child{
-    border-bottom:none;
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
 }
 
-.permission-title{
-    font-size:13px;
+
+th {
+
+    text-align: left;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: normal;
+
+    padding: 12px 10px;
+
+    border-bottom: 1px solid var(--border);
 }
 
-.permission-desc{
-    color:var(--muted);
 
-    font-size:11px;
+td {
 
-    margin-top:3px;
+    padding: 14px 10px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* Toggle */
 
-.switch{
-    position:relative;
+.status-pill {
 
-    width:42px;
-    height:23px;
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
 }
 
-.switch input{
-    opacity:0;
 
-    width:0;
-    height:0;
+.status-success {
+
+    background: #0d302b;
+
+    color: var(--green);
 }
 
-.slider{
-    position:absolute;
 
-    cursor:pointer;
+.status-danger {
 
-    inset:0;
+    background: var(--red-dark);
 
-    background:#24343c;
-
-    border-radius:30px;
-
-    transition:.2s;
+    color: var(--red);
 }
 
-.slider:before{
-    content:"";
 
-    position:absolute;
+.status-warning {
 
-    width:17px;
-    height:17px;
+    background: var(--orange-dark);
 
-    left:3px;
-    top:3px;
-
-    background:#b8c4c7;
-
-    border-radius:50%;
-
-    transition:.2s;
+    color: var(--orange);
 }
 
-.switch input:checked + .slider{
-    background:var(--primary);
-}
-
-.switch input:checked + .slider:before{
-    transform:translateX(19px);
-
-    background:#06100e;
-}
 
 /* =========================================================
    ALERT
 ========================================================= */
 
-.alert{
-    display:flex;
+.alert {
 
-    align-items:flex-start;
+    display: flex;
 
-    gap:14px;
+    gap: 12px;
 
-    padding:16px;
+    padding: 15px;
 
-    border-radius:13px;
+    border-radius: 12px;
 
-    background:#111a20;
+    margin-bottom: 10px;
 
-    border:1px solid var(--border);
+    background: var(--red-dark);
 
-    margin-bottom:12px;
+    border: 1px solid rgba(255,85,85,0.2);
 }
 
-.alert-icon{
-    font-size:20px;
+
+.alert-icon {
+
+    font-size: 20px;
 }
 
-.alert h3{
-    font-size:13px;
 
-    margin-bottom:5px;
+.alert h4 {
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
 }
 
-.alert p{
-    color:var(--muted);
 
-    font-size:11px;
+.alert p {
 
-    line-height:1.5;
+    color: var(--muted);
+
+    font-size: 11px;
 }
+
+
+/* =========================================================
+   ASSETS
+========================================================= */
+
+.assets-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.asset {
+
+    background: #0d151f;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    padding: 17px;
+
+    transition: 0.25s;
+}
+
+
+.asset:hover {
+
+    border-color: rgba(25,215,184,0.3);
+
+    transform: translateY(-3px);
+}
+
+
+.asset-icon {
+
+    font-size: 30px;
+
+    margin-bottom: 15px;
+}
+
+
+.asset h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+
+.asset p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+.nft-id {
+
+    color: var(--green);
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   ROLE CARDS
+========================================================= */
+
+.roles {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+.role {
+
+    padding: 20px;
+
+    background: #0d151f;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    text-align: center;
+}
+
+
+.role-icon {
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+
+.role h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 6px;
+}
+
+
+.role p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   AUDIT TIMELINE
+========================================================= */
+
+.timeline {
+
+    position: relative;
+
+    padding-left: 30px;
+}
+
+
+.timeline::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 8px;
+
+    top: 5px;
+
+    bottom: 5px;
+
+    width: 1px;
+
+    background: #293746;
+}
+
+
+.timeline-item {
+
+    position: relative;
+
+    margin-bottom: 25px;
+}
+
+
+.timeline-dot {
+
+    position: absolute;
+
+    left: -27px;
+
+    top: 2px;
+
+    width: 15px;
+
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    border: 3px solid #10201f;
+}
+
+
+.timeline-item.warning .timeline-dot {
+
+    background: var(--red);
+}
+
+
+.timeline-item h4 {
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+
+.timeline-item p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+.hash {
+
+    margin-top: 7px;
+
+    color: var(--green);
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    word-break: break-all;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+}
+
+
+.btn-primary {
+
+    background: var(--green);
+
+    color: #041018;
+}
+
+
+.btn-primary:hover {
+
+    opacity: 0.85;
+}
+
+
+.btn-danger {
+
+    background: var(--red-dark);
+
+    color: var(--red);
+
+    border: 1px solid rgba(255,85,85,0.2);
+}
+
+
+/* =========================================================
+   SECURITY CHECK
+========================================================= */
+
+.security-check {
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 11px 13px;
+
+    background: #080f17;
+
+    border: 1px solid var(--border);
+
+    color: white;
+
+    border-radius: 8px;
+
+    outline: none;
+}
+
+
+input:focus {
+
+    border-color: var(--green);
+}
+
 
 /* =========================================================
    TOAST
 ========================================================= */
 
-.toast{
-    position:fixed;
+.toast {
 
-    right:25px;
-    bottom:25px;
+    position: fixed;
 
-    padding:13px 17px;
+    right: 25px;
 
-    border-radius:10px;
+    bottom: 25px;
 
-    background:#122229;
+    background: #152231;
 
-    border:1px solid rgba(25,215,184,.3);
+    border: 1px solid rgba(25,215,184,0.3);
 
-    color:#d9f8f2;
+    padding: 15px 18px;
 
-    box-shadow:0 15px 35px rgba(0,0,0,.35);
+    border-radius: 10px;
 
-    font-size:12px;
+    display: none;
 
-    transform:translateY(120px);
+    z-index: 999;
 
-    opacity:0;
+    font-size: 13px;
 
-    transition:.3s;
-
-    z-index:9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.toast.show{
-    transform:translateY(0);
-
-    opacity:1;
-}
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-.mobile-header{
-    display:none;
+.mobile-menu {
+
+    display: none;
+
+    background: none;
+
+    border: none;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
 }
 
-@media(max-width:850px){
 
-    .sidebar{
-        position:fixed;
+@media(max-width:1000px) {
 
-        width:100%;
-
-        height:auto;
-
-        bottom:0;
-        top:auto;
-
-        left:0;
-
-        padding:7px;
-
-        border-top:1px solid var(--border);
-
-        border-right:none;
-    }
-
-    .logo,
-    .sidebar-footer{
-        display:none;
-    }
-
-    .nav{
-        margin:0;
-
-        display:grid;
+    .stats-grid {
 
         grid-template-columns:
-            repeat(4,1fr);
-
-        gap:3px;
+            repeat(2,1fr);
     }
 
-    .nav button{
-        text-align:center;
+    .content-grid {
 
-        font-size:10px;
-
-        padding:10px 3px;
+        grid-template-columns: 1fr;
     }
 
-    .main{
-        margin-left:0;
+    .assets-grid {
 
-        padding:20px 15px 100px;
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .topbar{
-        align-items:flex-start;
-    }
+    .roles {
 
-    .status-pill{
-        display:none;
+        grid-template-columns:
+            repeat(2,1fr);
     }
-
-    .identity-box{
-        grid-template-columns:1fr;
-    }
-
-    .qr-card .card-header{
-        flex-direction:column;
-    }
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
 }
 
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
 
-@media(max-width:480px){
+@media(max-width:700px) {
 
-    .page-title h1{
-        font-size:22px;
+    .sidebar {
+
+        transform: translateX(-100%);
+
+        transition: 0.3s;
     }
 
-    .page-title p{
-        font-size:11px;
+    .sidebar.open {
+
+        transform: translateX(0);
     }
 
-    .card{
-        padding:16px;
+    .main {
+
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 20px;
     }
 
-    #identityQR{
-        max-width:100%;
+    .mobile-menu {
+
+        display: block;
     }
 
+    .topbar {
+
+        align-items: flex-start;
+    }
+
+    .network-status {
+
+        display: none;
+    }
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .assets-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .roles {
+
+        grid-template-columns: 1fr;
+    }
+}
+   /* =========================
+   QR IDENTITY VERIFICATION
+========================= */
+
+.qr-card {
+    text-align: center;
 }
 
+#identityQR {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px auto;
+    padding: 15px;
+    width: fit-content;
+    background: white;
+    border-radius: 12px;
+}
+
+#identityQR img {
+    display: block;
+}
+
+#qrIdentityText {
+    color: #9fb0c0;
+    word-break: break-all;
+}
+
+#qrVerificationResult {
+    margin-top: 20px;
+}
+
+.qr-success {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #19d7b8;
+    background: #0c302b;
+    color: #19d7b8;
+}
+
+.qr-danger {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #ff5555;
+    background: #321719;
+    color: #ff7777;
+}
+   
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =======================================================
-     SIDEBAR
-======================================================= -->
 
-<aside class="sidebar">
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
 
     <div class="logo">
 
-        <div class="logo-icon">
-            🛡️
-        </div>
+        <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
 
-        <div>
-            <div class="logo-text">
-                BHAROSA
-            </div>
+    </div>
 
-            <div class="logo-sub">
-                Decentralized Trust
-            </div>
-        </div>
-
+    <div class="logo-subtitle">
+        Digital Identity Protection
     </div>
 
 
@@ -1147,1166 +1795,1891 @@ label{
         <button
             class="active"
             onclick="showPage('dashboard', this)">
+
             🏠 Dashboard
+
         </button>
+
 
         <button
             onclick="showPage('identity', this)">
+
             🪪 My Identity
+
         </button>
 
-        <button
-            onclick="showPage('identity-protection', this)">
-            🛡️ Identity Protection
-        </button>
 
         <button
             onclick="showPage('access', this)">
+
             🔐 Access Control
+
         </button>
+
 
         <button
             onclick="showPage('assets', this)">
+
             📜 Digital Assets
+
         </button>
+
 
         <button
             onclick="showPage('audit', this)">
+
             🔎 Audit Trail
+
         </button>
+
 
         <button
             onclick="showPage('alerts', this)">
+
             🚨 Security Alerts
+
         </button>
+
 
         <button
             onclick="showPage('settings', this)">
+
             ⚙️ Settings
+
         </button>
 
     </nav>
 
 
-    <div class="sidebar-footer">
+    <div class="sidebar-bottom">
 
-        🔐 Your identity belongs to you.
+        <div class="blockchain-mini">
 
-        <br>
+            <strong>⛓ Blockchain Network</strong>
 
-        Blockchain-backed trust infrastructure.
+            Test Network Connected
+
+            <br>
+
+            Block #18,492
+
+        </div>
 
     </div>
 
 </aside>
 
 
-<!-- =======================================================
+<!-- =====================================================
      MAIN
-======================================================= -->
+===================================================== -->
 
 <main class="main">
 
-    <!-- TOP BAR -->
 
-    <header class="topbar">
+<header class="topbar">
 
-        <div class="page-title">
+    <button
+        class="mobile-menu"
+        onclick="toggleSidebar()">
 
-            <h1 id="pageTitle">
-                Dashboard
-            </h1>
+        ☰
 
-            <p id="pageSubtitle">
-                Your digital identity security overview
-            </p>
+    </button>
+
+
+    <div class="page-title">
+
+        <h1 id="pageTitle">
+            Dashboard
+        </h1>
+
+        <p id="pageSubtitle">
+            Your digital identity security overview
+        </p>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <div class="network-status">
+
+            ● Blockchain Connected
 
         </div>
 
+        <div class="avatar">
 
-        <div class="user-box">
+            U
 
-            <span class="status-pill">
-                ● Identity Protected
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+    id="dashboard"
+    class="page active">
+
+
+<div class="stats-grid">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🪪
+        </div>
+
+        <div class="stat-label">
+            Identity Status
+        </div>
+
+        <div class="stat-value stat-green">
+            Verified
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🔐
+        </div>
+
+        <div class="stat-label">
+            Access Events
+        </div>
+
+        <div class="stat-value">
+            24
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📜
+        </div>
+
+        <div class="stat-label">
+            Digital Assets
+        </div>
+
+        <div class="stat-value stat-blue">
+            5
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🚨
+        </div>
+
+        <div class="stat-label">
+            Security Alerts
+        </div>
+
+        <div class="stat-value stat-red">
+            2
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="content-grid">
+
+
+<!-- LEFT -->
+
+<div>
+
+
+    <!-- IDENTITY -->
+
+    <div class="card identity-card">
+
+        <div class="card-header">
+
+            <h2>
+                🪪 Decentralized Identity
+            </h2>
+
+            <span class="verified">
+                ● Cryptographically Verified
             </span>
 
-            <div class="avatar">
-                H
-            </div>
-
         </div>
 
-    </header>
+
+        <p style="color:var(--muted);font-size:12px;">
+            Your self-sovereign digital identity
+        </p>
 
 
-    <!-- ===================================================
-         DASHBOARD
-    =================================================== -->
+        <div class="did">
 
-    <section
-        id="dashboard"
-        class="page active">
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="stat-label">
-                    Identity Status
-                </div>
-
-                <div class="stat-number">
-                    ✓
-                </div>
-
-                <p>
-                    Decentralized identity active
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="stat-label">
-                    Access Permissions
-                </div>
-
-                <div class="stat-number">
-                    08
-                </div>
-
-                <p>
-                    Active permissions under your control
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="stat-label">
-                    Digital Assets
-                </div>
-
-                <div class="stat-number">
-                    05
-                </div>
-
-                <p>
-                    Blockchain-backed assets
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="stat-label">
-                    Security Score
-                </div>
-
-                <div class="stat-number">
-                    94%
-                </div>
-
-                <p>
-                    Excellent protection level
-                </p>
-
-            </div>
+            did:bh:7f82c9a1b4e6d02a91...
 
         </div>
 
 
-        <br>
+        <button
+            class="btn btn-primary"
+            onclick="showToast('Identity proof verified successfully.')">
+
+            Verify Identity
+
+        </button>
+
+    </div>
 
 
-        <div class="grid">
+    <!-- RECENT ACCESS -->
 
-            <div class="card">
+    <div class="card">
 
-                <div class="section-head">
+        <div class="card-header">
 
-                    <h2>
-                        🛡️ Identity Protection
-                    </h2>
+            <h2>
+                🔐 Recent Identity Access
+            </h2>
 
-                    <span class="badge green">
-                        SECURE
-                    </span>
+            <span>
+                View all
+            </span>
 
-                </div>
+        </div>
 
-                <p>
-                    Your decentralized identity is protected
-                    through distributed verification and
-                    tamper-resistant records.
-                </p>
 
-                <br>
+        <div class="table-wrapper">
 
-                <button
-                    class="primary-btn"
-                    onclick="showPageById('identity-protection')">
-                    Open Identity Protection
-                </button>
+        <table>
 
+            <thead>
+
+                <tr>
+
+                    <th>WHO</th>
+                    <th>WHAT</th>
+                    <th>WHY</th>
+                    <th>WHEN</th>
+                    <th>STATUS</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>ABC Bank</td>
+
+                    <td>PAN</td>
+
+                    <td>Loan KYC</td>
+
+                    <td>10:42 AM</td>
+
+                    <td>
+                        <span class="status-pill status-success">
+                            Authorized
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Gov Service</td>
+
+                    <td>Address</td>
+
+                    <td>Verification</td>
+
+                    <td>09:18 AM</td>
+
+                    <td>
+                        <span class="status-pill status-success">
+                            Authorized
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Unknown</td>
+
+                    <td>Identity</td>
+
+                    <td>Unknown</td>
+
+                    <td>08:31 AM</td>
+
+                    <td>
+                        <span class="status-pill status-danger">
+                            Blocked
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- RIGHT -->
+
+<div>
+
+
+    <!-- SECURITY -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>
+                🚨 Security Alert
+            </h2>
+
+        </div>
+
+
+        <div class="alert">
+
+            <div class="alert-icon">
+                ⚠️
             </div>
 
+            <div>
 
-            <div class="card">
+                <h4>
+                    Unauthorized Access Attempt
+                </h4>
 
-                <div class="section-head">
-
-                    <h2>
-                        🔎 Recent Activity
-                    </h2>
-
-                </div>
-
-                <table class="table">
-
-                    <tr>
-                        <td>Identity verified</td>
-
-                        <td>
-                            <span class="badge green">
-                                Success
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>QR generated</td>
-
-                        <td>
-                            <span class="badge green">
-                                Success
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Access permission updated</td>
-
-                        <td>
-                            <span class="badge yellow">
-                                Updated
-                            </span>
-                        </td>
-                    </tr>
-
-                </table>
+                <p>
+                    An unknown service attempted to access your identity at 08:31 AM.
+                </p>
 
             </div>
 
         </div>
 
-    </section>
+
+        <button
+            class="btn btn-danger"
+            onclick="showToast('Security incident marked for investigation.')">
+
+            Investigate
+
+        </button>
+
+    </div>
 
 
-    <!-- ===================================================
-         MY IDENTITY
-    =================================================== -->
+    <!-- BLOCKCHAIN -->
 
-    <section
-        id="identity"
-        class="page">
+    <div class="card">
 
-        <div class="identity-box">
+        <div class="card-header">
 
-            <div class="identity-card">
-
-                <div class="identity-symbol">
-                    🪪
-                </div>
-
-                <h2>
-                    Decentralized Identity
-                </h2>
-
-                <p style="margin-top:8px;">
-                    Your identity is controlled by you,
-                    not by a centralized authority.
-                </p>
-
-                <div class="did">
-                    did:bharosa:7f82a91c4e5d
-                </div>
-
-                <br>
-
-                <button
-                    class="primary-btn"
-                    onclick="showPageById('identity-protection')">
-                    📱 Verify with QR
-                </button>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="section-head">
-
-                    <h2>
-                        Identity Details
-                    </h2>
-
-                    <span class="badge green">
-                        VERIFIED
-                    </span>
-
-                </div>
-
-
-                <label>
-                    Identity ID / DID
-                </label>
-
-                <input
-                    value="did:bharosa:7f82a91c4e5d"
-                    readonly>
-
-
-                <br><br>
-
-
-                <label>
-                    Identity Status
-                </label>
-
-                <input
-                    value="Active & Protected"
-                    readonly>
-
-
-                <br><br>
-
-
-                <label>
-                    Verification Method
-                </label>
-
-                <input
-                    value="Decentralized Verification"
-                    readonly>
-
-            </div>
+            <h2>
+                ⛓ Blockchain Status
+            </h2>
 
         </div>
 
-    </section>
 
+        <div style="font-size:13px;">
 
-    <!-- ===================================================
-         IDENTITY PROTECTION / QR
-    =================================================== -->
-
-    <section
-        id="identity-protection"
-        class="page">
-
-        <div class="qr-card">
-
-            <div class="card-header">
-
-                <h2>
-                    📱 QR Identity Verification
-                </h2>
-
-                <span class="verified">
-                    🔐 Secure Verification
-                </span>
-
-            </div>
-
-
-            <p>
-                Generate a QR code for your BHAROSA
-                decentralized identity or scan an existing
-                BHAROSA identity QR to verify it.
+            <p style="color:var(--muted);margin-bottom:10px;">
+                Network
             </p>
 
-
-            <!-- GENERATE -->
-
-            <div style="margin-top:25px;">
-
-                <h3>
-                    Generate Identity QR
-                </h3>
+            <strong>
+                BHAROSA Test Network
+            </strong>
 
 
-                <input
-                    class="qr-input"
-                    type="text"
-                    id="didInput"
-                    placeholder="Enter your Identity ID / DID"
-                    value="did:bharosa:7f82a91c4e5d">
+            <p style="color:var(--muted);margin-top:15px;margin-bottom:5px;">
+                Latest Block
+            </p>
+
+            <span class="did">
+                #18,492
+            </span>
 
 
-                <div
-                    style="
-                    display:flex;
-                    justify-content:center;
-                    gap:8px;
-                    flex-wrap:wrap;
-                    margin-top:12px;
-                    ">
+            <p style="color:var(--muted);margin-top:10px;">
+                ✓ Audit records synchronized
+            </p>
 
-                    <button
-                        class="primary-btn"
-                        onclick="generateIdentityQR()">
-                        🔐 Generate Identity QR
-                    </button>
+        </div>
 
-                </div>
+    </div>
 
+</div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     IDENTITY PAGE
+===================================================== -->
+
+<section
+    id="identity"
+    class="page">
+
+
+<div class="card identity-card">
+
+    <div class="card-header">
+
+        <h2>
+            🪪 My Decentralized Identity
+        </h2>
+
+        <span class="verified">
+            ● VERIFIED
+        </span>
+
+    </div>
+
+
+    <p style="color:var(--muted);margin-bottom:10px;">
+        Decentralized Identifier
+    </p>
+
+
+    <div class="did">
+
+        did:bh:7f82c9a1b4e6d02a91f0d8a...
+
+    </div>
+
+
+    <div class="stats-grid" style="margin-top:20px;">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Identity Status
             </div>
 
-
-            <!-- RESULT -->
-
-            <div
-                id="qrResult"
-                style="display:none;margin-top:25px;">
-
-                <h3>
-                    Your BHAROSA Identity QR
-                </h3>
-
-                <p
-                    style="
-                    color:var(--muted);
-                    font-size:12px;
-                    margin-top:6px;
-                    ">
-                    Scan this QR to verify the identity.
-                </p>
-
-
-                <div id="identityQR"></div>
-
-
-                <p id="qrIdentityText"></p>
-
-
-                <div
-                    class="qr-actions"
-                    style="margin-top:15px;">
-
-                    <button
-                        class="secondary-btn"
-                        onclick="downloadQR()">
-                        ⬇️ Download QR
-                    </button>
-
-                    <button
-                        class="secondary-btn"
-                        onclick="copyDID()">
-                        📋 Copy DID
-                    </button>
-
-                </div>
-
+            <div class="stat-value stat-green">
+                Active
             </div>
 
+        </div>
 
-            <!-- DIVIDER -->
 
-            <div class="divider">
+        <div class="stat-card">
 
-                <div></div>
-
-                OR
-
-                <div></div>
-
+            <div class="stat-label">
+                Verification
             </div>
 
+            <div class="stat-value stat-green">
+                Valid
+            </div>
 
-            <!-- SCANNER -->
+        </div>
 
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Access Requests
+            </div>
+
+            <div class="stat-value">
+                24
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Failed Attempts
+            </div>
+
+            <div class="stat-value stat-red">
+                2
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔐 Identity Security
+        </h2>
+
+    </div>
+
+
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+
+        BHAROSA uses cryptographic proofs to allow your identity
+        to be verified without exposing unnecessary personal information.
+
+    </p>
+
+    <br>
+
+    <button
+        class="btn btn-primary"
+        onclick="showToast('Cryptographic identity proof generated.')">
+
+        Generate Identity Proof
+
+    </button>
+
+</div>
+
+
+</section>
+   <!-- =====================================================
+     BHAROSA 2.0 — IDENTITY PROTECTION
+===================================================== -->
+
+<section id="identity-protection" class="identity-protection">
+
+    <!-- Header -->
+    <div class="section-header">
+        <div>
+            <span class="section-tag">BHAROSA 2.0 SECURITY</span>
+            <h1>🔐 Identity Protection</h1>
+            <p>
+                Monitor, control and protect how your digital identity
+                is accessed across trusted services.
+            </p>
+        </div>
+
+        <div class="identity-status">
+            <span class="status-dot"></span>
+            Identity Protected
+        </div>
+    </div>
+
+
+    <!-- Security Overview -->
+    <div class="security-stats">
+
+        <div class="security-stat-card">
+            <div class="stat-icon">🆔</div>
             <div>
-
-                <h3>
-                    🔎 Scan Identity QR
-                </h3>
-
-                <p
-                    style="
-                    color:var(--muted);
-                    font-size:12px;
-                    margin:8px 0 15px;
-                    ">
-                    Scan a BHAROSA identity QR using your camera.
-                </p>
-
-
-                <button
-                    class="primary-btn"
-                    onclick="startQRScanner()">
-                    📷 Start QR Scanner
-                </button>
-
-
-                <button
-                    class="secondary-btn"
-                    onclick="stopQRScanner()"
-                    style="margin-left:8px;">
-                    ⏹ Stop Scanner
-                </button>
-
-
-                <div
-                    id="qr-reader"
-                    style="display:none;">
-                </div>
-
-
-                <div
-                    id="qrVerificationResult"
-                    style="margin-top:20px;">
-                </div>
-
+                <span>DID Status</span>
+                <strong>Verified</strong>
             </div>
-
         </div>
 
-    </section>
-
-
-    <!-- ===================================================
-         ACCESS CONTROL
-    =================================================== -->
-
-    <section
-        id="access"
-        class="page">
-
-        <div class="card">
-
-            <div class="section-head">
-
-                <h2>
-                    🔐 Access Permissions
-                </h2>
-
-                <button
-                    class="primary-btn"
-                    onclick="showToast('Access permission updated.')">
-                    + Add Permission
-                </button>
-
+        <div class="security-stat-card">
+            <div class="stat-icon">👁️</div>
+            <div>
+                <span>Access Events</span>
+                <strong id="accessCount">24</strong>
             </div>
-
-
-            <div class="permission">
-
-                <div>
-
-                    <div class="permission-title">
-                        Government Services
-                    </div>
-
-                    <div class="permission-desc">
-                        Identity verification access
-                    </div>
-
-                </div>
-
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
-
-            <div class="permission">
-
-                <div>
-
-                    <div class="permission-title">
-                        Educational Institution
-                    </div>
-
-                    <div class="permission-desc">
-                        Student identity verification
-                    </div>
-
-                </div>
-
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
-
-            <div class="permission">
-
-                <div>
-
-                    <div class="permission-title">
-                        Financial Services
-                    </div>
-
-                    <div class="permission-desc">
-                        Limited identity verification
-                    </div>
-
-                </div>
-
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox">
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
-
-            <div class="permission">
-
-                <div>
-
-                    <div class="permission-title">
-                        Third Party Applications
-                    </div>
-
-                    <div class="permission-desc">
-                        External identity requests
-                    </div>
-
-                </div>
-
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox">
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
         </div>
 
-    </section>
-
-
-    <!-- ===================================================
-         DIGITAL ASSETS
-    =================================================== -->
-
-    <section
-        id="assets"
-        class="page">
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="stat-label">
-                    Verified Assets
-                </div>
-
-                <div class="stat-number">
-                    05
-                </div>
-
-                <p>
-                    Ownership records secured on the ledger.
-                </p>
-
+        <div class="security-stat-card">
+            <div class="stat-icon">🚨</div>
+            <div>
+                <span>Threats Blocked</span>
+                <strong id="blockedCount">3</strong>
             </div>
-
-
-            <div class="card">
-
-                <div class="stat-label">
-                    Ownership Records
-                </div>
-
-                <div class="stat-number">
-                    12
-                </div>
-
-                <p>
-                    Tamper-resistant ownership events.
-                </p>
-
-            </div>
-
         </div>
 
-
-        <br>
-
-
-        <div class="card">
-
-            <div class="section-head">
-
-                <h2>
-                    📜 Digital Asset Registry
-                </h2>
-
+        <div class="security-stat-card">
+            <div class="stat-icon">⛓️</div>
+            <div>
+                <span>Blockchain</span>
+                <strong>Synced</strong>
             </div>
-
-
-            <table class="table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Asset
-                        </th>
-
-                        <th>
-                            Owner
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                        <th>
-                            Record
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    <tr>
-
-                        <td>
-                            Academic Certificate
-                        </td>
-
-                        <td>
-                            did:bharosa:7f82...
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Verified
-                            </span>
-                        </td>
-
-                        <td>
-                            Blockchain
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-                            Property Record
-                        </td>
-
-                        <td>
-                            did:bharosa:7f82...
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Verified
-                            </span>
-                        </td>
-
-                        <td>
-                            Blockchain
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-                            Digital Certificate
-                        </td>
-
-                        <td>
-                            did:bharosa:7f82...
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Verified
-                            </span>
-                        </td>
-
-                        <td>
-                            Blockchain
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- ===================================================
-         AUDIT TRAIL
-    =================================================== -->
+    <!-- Digital Identity Card -->
+    <div class="identity-grid">
 
-    <section
-        id="audit"
-        class="page">
+        <div class="identity-card">
 
-        <div class="card">
+            <div class="card-title-row">
+                <div>
+                    <span class="small-label">DECENTRALIZED IDENTITY</span>
+                    <h2>My Digital Identity</h2>
+                </div>
 
-            <div class="section-head">
-
-                <h2>
-                    🔎 Tamper-Resistant Audit Trail
-                </h2>
-
-                <span class="badge green">
-                    IMMUTABLE
+                <span class="verified-badge">
+                    ✓ Verified
                 </span>
+            </div>
+
+            <div class="did-box">
+
+                <span class="did-label">DID</span>
+
+                <div class="did-value">
+                    did:bharosa:7f82a91c4e5d
+                    <button onclick="copyDID()">📋</button>
+                </div>
 
             </div>
 
-
-            <table class="table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Event
-                        </th>
-
-                        <th>
-                            Timestamp
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    <tr>
-
-                        <td>
-                            Identity Created
-                        </td>
-
-                        <td>
-                            02 Sep 2026, 09:10
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Confirmed
-                            </span>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-                            Identity QR Generated
-                        </td>
-
-                        <td>
-                            02 Sep 2026, 09:22
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Confirmed
-                            </span>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-                            Access Permission Updated
-                        </td>
-
-                        <td>
-                            02 Sep 2026, 09:35
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Confirmed
-                            </span>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-                            Security Verification
-                        </td>
-
-                        <td>
-                            02 Sep 2026, 09:40
-                        </td>
-
-                        <td>
-                            <span class="badge green">
-                                Confirmed
-                            </span>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         ALERTS
-    =================================================== -->
-
-    <section
-        id="alerts"
-        class="page">
-
-        <div class="alert">
-
-            <div class="alert-icon">
-                🟢
-            </div>
-
-            <div>
-
-                <h3>
-                    Identity Protection Active
-                </h3>
-
-                <p>
-                    Your BHAROSA identity is currently
-                    protected and available for verification.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="alert">
-
-            <div class="alert-icon">
-                🔐
-            </div>
-
-            <div>
-
-                <h3>
-                    New Verification Event
-                </h3>
-
-                <p>
-                    A verification request was recorded
-                    in the identity audit trail.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="alert">
-
-            <div class="alert-icon">
-                ⚡
-            </div>
-
-            <div>
-
-                <h3>
-                    Security Score: 94%
-                </h3>
-
-                <p>
-                    Your current identity security configuration
-                    is considered strong.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         SETTINGS
-    =================================================== -->
-
-    <section
-        id="settings"
-        class="page">
-
-        <div class="card">
-
-            <div class="section-head">
-
-                <h2>
-                    ⚙️ Settings
-                </h2>
-
-            </div>
-
-
-            <label>
-                Language
-            </label>
-
-            <select id="languageSelect">
-
-                <option value="en">
-                    English
-                </option>
-
-                <option value="hi">
-                    हिन्दी
-                </option>
-
-            </select>
-
-
-            <br><br>
-
-
-            <div class="permission">
+            <div class="identity-details">
 
                 <div>
+                    <span>Identity Hash</span>
+                    <strong>
+                        8a7f...91c2
+                    </strong>
+                </div>
 
-                    <div class="permission-title">
-                        Security Notifications
+                <div>
+                    <span>Created</span>
+                    <strong>
+                        28 Aug 2026
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Last Verified</span>
+                    <strong>
+                        02 Sep 2026
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Security Level</span>
+                    <strong class="secure-text">
+                        HIGH
+                    </strong>
+                </div>
+
+            </div>
+
+            <div class="identity-actions">
+
+                <button class="primary-btn" onclick="verifyIdentity()">
+                    ✓ Verify Identity
+                </button>
+
+                <button class="secondary-btn" onclick="viewIdentityHash()">
+                    View Hash
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Protection Status -->
+        <div class="protection-card">
+
+            <div class="card-title-row">
+                <div>
+                    <span class="small-label">SECURITY STATUS</span>
+                    <h2>Protection Overview</h2>
+                </div>
+            </div>
+
+            <div class="protection-score">
+
+                <div class="score-circle">
+                    <strong>94%</strong>
+                    <span>Protected</span>
+                </div>
+
+                <div class="score-info">
+
+                    <div class="security-check">
+                        <span>✓</span>
+                        <div>
+                            <strong>Identity Verified</strong>
+                            <small>DID successfully verified</small>
+                        </div>
                     </div>
 
-                    <div class="permission-desc">
-                        Receive alerts about suspicious activity
+                    <div class="security-check">
+                        <span>✓</span>
+                        <div>
+                            <strong>Access Control Active</strong>
+                            <small>RBAC permissions enabled</small>
+                        </div>
+                    </div>
+
+                    <div class="security-check">
+                        <span>✓</span>
+                        <div>
+                            <strong>Blockchain Audit Active</strong>
+                            <small>Records are being tracked</small>
+                        </div>
                     </div>
 
                 </div>
 
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
             </div>
 
+        </div>
 
-            <div class="permission">
+    </div>
+   <!-- =========================
+     QR IDENTITY VERIFICATION
+========================= -->
 
-                <div>
+<div class="card qr-card">
 
-                    <div class="permission-title">
-                        Voice Assistance
-                    </div>
+    <h2>📱 QR Identity Verification</h2>
 
-                    <div class="permission-desc">
-                        Enable voice feedback for accessibility
-                    </div>
+    <p>
+        Generate a secure QR code linked to your BHAROSA digital identity.
+    </p>
 
-                </div>
+    <input
+        type="text"
+        id="didInput"
+        placeholder="Enter your Identity ID / DID"
+    >
+
+    <button onclick="generateIdentityQR()">
+        🔐 Generate Identity QR
+    </button>
+
+    <div id="qrResult" style="display:none;">
+
+        <h3>Identity QR</h3>
+
+        <div id="identityQR"></div>
+
+        <p id="qrIdentityText"></p>
+
+        <button onclick="verifyIdentityQR()">
+            🔎 Verify Identity
+        </button>
+
+        <div id="qrVerificationResult"></div>
+
+    </div>
+
+</div>
 
 
-                <label class="switch">
+    <!-- =================================================
+         IDENTITY ACCESS MONITOR
+    ================================================== -->
 
-                    <input
-                        type="checkbox"
-                        checked>
+    <div class="access-monitor">
 
-                    <span class="slider"></span>
+        <div class="section-title-row">
 
-                </label>
-
+            <div>
+                <span class="small-label">REAL-TIME MONITORING</span>
+                <h2>👁️ Identity Access Monitor</h2>
+                <p>
+                    See who accessed your identity, what they accessed,
+                    why they accessed it and whether the request was authorized.
+                </p>
             </div>
 
-
-            <br>
-
-
-            <button
-                class="primary-btn"
-                onclick="saveSettings()">
-                💾 Save Settings
+            <button class="refresh-btn" onclick="refreshAccessLog()">
+                ↻ Refresh
             </button>
 
         </div>
 
-    </section>
+
+        <div class="access-table-wrapper">
+
+            <table class="access-table">
+
+                <thead>
+                    <tr>
+                        <th>Requester</th>
+                        <th>Accessed Data</th>
+                        <th>Purpose</th>
+                        <th>Date & Time</th>
+                        <th>Authorization</th>
+                    </tr>
+                </thead>
+
+                <tbody id="accessLog">
+
+                    <tr>
+                        <td>
+                            <div class="requester">
+                                <span class="requester-icon">🏛️</span>
+                                <div>
+                                    <strong>Government Service Portal</strong>
+                                    <small>TF001</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>Basic Identity</td>
+
+                        <td>Service Verification</td>
+
+                        <td>02 Sep 2026<br>10:42 AM</td>
+
+                        <td>
+                            <span class="access-approved">
+                                ✓ Authorized
+                            </span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <div class="requester">
+                                <span class="requester-icon">🏢</span>
+                                <div>
+                                    <strong>Digital Service Center</strong>
+                                    <small>TF002</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>Identity Proof</td>
+
+                        <td>Document Verification</td>
+
+                        <td>02 Sep 2026<br>09:18 AM</td>
+
+                        <td>
+                            <span class="access-approved">
+                                ✓ Authorized
+                            </span>
+                        </td>
+                    </tr>
+
+
+                    <tr class="danger-row">
+
+                        <td>
+                            <div class="requester">
+                                <span class="requester-icon danger-icon">
+                                    ⚠️
+                                </span>
+
+                                <div>
+                                    <strong>Unknown Requester</strong>
+                                    <small>UNKNOWN</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>Full Identity</td>
+
+                        <td>Unknown</td>
+
+                        <td>01 Sep 2026<br>11:36 PM</td>
+
+                        <td>
+                            <span class="access-denied">
+                                ✕ Blocked
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SECURITY ALERTS + RBAC
+    ================================================== -->
+
+    <div class="protection-bottom-grid">
+
+
+        <!-- Security Alerts -->
+
+        <div class="alerts-card">
+
+            <div class="section-title-row">
+
+                <div>
+                    <span class="small-label">THREAT DETECTION</span>
+                    <h2>🚨 Security Alerts</h2>
+                </div>
+
+                <span class="alert-count">
+                    3 Active
+                </span>
+
+            </div>
+
+
+            <div class="alert-item critical">
+
+                <div class="alert-symbol">⚠️</div>
+
+                <div>
+                    <strong>Unauthorized Access Attempt</strong>
+
+                    <p>
+                        Unknown requester attempted to access
+                        your full identity.
+                    </p>
+
+                    <small>
+                        01 Sep 2026 • 11:36 PM
+                    </small>
+                </div>
+
+                <span class="blocked-label">
+                    BLOCKED
+                </span>
+
+            </div>
+
+
+            <div class="alert-item warning">
+
+                <div class="alert-symbol">!</div>
+
+                <div>
+                    <strong>Repeated Access Request</strong>
+
+                    <p>
+                        Same requester made multiple verification attempts.
+                    </p>
+
+                    <small>
+                        31 Aug 2026 • 04:21 PM
+                    </small>
+                </div>
+
+                <span class="blocked-label">
+                    BLOCKED
+                </span>
+
+            </div>
+
+
+            <div class="alert-item info">
+
+                <div class="alert-symbol">i</div>
+
+                <div>
+                    <strong>Permission Updated</strong>
+
+                    <p>
+                        Auditor access permissions were modified.
+                    </p>
+
+                    <small>
+                        30 Aug 2026 • 01:05 PM
+                    </small>
+                </div>
+
+                <span class="reviewed-label">
+                    REVIEWED
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- RBAC -->
+
+        <div class="permissions-card">
+
+            <div class="section-title-row">
+
+                <div>
+                    <span class="small-label">
+                        ROLE-BASED ACCESS CONTROL
+                    </span>
+
+                    <h2>🛡️ Access Permissions</h2>
+                </div>
+
+                <span class="rbac-active">
+                    RBAC ACTIVE
+                </span>
+
+            </div>
+
+
+            <div class="role-item">
+
+                <div class="role-icon">👑</div>
+
+                <div class="role-info">
+                    <strong>Admin</strong>
+                    <small>Full system management</small>
+                </div>
+
+                <span class="role-status">
+                    Full Access
+                </span>
+
+            </div>
+
+
+            <div class="role-item">
+
+                <div class="role-icon">📋</div>
+
+                <div class="role-info">
+                    <strong>Manager</strong>
+                    <small>Manage identity & assets</small>
+                </div>
+
+                <span class="role-status">
+                    Managed
+                </span>
+
+            </div>
+
+
+            <div class="role-item">
+
+                <div class="role-icon">🔎</div>
+
+                <div class="role-info">
+                    <strong>Auditor</strong>
+                    <small>View audit records</small>
+                </div>
+
+                <span class="role-status">
+                    Read Only
+                </span>
+
+            </div>
+
+
+            <div class="role-item">
+
+                <div class="role-icon">👤</div>
+
+                <div class="role-info">
+                    <strong>User</strong>
+                    <small>Manage own identity</small>
+                </div>
+
+                <span class="role-status active-role">
+                    Active
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         BLOCKCHAIN AUDIT
+    ================================================== -->
+
+    <div class="blockchain-audit">
+
+        <div>
+
+            <span class="small-label">
+                IMMUTABLE AUDIT TRAIL
+            </span>
+
+            <h2>⛓️ Identity Blockchain Record</h2>
+
+            <p>
+                Important identity and access events are cryptographically
+                recorded for tamper-resistant auditing.
+            </p>
+
+        </div>
+
+
+        <div class="block-status">
+
+            <div class="block-icon">
+                ⛓️
+            </div>
+
+            <div>
+                <span>Blockchain Status</span>
+                <strong>● Connected</strong>
+            </div>
+
+        </div>
+
+
+        <div class="block-details">
+
+            <div>
+                <span>Latest Block</span>
+                <strong>#18,492,731</strong>
+            </div>
+
+            <div>
+                <span>Identity Events</span>
+                <strong>24</strong>
+            </div>
+
+            <div>
+                <span>Integrity</span>
+                <strong>✓ Verified</strong>
+            </div>
+
+            <div>
+                <span>Network</span>
+                <strong>EVM</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ACCESS CONTROL
+===================================================== -->
+
+<section
+    id="access"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔐 Role-Based Access Control
+        </h2>
+
+        <span>
+            RBAC
+        </span>
+
+    </div>
+
+
+    <div class="roles">
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                👑
+            </div>
+
+            <h3>
+                Admin
+            </h3>
+
+            <p>
+                Full system control
+            </p>
+
+        </div>
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                🧑‍💼
+            </div>
+
+            <h3>
+                Manager
+            </h3>
+
+            <p>
+                Manage authorized operations
+            </p>
+
+        </div>
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                🔎
+            </div>
+
+            <h3>
+                Auditor
+            </h3>
+
+            <p>
+                Read audit records
+            </p>
+
+        </div>
+
+
+        <div class="role">
+
+            <div class="role-icon">
+                👤
+            </div>
+
+            <h3>
+                User
+            </h3>
+
+            <p>
+                Control personal access
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            Access Requests
+        </h2>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ORGANIZATION</th>
+                <th>REQUESTED DATA</th>
+                <th>PURPOSE</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+            <tr>
+
+                <td>ABC Bank</td>
+
+                <td>PAN</td>
+
+                <td>Loan KYC</td>
+
+                <td>
+                    <span class="status-pill status-warning">
+                        Pending
+                    </span>
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="approveAccess(this)">
+
+                        Approve
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Unknown Service</td>
+
+                <td>Full Identity</td>
+
+                <td>Unknown</td>
+
+                <td>
+
+                    <span class="status-pill status-danger">
+                        Suspicious
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="showToast('Access blocked.')">
+
+                        Block
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+        </tbody>
+
+    </table>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     DIGITAL ASSETS
+===================================================== -->
+
+<section
+    id="assets"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            📜 Digital Assets
+        </h2>
+
+        <button
+            class="btn btn-primary"
+            onclick="showToast('Minting requires an authorized administrator.')">
+
+            + Mint Asset
+
+        </button>
+
+    </div>
+
+
+    <div class="assets-grid">
+
+
+        <div class="asset">
+
+            <div class="asset-icon">
+                🎓
+            </div>
+
+            <h3>
+                Degree Certificate
+            </h3>
+
+            <p>
+                Verified academic credential
+            </p>
+
+            <div class="nft-id">
+                NFT #BH-001
+            </div>
+
+        </div>
+
+
+        <div class="asset">
+
+            <div class="asset-icon">
+                🪪
+            </div>
+
+            <h3>
+                Digital ID Card
+            </h3>
+
+            <p>
+                Blockchain-linked identity asset
+            </p>
+
+            <div class="nft-id">
+                NFT #BH-002
+            </div>
+
+        </div>
+
+
+        <div class="asset">
+
+            <div class="asset-icon">
+                📜
+            </div>
+
+            <h3>
+                Government Certificate
+            </h3>
+
+            <p>
+                Digitally verifiable document
+            </p>
+
+            <div class="nft-id">
+                NFT #BH-003
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            ⛓ Ownership History
+        </h2>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Asset Created
+            </h4>
+
+            <p>
+                Degree Certificate NFT created by authorized administrator.
+            </p>
+
+            <div class="hash">
+                Hash: 8f82c9a1...e71d
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Asset Assigned
+            </h4>
+
+            <p>
+                NFT assigned to your decentralized identity.
+            </p>
+
+            <div class="hash">
+                Hash: 91d82f4b...a832
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Ownership Verified
+            </h4>
+
+            <p>
+                Blockchain verification successfully completed.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     AUDIT TRAIL
+===================================================== -->
+
+<section
+    id="audit"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔎 Immutable Audit Trail
+        </h2>
+
+        <span>
+            Blockchain Records
+        </span>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                ABC Bank accessed PAN
+            </h4>
+
+            <p>
+                Purpose: Loan KYC
+                <br>
+                Time: Today, 10:42 AM
+                <br>
+                Authorization: Approved
+            </p>
+
+            <div class="hash">
+                Block: #18492 | Hash: 7c92a81f...
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                Government Service accessed Address
+            </h4>
+
+            <p>
+                Purpose: Address Verification
+                <br>
+                Time: Today, 09:18 AM
+                <br>
+                Authorization: Approved
+            </p>
+
+            <div class="hash">
+                Block: #18491 | Hash: 2af82d91...
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item warning">
+
+            <div class="timeline-dot"></div>
+
+            <h4>
+                ⚠ Unauthorized Access Attempt
+            </h4>
+
+            <p>
+                Unknown Service attempted to access Identity.
+                <br>
+                Time: Today, 08:31 AM
+                <br>
+                Authorization: Denied
+            </p>
+
+            <div class="hash">
+                Block: #18490 | Hash: 91f0a82d...
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SECURITY ALERTS
+===================================================== -->
+
+<section
+    id="alerts"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🚨 Security Alerts
+        </h2>
+
+    </div>
+
+
+    <div class="alert">
+
+        <div class="alert-icon">
+            🔴
+        </div>
+
+        <div>
+
+            <h4>
+                Unauthorized Identity Access
+            </h4>
+
+            <p>
+                Unknown Service attempted to access your identity.
+                Access was blocked automatically.
+            </p>
+
+            <br>
+
+            <button
+                class="btn btn-danger"
+                onclick="showToast('Incident marked as reviewed.')">
+
+                Mark as Reviewed
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="alert"
+         style="
+            background:#382313;
+            border-color:rgba(255,153,51,0.2);
+         ">
+
+        <div class="alert-icon">
+            🟠
+        </div>
+
+        <div>
+
+            <h4>
+                New Access Request
+            </h4>
+
+            <p>
+                ABC Bank requested access to your PAN
+                for Loan KYC.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<section
+    id="settings"
+    class="page">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            ⚙️ Settings
+        </h2>
+
+    </div>
+
+
+    <label style="color:var(--muted);font-size:12px;">
+        Language
+    </label>
+
+    <br><br>
+
+    <select
+        id="languageSelect"
+        onchange="changeLanguage()">
+
+        <option value="en">
+            English
+        </option>
+
+        <option value="hi">
+            हिंदी
+        </option>
+
+        <option value="bn">
+            বাংলা
+        </option>
+
+        <option value="mr">
+            मराठी
+        </option>
+
+        <option value="ta">
+            தமிழ்
+        </option>
+
+        <option value="or">
+            ଓଡ଼ିଆ
+        </option>
+
+        <option value="bho">
+            भोजपुरी
+        </option>
+
+    </select>
+
+
+    <br><br>
+
+
+    <button
+        class="btn btn-primary"
+        onclick="showToast('Security settings saved.')">
+
+        Save Settings
+
+    </button>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h2>
+            🔊 Accessibility
+        </h2>
+
+    </div>
+
+
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+
+        BHAROSA supports multilingual interfaces and
+        voice assistance to improve accessibility for
+        users with limited digital literacy.
+
+    </p>
+
+
+    <br>
+
+
+    <button
+        class="btn btn-primary"
+        onclick="speak('Welcome to BHAROSA. Your identity, your data, your control.')">
+
+        🔊 Test Voice
+
+    </button>
+
+</div>
+
+
+</section>
+
 
 </main>
 
+</div>
 
-<!-- TOAST -->
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
 <div
     id="toast"
     class="toast">
+
+    Action completed successfully.
+
 </div>
 
 
@@ -2316,54 +3689,7 @@ label{
    PAGE NAVIGATION
 ========================================================= */
 
-const pageInfo = {
-
-    dashboard: [
-        "Dashboard",
-        "Your digital identity security overview"
-    ],
-
-    identity: [
-        "My Identity",
-        "Manage your decentralized identity"
-    ],
-
-    "identity-protection": [
-        "Identity Protection",
-        "Monitor and protect your digital identity"
-    ],
-
-    access: [
-        "Access Control",
-        "Control who can access your identity"
-    ],
-
-    assets: [
-        "Digital Assets",
-        "Manage blockchain-backed digital assets"
-    ],
-
-    audit: [
-        "Audit Trail",
-        "Transparent and tamper-resistant activity history"
-    ],
-
-    alerts: [
-        "Security Alerts",
-        "Monitor suspicious identity activity"
-    ],
-
-    settings: [
-        "Settings",
-        "Configure your BHAROSA experience"
-    ]
-
-};
-
-
-function showPage(pageId, button){
-
-    /* Hide all pages */
+function showPage(pageId, button) {
 
     document
         .querySelectorAll(".page")
@@ -2374,19 +3700,10 @@ function showPage(pageId, button){
         });
 
 
-    /* Show requested page */
+    document
+        .getElementById(pageId)
+        .classList.add("active");
 
-    const page =
-        document.getElementById(pageId);
-
-    if(page){
-
-        page.classList.add("active");
-
-    }
-
-
-    /* Active sidebar button */
 
     document
         .querySelectorAll(".nav button")
@@ -2397,67 +3714,77 @@ function showPage(pageId, button){
         });
 
 
-    if(button){
-
-        button.classList.add("active");
-
-    }
+    button.classList.add("active");
 
 
-    /* Update title */
+    const titles = {
 
-    if(pageInfo[pageId]){
+        dashboard: [
+            "Dashboard",
+            "Your digital identity security overview"
+        ],
 
-        document.getElementById("pageTitle")
-            .innerText =
-            pageInfo[pageId][0];
+        identity: [
+            "My Identity",
+            "Manage your decentralized identity"
+        ],
 
-        document.getElementById("pageSubtitle")
-            .innerText =
-            pageInfo[pageId][1];
+        access: [
+            "Access Control",
+            "Control who can access your identity"
+        ],
 
-    }
+        assets: [
+            "Digital Assets",
+            "Manage blockchain-backed digital assets"
+        ],
+
+        audit: [
+            "Audit Trail",
+            "Transparent and tamper-resistant activity history"
+        ],
+
+        alerts: [
+            "Security Alerts",
+            "Monitor suspicious identity activity"
+        ],
+
+        settings: [
+            "Settings",
+            "Configure your BHAROSA experience"
+        ]
+
+    };
 
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    document
+        .getElementById("pageTitle")
+        .innerText =
+        titles[pageId][0];
+
+
+    document
+        .getElementById("pageSubtitle")
+        .innerText =
+        titles[pageId][1];
+
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
 
 }
 
 
-/* Open page programmatically */
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
 
-function showPageById(pageId){
+function toggleSidebar() {
 
-    const buttons =
-        document.querySelectorAll(".nav button");
-
-    let targetButton = null;
-
-    buttons.forEach(button => {
-
-        const onclick =
-            button.getAttribute("onclick") || "";
-
-        if(
-            onclick.includes(
-                "'" + pageId + "'"
-            )
-        ){
-
-            targetButton = button;
-
-        }
-
-    });
-
-
-    showPage(
-        pageId,
-        targetButton
-    );
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
 
 }
 
@@ -2466,870 +3793,83 @@ function showPageById(pageId){
    TOAST
 ========================================================= */
 
-let toastTimer = null;
-
-
-function showToast(message){
+function showToast(message) {
 
     const toast =
         document.getElementById("toast");
 
+
     toast.innerText = message;
 
-    toast.classList.add("show");
+    toast.style.display = "block";
 
 
-    clearTimeout(toastTimer);
+    setTimeout(() => {
 
+        toast.style.display = "none";
 
-    toastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove("show");
-
-        }, 3000);
+    }, 3000);
 
 }
 
 
 /* =========================================================
-   QR VARIABLES
+   ACCESS APPROVAL
 ========================================================= */
 
-let currentIdentityQR = "";
+function approveAccess(button) {
 
-let qrScanner = null;
-
-let scannerRunning = false;
-
-
-/* =========================================================
-   GENERATE QR
-========================================================= */
-
-function generateIdentityQR(){
-
-    const didInput =
-        document.getElementById("didInput");
-
-    const did =
-        didInput.value.trim();
-
-
-    const qrContainer =
-        document.getElementById("identityQR");
-
-    const qrResult =
-        document.getElementById("qrResult");
-
-    const qrText =
-        document.getElementById("qrIdentityText");
-
-
-    /* Empty */
-
-    if(!did){
-
-        showToast(
-            "Please enter your Identity ID / DID."
-        );
-
-        didInput.focus();
-
-        return;
-
-    }
-
-
-    /* DID validation */
-
-    if(
-        !did.startsWith(
-            "did:bharosa:"
-        )
-    ){
-
-        showToast(
-            "Please enter a valid BHAROSA DID."
-        );
-
-        return;
-
-    }
-
-
-    /* QR library check */
-
-    if(
-        typeof QRCode ===
-        "undefined"
-    ){
-
-        qrResult.style.display =
-            "block";
-
-        qrContainer.innerHTML = `
-            <div class="qr-danger">
-                🔴 QRCode.js could not be loaded.
-                <br><br>
-                Check your internet connection
-                and reload the page.
-            </div>
+    button.parentElement.parentElement
+        .querySelector("td:nth-child(4)")
+        .innerHTML = `
+            <span class="status-pill status-success">
+                Authorized
+            </span>
         `;
 
-        return;
 
-    }
-
-
-    /* Clear old QR */
-
-    qrContainer.innerHTML = "";
-
-
-    /* Identity payload */
-
-    const identityData = {
-
-        platform:
-            "BHAROSA",
-
-        version:
-            "2.0",
-
-        type:
-            "Digital Identity",
-
-        did:
-            did,
-
-        verification:
-            "BHAROSA Identity Verification",
-
-        timestamp:
-            new Date().toISOString()
-
-    };
-
-
-    currentIdentityQR =
-        JSON.stringify(identityData);
-
-
-    try{
-
-        new QRCode(
-
-            qrContainer,
-
-            {
-
-                text:
-                    currentIdentityQR,
-
-                width:
-                    220,
-
-                height:
-                    220,
-
-                correctLevel:
-                    QRCode.CorrectLevel.H
-
-            }
-
-        );
-
-
-        qrText.innerText =
-            "Identity ID: " + did;
-
-
-        qrResult.style.display =
-            "block";
-
-
-        document.getElementById(
-            "qrVerificationResult"
-        ).innerHTML = "";
-
-
-        showToast(
-            "✓ BHAROSA identity QR generated."
-        );
-
-
-        if(
-            typeof speak ===
-            "function"
-        ){
-
-            speak(
-                "Your BHAROSA identity QR code has been generated."
-            );
-
-        }
-
-    }
-    catch(error){
-
-        console.error(
-            "QR generation error:",
-            error
-        );
-
-
-        qrResult.style.display =
-            "block";
-
-
-        qrContainer.innerHTML = `
-            <div class="qr-danger">
-                🔴 QR generation failed.
-                <br><br>
-                ${escapeHTML(error.message)}
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   DOWNLOAD QR
-========================================================= */
-
-function downloadQR(){
-
-    const container =
-        document.getElementById(
-            "identityQR"
-        );
-
-
-    const canvas =
-        container.querySelector(
-            "canvas"
-        );
-
-
-    const image =
-        container.querySelector(
-            "img"
-        );
-
-
-    if(canvas){
-
-        const link =
-            document.createElement("a");
-
-        link.download =
-            "bharosa-identity-qr.png";
-
-        link.href =
-            canvas.toDataURL("image/png");
-
-        link.click();
-
-        showToast(
-            "✓ QR code downloaded."
-        );
-
-        return;
-
-    }
-
-
-    if(image){
-
-        const link =
-            document.createElement("a");
-
-        link.download =
-            "bharosa-identity-qr.png";
-
-        link.href =
-            image.src;
-
-        link.click();
-
-        showToast(
-            "✓ QR code downloaded."
-        );
-
-        return;
-
-    }
-
-
-    showToast(
-        "Generate a QR code first."
-    );
-
-}
-
-
-/* =========================================================
-   COPY DID
-========================================================= */
-
-function copyDID(){
-
-    const input =
-        document.getElementById(
-            "didInput"
-        );
-
-
-    if(!input.value.trim()){
-
-        showToast(
-            "No DID available."
-        );
-
-        return;
-
-    }
-
-
-    navigator.clipboard
-        .writeText(
-            input.value.trim()
-        )
-        .then(() => {
-
-            showToast(
-                "✓ DID copied to clipboard."
-            );
-
-        })
-        .catch(() => {
-
-            input.select();
-
-            document.execCommand(
-                "copy"
-            );
-
-            showToast(
-                "✓ DID copied."
-            );
-
-        });
-
-}
-
-
-/* =========================================================
-   START QR SCANNER
-========================================================= */
-
-function startQRScanner(){
-
-    const reader =
-        document.getElementById(
-            "qr-reader"
-        );
-
-
-    const result =
-        document.getElementById(
-            "qrVerificationResult"
-        );
-
-
-    if(scannerRunning){
-
-        showToast(
-            "QR scanner is already running."
-        );
-
-        return;
-
-    }
-
-
-    if(
-        typeof Html5Qrcode ===
-        "undefined"
-    ){
-
-        result.innerHTML = `
-            <div class="qr-danger">
-                🔴 QR scanner library could not be loaded.
-                <br><br>
-                Please check your internet connection
-                and reload the page.
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    reader.style.display =
-        "block";
-
-
-    result.innerHTML = `
-        <div class="qr-info">
-            📷 Starting camera scanner...
-            <br><br>
-            Please allow camera permission when your
-            browser asks for it.
-        </div>
-    `;
-
-
-    qrScanner =
-        new Html5Qrcode(
-            "qr-reader"
-        );
-
-
-    const config = {
-
-        fps:10,
-
-        qrbox:{
-            width:250,
-            height:250
-        },
-
-        aspectRatio:1.0
-
-    };
-
-
-    qrScanner
-        .start(
-
-            {
-                facingMode:
-                    "environment"
-            },
-
-            config,
-
-            function(decodedText){
-
-                onQRCodeScanned(
-                    decodedText
-                );
-
-            },
-
-            function(errorMessage){
-
-                /* Ignore continuous scan errors */
-
-            }
-
-        )
-
-        .then(() => {
-
-            scannerRunning =
-                true;
-
-
-            result.innerHTML = `
-                <div class="qr-info">
-                    📷 Scanner active.
-                    Point your camera at a BHAROSA QR.
-                </div>
-            `;
-
-        })
-
-        .catch(error => {
-
-            console.error(
-                "Camera error:",
-                error
-            );
-
-
-            reader.style.display =
-                "none";
-
-
-            scannerRunning =
-                false;
-
-
-            result.innerHTML = `
-                <div class="qr-danger">
-                    🔴 Unable to access camera.
-                    <br><br>
-                    Please allow camera permission
-                    and try again.
-                    <br><br>
-                    <small>
-                    Camera scanning normally requires
-                    HTTPS or localhost.
-                    </small>
-                </div>
-            `;
-
-        });
-
-}
-
-
-/* =========================================================
-   QR SCANNED
-========================================================= */
-
-function onQRCodeScanned(decodedText){
-
-    console.log(
-        "QR scanned:",
-        decodedText
-    );
-
-
-    verifyScannedIdentity(
-        decodedText
-    );
-
-
-    /* Stop after successful scan */
-
-    stopQRScanner();
-
-}
-
-
-/* =========================================================
-   VERIFY QR
-========================================================= */
-
-function verifyScannedIdentity(qrData){
-
-    const result =
-        document.getElementById(
-            "qrVerificationResult"
-        );
-
-
-    try{
-
-        const identity =
-            JSON.parse(qrData);
-
-
-        const validPlatform =
-            identity.platform ===
-            "BHAROSA";
-
-
-        const validType =
-            identity.type ===
-            "Digital Identity";
-
-
-        const validVersion =
-            identity.version ===
-            "2.0";
-
-
-        const validDID =
-            typeof identity.did ===
-            "string" &&
-
-            identity.did.startsWith(
-                "did:bharosa:"
-            );
-
-
-        const validVerification =
-            identity.verification ===
-            "BHAROSA Identity Verification";
-
-
-        if(
-
-            validPlatform &&
-            validType &&
-            validVersion &&
-            validDID &&
-            validVerification
-
-        ){
-
-            result.innerHTML = `
-
-                <div class="qr-success">
-
-                    <h3>
-                        🟢 Identity Verified
-                    </h3>
-
-
-                    <p>
-                        <b>Platform:</b>
-                        BHAROSA
-                    </p>
-
-
-                    <p>
-                        <b>Identity Type:</b>
-                        Digital Identity
-                    </p>
-
-
-                    <p
-                        style="
-                        word-break:break-all;
-                        margin-top:8px;
-                        ">
-
-                        <b>DID:</b>
-                        ${escapeHTML(identity.did)}
-
-                    </p>
-
-
-                    <p
-                        style="
-                        margin-top:10px;
-                        color:#19d7b8;
-                        ">
-
-                        ✓ BHAROSA identity format verified
-
-                    </p>
-
-
-                    <p
-                        style="
-                        margin-top:5px;
-                        color:#8fa29f;
-                        font-size:11px;
-                        ">
-
-                        QR verification successful
-
-                    </p>
-
-                </div>
-
-            `;
-
-
-            showToast(
-                "✓ BHAROSA identity verified."
-            );
-
-
-            if(
-                typeof speak ===
-                "function"
-            ){
-
-                speak(
-                    "The BHAROSA identity has been successfully verified."
-                );
-
-            }
-
-        }
-        else{
-
-            showInvalidIdentity();
-
-        }
-
-    }
-    catch(error){
-
-        console.error(
-            "QR verification error:",
-            error
-        );
-
-
-        showInvalidIdentity();
-
-    }
-
-}
-
-
-/* =========================================================
-   INVALID IDENTITY
-========================================================= */
-
-function showInvalidIdentity(){
-
-    const result =
-        document.getElementById(
-            "qrVerificationResult"
-        );
-
-
-    result.innerHTML = `
-
-        <div class="qr-danger">
-
-            <h3>
-                🔴 Identity Not Verified
-            </h3>
-
-
-            <p>
-                This QR code is not a valid
-                BHAROSA identity QR.
-            </p>
-
-
-            <p
-                style="
-                margin-top:10px;
-                color:#ff7777;
-                ">
-
-                ✕ Verification failed
-
-            </p>
-
-
-            <p
-                style="
-                margin-top:6px;
-                color:#a89191;
-                font-size:11px;
-                ">
-
-                Make sure the QR was generated
-                by BHAROSA.
-
-            </p>
-
-        </div>
-
+    button.parentElement.innerHTML = `
+        <span style="color:#19d7b8;font-size:11px;">
+            ✓ Approved
+        </span>
     `;
 
 
     showToast(
-        "Identity verification failed."
+        "Access authorized and recorded on the audit trail."
     );
 
 }
 
 
 /* =========================================================
-   STOP QR SCANNER
+   VOICE
 ========================================================= */
 
-function stopQRScanner(){
+function speak(text) {
 
-    if(
-        qrScanner &&
-        scannerRunning
-    ){
+    if (
+        !("speechSynthesis" in window)
+    ) {
 
-        qrScanner
-            .stop()
-            .then(() => {
-
-                qrScanner.clear();
-
-                qrScanner =
-                    null;
-
-                scannerRunning =
-                    false;
-
-                document.getElementById(
-                    "qr-reader"
-                ).style.display =
-                    "none";
-
-            })
-
-            .catch(error => {
-
-                console.error(
-                    "Scanner stop error:",
-                    error
-                );
-
-                qrScanner =
-                    null;
-
-                scannerRunning =
-                    false;
-
-                document.getElementById(
-                    "qr-reader"
-                ).style.display =
-                    "none";
-
-            });
-
-    }
-    else{
-
-        document.getElementById(
-            "qr-reader"
-        ).style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
-
-function escapeHTML(value){
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
+        showToast(
+            "Voice assistance is not supported by this browser."
         );
 
-}
+        return;
+
+    }
 
 
-/* =========================================================
-   SETTINGS
-========================================================= */
+    const speech =
+        new SpeechSynthesisUtterance(text);
 
-function saveSettings(){
 
-    showToast(
-        "✓ Settings saved successfully."
-    );
+    speech.lang = "en-IN";
+
+    speech.rate = 0.9;
+
+    speechSynthesis.speak(speech);
 
 }
 
@@ -3340,77 +3880,156 @@ function saveSettings(){
 
 const translations = {
 
-    en:{
+    en: {
 
-        dashboard:
-            "Dashboard",
+        logo: "BHAROSA",
 
-        identity:
-            "My Identity",
+        dashboard: "Dashboard",
 
-        protection:
-            "Identity Protection",
+        identity: "My Identity",
 
-        access:
-            "Access Control",
+        access: "Access Control",
 
-        assets:
-            "Digital Assets",
+        assets: "Digital Assets",
 
-        audit:
-            "Audit Trail",
+        audit: "Audit Trail",
 
-        alerts:
-            "Security Alerts",
+        alerts: "Security Alerts",
 
-        settings:
-            "Settings"
+        settings: "Settings"
 
     },
 
 
-    hi:{
+    hi: {
 
-        dashboard:
-            "डैशबोर्ड",
+        logo: "भरोसा",
 
-        identity:
-            "मेरी पहचान",
+        dashboard: "डैशबोर्ड",
 
-        protection:
-            "पहचान सुरक्षा",
+        identity: "मेरी पहचान",
 
-        access:
-            "एक्सेस नियंत्रण",
+        access: "एक्सेस नियंत्रण",
 
-        assets:
-            "डिजिटल संपत्ति",
+        assets: "डिजिटल संपत्तियाँ",
 
-        audit:
-            "ऑडिट ट्रेल",
+        audit: "ऑडिट रिकॉर्ड",
 
-        alerts:
-            "सुरक्षा अलर्ट",
+        alerts: "सुरक्षा चेतावनी",
 
-        settings:
-            "सेटिंग्स"
+        settings: "सेटिंग्स"
+
+    },
+
+
+    bn: {
+
+        logo: "ভরসা",
+
+        dashboard: "ড্যাশবোর্ড",
+
+        identity: "আমার পরিচয়",
+
+        access: "অ্যাক্সেস নিয়ন্ত্রণ",
+
+        assets: "ডিজিটাল সম্পদ",
+
+        audit: "অডিট ট্রেইল",
+
+        alerts: "নিরাপত্তা সতর্কতা",
+
+        settings: "সেটিংস"
+
+    },
+
+
+    mr: {
+
+        logo: "भरोसा",
+
+        dashboard: "डॅशबोर्ड",
+
+        identity: "माझी ओळख",
+
+        access: "प्रवेश नियंत्रण",
+
+        assets: "डिजिटल मालमत्ता",
+
+        audit: "ऑडिट ट्रेल",
+
+        alerts: "सुरक्षा सूचना",
+
+        settings: "सेटिंग्ज"
+
+    },
+
+
+    ta: {
+
+        logo: "பரோசா",
+
+        dashboard: "டாஷ்போர்டு",
+
+        identity: "எனது அடையாளம்",
+
+        access: "அணுகல் கட்டுப்பாடு",
+
+        assets: "டிஜிட்டல் சொத்துகள்",
+
+        audit: "தணிக்கை பதிவு",
+
+        alerts: "பாதுகாப்பு எச்சரிக்கைகள்",
+
+        settings: "அமைப்புகள்"
+
+    },
+
+
+    or: {
+
+        logo: "ଭରସା",
+
+        dashboard: "ଡ୍ୟାସବୋର୍ଡ",
+
+        identity: "ମୋର ପରିଚୟ",
+
+        access: "ପ୍ରବେଶ ନିୟନ୍ତ୍ରଣ",
+
+        assets: "ଡିଜିଟାଲ ସମ୍ପତ୍ତି",
+
+        audit: "ଅଡିଟ୍ ରେକର୍ଡ",
+
+        alerts: "ସୁରକ୍ଷା ସତର୍କତା",
+
+        settings: "ସେଟିଂସ୍"
+
+    },
+
+
+    bho: {
+
+        logo: "भरोसा",
+
+        dashboard: "डैशबोर्ड",
+
+        identity: "हमार पहचान",
+
+        access: "पहुँच नियंत्रण",
+
+        assets: "डिजिटल संपत्ति",
+
+        audit: "ऑडिट रिकॉर्ड",
+
+        alerts: "सुरक्षा चेतावनी",
+
+        settings: "सेटिंग"
 
     }
 
 };
 
 
-document
-    .getElementById(
-        "languageSelect"
-    )
-    .addEventListener(
-        "change",
-        changeLanguage
-    );
-
-
-function changeLanguage(){
+function changeLanguage() {
 
     const language =
         document.getElementById(
@@ -3422,109 +4041,239 @@ function changeLanguage(){
         translations[language];
 
 
-    if(!t)
-        return;
+    /*
+       BHAROSA LOGO CHANGES
+       WITH THE SELECTED LANGUAGE
+    */
+
+    document.querySelector(".logo")
+        .innerText = t.logo;
 
 
-    const buttons =
+    /*
+       Rebuild the tricolour logo
+       when English is selected.
+    */
+
+    if (language === "en") {
+
+        document.querySelector(".logo")
+            .innerHTML = `
+                <span class="saffron">BHA</span><span class="white">RO</span><span class="green">SA</span>
+            `;
+
+    }
+
+
+    const navButtons =
         document.querySelectorAll(
             ".nav button"
         );
 
 
-    if(buttons[0])
-        buttons[0].innerHTML =
-            "🏠 " + t.dashboard;
+    navButtons[0].innerHTML =
+        "🏠 " + t.dashboard;
 
+    navButtons[1].innerHTML =
+        "🪪 " + t.identity;
 
-    if(buttons[1])
-        buttons[1].innerHTML =
-            "🪪 " + t.identity;
+    navButtons[2].innerHTML =
+        "🔐 " + t.access;
 
+    navButtons[3].innerHTML =
+        "📜 " + t.assets;
 
-    if(buttons[2])
-        buttons[2].innerHTML =
-            "🛡️ " + t.protection;
+    navButtons[4].innerHTML =
+        "🔎 " + t.audit;
 
+    navButtons[5].innerHTML =
+        "🚨 " + t.alerts;
 
-    if(buttons[3])
-        buttons[3].innerHTML =
-            "🔐 " + t.access;
-
-
-    if(buttons[4])
-        buttons[4].innerHTML =
-            "📜 " + t.assets;
-
-
-    if(buttons[5])
-        buttons[5].innerHTML =
-            "🔎 " + t.audit;
-
-
-    if(buttons[6])
-        buttons[6].innerHTML =
-            "🚨 " + t.alerts;
-
-
-    if(buttons[7])
-        buttons[7].innerHTML =
-            "⚙️ " + t.settings;
+    navButtons[6].innerHTML =
+        "⚙️ " + t.settings;
 
 
     showToast(
-        language === "hi"
-            ? "✓ भाषा बदल दी गई।"
-            : "✓ Language changed."
+        "Language changed successfully."
     );
 
 }
+   /* =====================================================
+   BHAROSA 2.0 — IDENTITY PROTECTION JS
+===================================================== */
+
+function copyDID() {
+
+    const did = "did:bharosa:7f82a91c4e5d";
+
+    navigator.clipboard.writeText(did);
+
+    alert("DID copied to clipboard.");
+}
 
 
-/* =========================================================
-   VOICE ASSISTANCE
-========================================================= */
+function verifyIdentity() {
 
-function speak(text){
+    const button = event.target;
 
-    if(
-        !("speechSynthesis" in window)
-    ){
+    button.innerHTML = "⏳ Verifying...";
 
-        return;
+    setTimeout(() => {
 
-    }
+        button.innerHTML = "✓ Identity Verified";
 
-
-    try{
-
-        window.speechSynthesis.cancel();
-
-
-        const speech =
-            new SpeechSynthesisUtterance(
-                text
-            );
-
-
-        speech.rate =
-            0.95;
-
-
-        speech.pitch =
-            1;
-
-
-        window.speechSynthesis.speak(
-            speech
+        alert(
+            "BHAROSA Identity Verified Successfully.\n\n" +
+            "DID: did:bharosa:7f82a91c4e5d\n" +
+            "Status: Verified"
         );
 
-    }
-    catch(error){
+    }, 1000);
+}
 
-        console.error(
-            "Speech error:",
-            error
+
+function viewIdentityHash() {
+
+    alert(
+        "Identity Hash\n\n" +
+        "8a7f2d91c4e5d8b3a7f9c21d..."
+    );
+}
+
+
+function refreshAccessLog() {
+
+    const button = document.querySelector(".refresh-btn");
+
+    button.innerHTML = "⟳ Checking...";
+
+    setTimeout(() => {
+
+        button.innerHTML = "✓ Updated";
+
+        setTimeout(() => {
+            button.innerHTML = "↻ Refresh";
+        }, 1200);
+
+    }, 800);
+}
+   /* =========================
+   QR IDENTITY VERIFICATION
+========================= */
+
+let currentIdentityQR = "";
+
+
+/*
+   Generate QR Code
+*/
+
+function generateIdentityQR() {
+
+    const did =
+        document.getElementById("didInput")
+        .value
+        .trim();
+
+    const qrContainer =
+        document.getElementById("identityQR");
+
+    const qrResult =
+        document.getElementById("qrResult");
+
+    const qrText =
+        document.getElementById("qrIdentityText");
+
+
+    if (!did) {
+
+        alert(
+            "Please enter your Identity ID / DID."
+        );
+
+        return;
+    }
+
+
+    /*
+       Clear previous QR
+    */
+
+    qrContainer.innerHTML = "";
+
+
+    /*
+       Data stored inside QR
+
+       IMPORTANT:
+       We are NOT storing personal
+       information inside the QR.
+    */
+
+    const identityData = {
+
+        platform: "BHAROSA",
+
+        type: "Digital Identity",
+
+        did: did,
+
+        verification:
+        "BHAROSA Identity Verification"
+
+    };
+
+
+    currentIdentityQR =
+        JSON.stringify(identityData);
+
+
+    /*
+       Create QR
+    */
+
+    new QRCode(
+
+        qrContainer,
+
+        {
+
+            text:
+            currentIdentityQR,
+
+            width: 200,
+
+            height: 200,
+
+            correctLevel:
+            QRCode.CorrectLevel.H
+
+        }
+
+    );
+
+
+    qrText.innerText =
+        "Identity ID: " + did;
+
+
+    qrResult.style.display =
+        "block";
+
+
+    document.getElementById(
+        "qrVerificationResult"
+    ).innerHTML = "";
+
+
+    /*
+       Voice assistance
+    */
+
+    if (typeof speak === "function") {
+
+        speak(
+            "Your BHAROSA identity QR code has been generated."
         );
 
     }
@@ -3532,71 +4281,126 @@ function speak(text){
 }
 
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+/*
+   Verify Identity QR
+*/
 
-        console.log(
-            "BHAROSA initialized successfully."
+function verifyIdentityQR() {
+
+    const result =
+        document.getElementById(
+            "qrVerificationResult"
         );
 
 
-        /* Verify QR library */
+    if (!currentIdentityQR) {
 
-        if(
-            typeof QRCode ===
-            "undefined"
-        ){
+        result.innerHTML = `
 
-            console.warn(
-                "QRCode.js is not loaded."
+            <div class="qr-danger">
+
+                🔴 No identity QR found.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    try {
+
+        const identity =
+            JSON.parse(
+                currentIdentityQR
             );
+
+
+        /*
+           Basic verification
+        */
+
+        if (
+            identity.platform === "BHAROSA" &&
+            identity.type === "Digital Identity" &&
+            identity.did
+        ) {
+
+            result.innerHTML = `
+
+                <div class="qr-success">
+
+                    <h3>
+                        🟢 Identity Verified
+                    </h3>
+
+                    <p>
+                        <b>Platform:</b>
+                        ${identity.platform}
+                    </p>
+
+                    <p>
+                        <b>Identity ID:</b>
+                        ${identity.did}
+                    </p>
+
+                    <p>
+                        <b>Status:</b>
+                        Cryptographically Verifiable
+                    </p>
+
+                </div>
+
+            `;
+
+
+            if (typeof speak === "function") {
+
+                speak(
+                    "The BHAROSA identity has been successfully verified."
+                );
+
+            }
 
         }
 
+        else {
 
-        /* Verify scanner library */
+            result.innerHTML = `
 
-        if(
-            typeof Html5Qrcode ===
-            "undefined"
-        ){
+                <div class="qr-danger">
 
-            console.warn(
-                "html5-qrcode is not loaded."
-            );
+                    🔴 Invalid BHAROSA Identity
+
+                </div>
+
+            `;
 
         }
 
     }
-);
 
+    catch (error) {
 
-/* =========================================================
-   PREVENT SCANNER WHEN LEAVING PAGE
-========================================================= */
+        result.innerHTML = `
 
-document.addEventListener(
-    "visibilitychange",
-    () => {
+            <div class="qr-danger">
 
-        if(
-            document.hidden &&
-            scannerRunning
-        ){
+                🔴 Invalid QR data.
 
-            stopQRScanner();
+            </div>
 
-        }
+        `;
 
     }
-);
+
+}
 
 </script>
 
+
 </body>
+
 </html>
